@@ -1,0 +1,12 @@
+.avaliar{
+    height: 50vh;
+    width: 40%;
+    background-color: var(--blue);
+    position: fixed;
+    margin-top: 5%;
+    z-index: 1000;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+}

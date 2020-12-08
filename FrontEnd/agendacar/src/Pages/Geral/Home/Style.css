@@ -1,0 +1,23 @@
+.tituloHome {
+  text-align: center;
+  margin-top: 20px;
+}
+.cardsHome {
+  display: flex;
+  justify-content: space-evenly;
+  height: 44vh;
+  width: 100%;
+  margin-top: 40px;
+}
+
+.txtHome {
+  text-align: center;
+  color: white;
+}
+.linkHome {
+  color: white;
+}
+
+.linkHome:hover {
+  color: white;
+}

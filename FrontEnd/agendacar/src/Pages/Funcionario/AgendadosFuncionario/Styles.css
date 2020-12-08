@@ -1,0 +1,9 @@
+.selectFuncionario{
+    display: inline-flex;
+    height: 30px;
+}
+.divsec{
+    display: flex;
+    padding: 0px;
+    align-items: center;
+}

@@ -1,0 +1,8 @@
+.ContainerTotal{
+    display: flex;
+    min-height: calc(100vh - 18vh);
+    align-items: center;
+    flex-direction: column;
+    padding: 30px;
+
+}

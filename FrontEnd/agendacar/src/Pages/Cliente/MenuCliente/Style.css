@@ -1,0 +1,24 @@
+.tituloMenuCliente{
+    height: 10vh;
+    width: 100vw;
+    background-color: var(--blue);
+    color: white;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.cardsMenuCliente{
+    height: 43vh;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 5%;
+    text-align: center;
+}
+
+.cardsMenuCliente p {
+    color: white;
+}

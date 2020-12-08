@@ -1,0 +1,68 @@
+.dicAccordionSpace{
+    margin-top: 20px;
+}
+.title{
+    text-align: center;
+}
+.title span:hover{
+    color: var(--blue);
+    cursor: pointer;
+} 
+.noTestsDrivers{
+    margin-top: 20px;
+    text-align: center;
+}
+.buttonAvaliar{
+    height: 30px;
+}
+.avaliarTitle {
+    width : 100%;
+    text-align : center;
+}.containerBtns {
+    display : flex;
+    height : 10%;
+    justify-content : space-evenly;
+}.btn {
+    display : flex;
+    align-items : center;
+}
+.starIcon{
+    height: 80px;
+    width: 80px;
+}
+.darNotaAvaliacao{
+    cursor: pointer;
+    height: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.stars{
+
+    height: 50%;
+    width: 40%;
+    display: flex;
+    justify-content: space-between;
+}
+.notas{
+    margin-left: 20px;
+    height: 50%;
+    width: 45%;
+    display: flex;
+    justify-content: space-around;
+
+}
+.fas, .fa-star {
+    font-size: 32px;
+}
+.fa-star :hover{
+    color: yellow;
+}
+.btnDarNota{
+    background-color: transparent;
+    border: 0px ;
+}
+.btnDarNota :hover{
+    color: turquoise;
+}

@@ -1,0 +1,14 @@
+.Menu{
+    height: 10vh;
+    width: 100%;
+    background-color : var(--blue);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.logo{
+    height: 95%;
+    width: 150px;
+}
