@@ -23,7 +23,7 @@ export default function Login () {
       });
       
         history.push({
-          pathname: resp.perfil + "/menu/" + resp.idUsuario,
+          pathname: resp.perfil + "/menu",
           state: resp
         })      
 

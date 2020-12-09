@@ -4,6 +4,7 @@ import ContainerTotal from '../../../Components/ContainerTotal';
 import TestDriverApi from '../../../Services/TestDriverApi'
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { set } from 'date-fns';
 
 const api = new TestDriverApi();
 
@@ -11,9 +12,7 @@ export default function AgendarNovoCliente (props) {
 
     const [todosOsCarros, setTodosOsCarros] = useState([]);
     const [carrosSeparadosPelaMarca, setCarrosSeparadosPelaMarca] = useState([]);
-    const [carroSeparadoPeloModelo, setCarroSeparadoPeloModelo] = useState({
-
-    });
+    const [carroSeparadoPeloModelo, setCarroSeparadoPeloModelo] = useState({});
     const [idUsuario] = useState(props.location.state.idUsuario);
     const [perfil] = useState(props.location.state.perfil);
 
@@ -23,16 +22,54 @@ export default function AgendarNovoCliente (props) {
 
     }
 
+    const settarTodosOsEstados = (set) => {
+      
+      console.log(set);
+
+      if (set === "Marca") {
+        setCarrosSeparadosPelaMarca([]);
+        carroSeparadoPeloModelo.cor = "";
+        carroSeparadoPeloModelo.anoFabricacao = "";
+        carroSeparadoPeloModelo.anoModelo = "";
+        carroSeparadoPeloModelo.idCarro = 0;
+        carroSeparadoPeloModelo.marca = "";
+        carroSeparadoPeloModelo.modelo = "";
+        carroSeparadoPeloModelo.id = 0;
+        console.log("fff")
+      }else{
+        carroSeparadoPeloModelo.cor = "";
+        carroSeparadoPeloModelo.anoFabricacao = "";
+        carroSeparadoPeloModelo.anoModelo = "";
+        carroSeparadoPeloModelo.idCarro = 0;
+        carroSeparadoPeloModelo.marca = "";
+        carroSeparadoPeloModelo.modelo = "";
+        carroSeparadoPeloModelo.id = 0;
+        console.log("xxx");
+
+        console.log(carroSeparadoPeloModelo.anoModelo)
+      }
+
+    }
+
     const listarCarrosPelaMarca = async (marca) => {
+
+      if(marca == "nao passou")
+        settarTodosOsEstados("Marca");
+      else{
       const resp = await api.listarCarrosPelaMarca(marca);
       setCarrosSeparadosPelaMarca([...resp]);
+      }
+
+
     }
 
     const retornarCarroPeloModelo = async (modelo) => {
-      const resp = await api.voltarCarroPeloModelo(modelo);
-      setCarroSeparadoPeloModelo(resp);
-      console.log(resp);
-      console.log(carroSeparadoPeloModelo)
+      if(modelo == "nao passou")
+        settarTodosOsEstados("Modelo");
+      else{   
+        const resp = await api.voltarCarroPeloModelo(modelo);
+        setCarroSeparadoPeloModelo(resp);
+      }
     }
 
     useEffect(() => {
@@ -42,115 +79,93 @@ export default function AgendarNovoCliente (props) {
     
     return (
       <ContainerTotal>
-        <div class="container">
-          <a class="links" id="paracadastro"></a>
-          <a class="links" id="paralogin"></a>
+        <div className="conteinerCentralAgendar">
+          <h2 className="title">Faça seu Agendamento </h2>
 
-          <div class="content">
-            <div className="cadas">
-              <form method="post" action="">
-                <h1 classNam="title">Faça seu Agendamento </h1>
+          <div className="containerDadosCarro">
+            <h4>Escolha o Carro</h4>
 
-                <div className="infocar">
-                  <p>
-                    <label for="marc_car" className="inf">
-                      Marca do carro
-                    </label>
-                    <select
-                      onChange={(e) => listarCarrosPelaMarca(e.target.value)}
-                      id="marc_car"
-                      name="marc_car"
-                      required="required"
-                      class="marc form-control form-control-sm"
-                    >
-                      <option></option>
-                      {todosOsCarros.map((x) => (
-                        <option> {x.marca} </option>
-                      ))}
-                    </select>
-                  </p>
+            <div className="divInput1">
+              <label>
+                Marca do carro
+                <select
+                  onChange={(e) => listarCarrosPelaMarca(e.target.value)}
+                  class="form-control"
+                >
+                  <option value="nao passou"></option>
+                  {todosOsCarros.map((x) => (
+                    <option> {x.marca} </option>
+                  ))}
+                </select>
+              </label>
 
-                  <p>
-                    <label className="inf">Modelo do carro</label>
-                    <br />
-                    <select
-                      onChange={(e) => retornarCarroPeloModelo(e.target.value)}
-                      id="marc_car"
-                      name="marc_car"
-                      required="required"
-                      class="mar form-control form-control-sm"
-                    >
-                      <option selected value="1"></option>
-                      {carrosSeparadosPelaMarca.map((x) => (
-                        <option>{x.modelo}</option>
-                      ))}
-                    </select>
-                  </p>
-                </div>
-
-                <div className="anos">
-                  <p>
-                    <label for="ano_fab" className="inf1">
-                      Ano Fabricação
-                    </label>
-                    <br />
-                    <input
-                      value={carroSeparadoPeloModelo.anoFabricacao}
-                      id="ano_fab"
-                      name="ano_fab"
-                      required="required"
-                      class="fab form-control form-control-sm"
-                    ></input>
-                  </p>
-
-                  <p>
-                    <label for="ano_ver" className="inf2  ">
-                      Ano Versão
-                    </label>
-                    <br />
-                    <input
-                      value={carroSeparadoPeloModelo.anoModelo}
-                      id="ano_ver"
-                      name="ano_ver"
-                      required="required"
-                      class="vers form-control form-control-sm"
-                    ></input>
-                  </p>
-                </div>
-
-                <p>
-                  <label for="cor_car" className="inf3">
-                    Cor
-                  </label>
-                  <br />
-                  <input
-                    value={carroSeparadoPeloModelo.cor}
-                    id="cor_car"
-                    name="cor_car"
-                    required="required"
-                    class="cor form-control form-control-sm"
-                  />
-                </p>
-
-                <div className="marq">
-                  <h4>Marque seu Test-Drive</h4>
-                  <p>
-                    <label className="datetime">Data</label>
-                    <input className="dat" required="required" type="date" />
-                    <label className="datetime">Hora</label>
-                    <input type="time" />
-                  </p>
-
-                  <p>
-                    <input
-                      type="submit"
-                      value="Cadastrar"
-                      class="btn btn-success"
-                    />
-                  </p>
-                </div>
-              </form>
+              <label>
+                Modelo do carro
+                <select
+                  onChange={(e) => retornarCarroPeloModelo(e.target.value)}
+                  class="form-control"
+                >
+                  <option value="nao passou"></option>
+                  {carrosSeparadosPelaMarca.map((x) => (
+                    <option>{x.modelo}</option>
+                  ))}
+                </select>
+              </label>
             </div>
+
+            <div className="divInput1">
+              <label>
+                Ano Fabricação
+                <input
+                  value={carroSeparadoPeloModelo.anoFabricacao}
+                  class="form-control"
+                  readOnly
+                ></input>
+              </label>
+
+              <label>
+                Ano Versão
+                <input
+                  value={carroSeparadoPeloModelo.anoModelo}
+                  class="form-control"
+                  readOnly
+                ></input>
+              </label>
+            </div>
+
+            <p>{carroSeparadoPeloModelo.anoModelo}</p>
+
+            <div className="divInput1">
+              <label>
+                Cor
+                <input
+                  value={carroSeparadoPeloModelo.cor}
+                  class="cor form-control"
+                  readOnly
+                />
+              </label>
+            </div>
+          </div>
+
+          <div className="containerDadosHorario">
+            <h4>Escolha o horário</h4>
+
+            <div className="divInput1">
+              <label>
+                Data
+                <input className="form-control" type="date" />
+              </label>
+
+              <label>
+                Hora
+                <input className="form-control" type="time" />
+              </label>
+            </div>
+          </div>
+
+          <div className="divInput1">
+            <button className="btn btn-danger">Cancelar</button>
+            <button className="btn btn-success">Agendar</button>
           </div>
         </div>
       </ContainerTotal>

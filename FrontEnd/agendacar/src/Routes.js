@@ -15,12 +15,12 @@ export default function Routes() {
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/Login" exact component={Login} />
-            <Route path="/Cliente/Agendados/:id" exact component={AgendadosAtribuidosCliente} />
-            <Route path="/Cliente/Agendar/:id" exact component={AgendarNovoCliente} />
-            <Route path="/Cliente/Menu/:id" exact component={MenuCliente} />
-            <Route path="/Funcionario/agendados/:id" exact component={AgendadosFuncionario} />
-            <Route path="/Funcionario/Menu/:id" exact component={MenuFuncionario} />
-            <Route path="/Funcionario/Pendentes/:id" exact component={Pendentes} />
+            <Route path="/Cliente/Agendados" exact component={AgendadosAtribuidosCliente} />
+            <Route path="/Cliente/Agendar" exact component={AgendarNovoCliente} />
+            <Route path="/Cliente/Menu" exact component={MenuCliente} />
+            <Route path="/Funcionario/agendados" exact component={AgendadosFuncionario} />
+            <Route path="/Funcionario/Menu" exact component={MenuFuncionario} />
+            <Route path="/Funcionario/Pendentes" exact component={Pendentes} />
           </Switch>
         </BrowserRouter>
     )

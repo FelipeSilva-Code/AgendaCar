@@ -25,14 +25,14 @@ export default function MenuCliente (props) {
 
     const mandarParaAgendados = () => {
         history.push({
-          pathname: "/Cliente/Agendados/" + idUsuario,
+          pathname: "/Cliente/Agendados",
           state: state
         });
     }
 
     const mandarParaCadastrar = () => {
         history.push({
-            pathname: `/Cliente/Agendar/${idUsuario}`,
+            pathname: `/Cliente/Agendar`,
             state: state
         })
     }

@@ -22,7 +22,7 @@ export default function MenuFuncionario(props) {
       <div>
         <h3>
         <Link to = {{
-          pathname:`/Funcionario/agendados/${idUsuario}`,
+          pathname:`/Funcionario/agendados`,
           state: total,
         }}>Ver Meus Agendamentos</Link>
         </h3>
@@ -31,7 +31,7 @@ export default function MenuFuncionario(props) {
       <div>
         <h3>
         <Link to = {{
-          pathname:`/Funcionario/Pendentes/${idUsuario}`,
+          pathname:`/Funcionario/Pendentes`,
           state: total,
         }}>Ver Os Pendentes
         </Link>

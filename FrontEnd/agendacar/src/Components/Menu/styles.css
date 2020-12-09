@@ -4,11 +4,11 @@
     background-color : var(--blue);
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 20px;
+    justify-content: center;
+    padding: 10px;
 }
 
 .logo{
-    height: 95%;
-    width: 150px;
+
+    width: 200px;
 }

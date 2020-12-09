@@ -7,6 +7,7 @@ import AvaliarTestDrive from '../../../Components/AvaliarTestDrive';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import LoadingBar from "react-top-loading-bar";
+import { Link } from 'react-router-dom';
 
 const api = new TestDriverApi();
 
@@ -34,6 +35,8 @@ export default function AgendadosCliente (props) {
 
   const [outros, setOutros] = useState([]);
 
+  const [responseLogado, setResponseLogado] = useState(props.location.state);
+
   const [idUsuario] = useState(props.location.state.idUsuario)
 
   const [perfil] = useState(props.location.state.perfil)
@@ -49,8 +52,7 @@ export default function AgendadosCliente (props) {
 
           const resp = await api.agendadosDoCliente(idUsuario);
 
-          console.log(resp);
-
+         
           loadingBar.current.continuousStart();
 
           setAgendados(resp)
@@ -60,6 +62,7 @@ export default function AgendadosCliente (props) {
           setConcluidos(resp.concluidos);
           setOutros(resp.outros);
 
+          console.log(agendados.length);
 
           loadingBar.current.complete();
 
@@ -152,19 +155,19 @@ export default function AgendadosCliente (props) {
 
         <div className="title">
           <h1>Agendamentos</h1>
-          <span onClick={() => mostrarAlgum("Atribuidos")}>Atribuidos</span> |
-          <span onClick={() => mostrarAlgum("Concluidos")}> Concluidos </span> |
+          <span onClick={() => mostrarAlgum("Atribuidos")}>Atribuídos</span> |
+          <span onClick={() => mostrarAlgum("Concluidos")}> Concluídos </span> |
           <span onClick={() => mostrarAlgum("Outros")}> Outros </span>
         </div>
 
-        {agendados.length === 0 && (
+        {agendados.length === undefined && showAtribuidos === true &&
           <div className="noTestsDrivers">
             <div>
               <h2>Você não tem tests drives agendados!!!</h2>
-              <h5>Gostaria de Agendar? Sim</h5>
+              <h5>Gostaria de Agendar? <Link to={{pathname: "menu", state:responseLogado}}>Sim </Link></h5>
             </div>
           </div>
-        )}
+        }
 
         {showAtribuidos === true && (
           <div>
