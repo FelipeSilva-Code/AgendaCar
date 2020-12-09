@@ -57,6 +57,9 @@ namespace BackEnd.Business
 
         public void ValidarCarroDoAgendamento (int idDoCarro)
         {
+            if(idDoCarro == 0)
+                throw new ArgumentException("A escolha de um carro é obrigatória");
+                
             if (dbValidacoes.ValidarCarroDoAgendamento(idDoCarro))
                throw new ArgumentException ("Esse carro está indiponivel");
         }

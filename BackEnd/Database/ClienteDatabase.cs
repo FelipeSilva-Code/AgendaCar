@@ -59,6 +59,15 @@ namespace BackEnd.Database
            return carro;
         }
 
+        public void MarcarCarroComoIndisponivel(int idCarro)
+        {
+            Models.TbCarro carro = ctx.TbCarro.FirstOrDefault(x => x.IdCarro == idCarro);
+
+            carro.BtDisponivel = false;
+
+            ctx.SaveChanges();
+        }
+
        
     }
 }

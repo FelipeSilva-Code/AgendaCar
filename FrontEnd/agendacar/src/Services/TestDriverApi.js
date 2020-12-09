@@ -56,4 +56,9 @@ export default class TestDriverApi {
         const resp = await api.get(`/Cliente/${modelo}/carroUnico`)
         return resp.data;
     }
+
+    agendarTestCliente = async (request) => {
+        const resp = await api.post(`/Cliente/Agendar`, request);
+        return resp.data;
+    }
 }

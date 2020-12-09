@@ -14,35 +14,23 @@ const api = new TestDriverApi();
 export default function AgendadosCliente (props) {
 
   const loadingBar = useRef(null);
-
   const [showAvaliar, setShowAvaliar] = useState(false);
-
   const [showAtribuidos, setShowAtribuidos] = useState(true)
-  
   const [showConcluidos, setShowConcluidos] = useState(false);
-  
   const [showOutros, setShowOutros] = useState(false);
-
+  
   const [agendados, setAgendados] = useState([]);
-
   const [hoje, setHoje] = useState([]);
-
   const [amanha, setAmanha] = useState([]);
-
   const [depois, setDepois] = useState([]);
-
   const [concluidos, setConcluidos] = useState([])
-
   const [outros, setOutros] = useState([]);
 
+
   const [responseLogado, setResponseLogado] = useState(props.location.state);
-
   const [idUsuario] = useState(props.location.state.idUsuario)
-
   const [perfil] = useState(props.location.state.perfil)
-
   const [id, setId] = useState(0);
-
   const [nota, setNota] = useState(0);
   
   //Funções Que Chamam a API
@@ -96,7 +84,6 @@ export default function AgendadosCliente (props) {
         console.log(error);
       }
     };
-
 
 
   //Funções Que Alteram a Redenrização
@@ -160,7 +147,7 @@ export default function AgendadosCliente (props) {
           <span onClick={() => mostrarAlgum("Outros")}> Outros </span>
         </div>
 
-        {agendados.length === undefined && showAtribuidos === true &&
+        {agendados.length === 0 && showAtribuidos === true &&
           <div className="noTestsDrivers">
             <div>
               <h2>Você não tem tests drives agendados!!!</h2>

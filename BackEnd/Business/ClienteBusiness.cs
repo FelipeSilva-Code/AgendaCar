@@ -39,6 +39,8 @@ namespace BackEnd.Business
             ValidacoesAgendamentos.ValidarAgendamento(agendamento);
 
             database.AgendarNovo(agendamento);
+
+            this.MarcarCarroComoIndisponivel(agendamento.IdCarro);
         }
 
         public List<Models.TbCarro> ListarCarrosDisponiveis ()
@@ -56,8 +58,12 @@ namespace BackEnd.Business
             return database.PegarCarroPeloModelo(modelo);
         }
 
+        public void MarcarCarroComoIndisponivel(int idCarro)
+        {
+            database.MarcarCarroComoIndisponivel(idCarro);
+        }
+
      
-    
 
     }
 }

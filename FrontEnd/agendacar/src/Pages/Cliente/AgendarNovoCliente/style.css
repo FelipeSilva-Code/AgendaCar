@@ -40,3 +40,13 @@
    align-items: center;
    flex-direction: column;
 }
+.semCarrosDisponiveis{
+   height: 100%;
+   width: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background-color: rgba(121, 115, 115, 0.7);
+   position: fixed;
+   flex-direction: column;
+}

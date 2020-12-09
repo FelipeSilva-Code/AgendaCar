@@ -31,6 +31,8 @@ namespace BackEnd.Database
             agendamento.DsSituacao = situacao.Situacao;
 
             ctx.SaveChanges();
+
+            this.ColocarCarroComoDisponivel(idAgendamento);;
         }
 
    
@@ -50,14 +52,24 @@ namespace BackEnd.Database
         }
         public List<Models.TbAgendamento> VerEsperandoAceitacao()
         {
-             List<Models.TbAgendamento> agendamentos = ctx.TbAgendamento.Include(x => x.IdClienteNavigation)
-                                                                        .Include(x => x.IdCarroNavigation)
-                                                                        .Include(x => x.IdFuncionarioNavigation)
-                                                                        .ToList();
+             List<Models.TbAgendamento> agendamentos =
+                           ctx.TbAgendamento.Include(x => x.IdClienteNavigation)
+                                            .Include(x => x.IdCarroNavigation)
+                                            .Include(x => x.IdFuncionarioNavigation)
+                                            .ToList();
 
              agendamentos = dbGeral.AlterarSituacaoSeNinguemAceitar(agendamentos);
            
              return agendamentos;                                                          
+        }
+
+        public void ColocarCarroComoDisponivel(int idAgendamento)
+        {
+            Models.TbAgendamento agendamento = ctx.TbAgendamento.Include(x => x.IdCarroNavigation).FirstOrDefault(x => x.IdAgendamento == idAgendamento);
+
+            agendamento.IdCarroNavigation.BtDisponivel = true;
+
+            ctx.SaveChanges();
         }
     }
 }

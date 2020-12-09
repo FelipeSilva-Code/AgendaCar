@@ -4,7 +4,8 @@ import ContainerTotal from '../../../Components/ContainerTotal';
 import TestDriverApi from '../../../Services/TestDriverApi'
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { set } from 'date-fns';
+import { useHistory } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
 
 const api = new TestDriverApi();
 
@@ -15,11 +16,29 @@ export default function AgendarNovoCliente (props) {
     const [carroSeparadoPeloModelo, setCarroSeparadoPeloModelo] = useState({});
     const [idUsuario] = useState(props.location.state.idUsuario);
     const [perfil] = useState(props.location.state.perfil);
+    const [data, setData] = useState();
+    const [hora, setHora] = useState();
+    const [idCarro, setIdCarro] = useState(0);
+
+    const history = useHistory();
 
     const listarTodosOsCarros = async () => {
      const resp = await api.listarTodosOsCarros();
      setTodosOsCarros([...resp]);
 
+    }
+
+    const validarHorario = () => {
+      if(data === undefined){
+         toast.error("A data é obrigatória");
+         return false;
+      }
+      else if(hora === undefined){
+        toast.error("A hora é obrigatória"); 
+        return false;
+      }
+      else
+        return true;
     }
 
     const settarTodosOsEstados = (set) => {
@@ -35,7 +54,8 @@ export default function AgendarNovoCliente (props) {
         carroSeparadoPeloModelo.marca = "";
         carroSeparadoPeloModelo.modelo = "";
         carroSeparadoPeloModelo.id = 0;
-        console.log("fff")
+        setIdCarro(0);
+
       }else{
         carroSeparadoPeloModelo.cor = "";
         carroSeparadoPeloModelo.anoFabricacao = "";
@@ -44,9 +64,8 @@ export default function AgendarNovoCliente (props) {
         carroSeparadoPeloModelo.marca = "";
         carroSeparadoPeloModelo.modelo = "";
         carroSeparadoPeloModelo.id = 0;
-        console.log("xxx");
-
-        console.log(carroSeparadoPeloModelo.anoModelo)
+        setIdCarro(0)
+       
       }
 
     }
@@ -57,6 +76,7 @@ export default function AgendarNovoCliente (props) {
         settarTodosOsEstados("Marca");
       else{
       const resp = await api.listarCarrosPelaMarca(marca);
+     
       setCarrosSeparadosPelaMarca([...resp]);
       }
 
@@ -68,8 +88,55 @@ export default function AgendarNovoCliente (props) {
         settarTodosOsEstados("Modelo");
       else{   
         const resp = await api.voltarCarroPeloModelo(modelo);
+
         setCarroSeparadoPeloModelo(resp);
+
+        setIdCarro(resp.id);
       }
+    }
+
+    const transformarEmHorarioCompleto = () => {
+      const horario = `${data} ${hora}`;
+
+      return horario
+    }
+
+
+     const agendarConsulta = async () => {
+      try {
+
+        const horarioCorreto = validarHorario();
+
+        if(horarioCorreto){
+
+        const horario = transformarEmHorarioCompleto();
+
+        console.log(horario);
+       
+        const req = {
+          "idCliente": idUsuario,
+          "idCarro": idCarro,
+          "data": horario
+        };
+
+        await api.agendarTestCliente(req);
+
+        toast.success("Test Drive agendado com sucesso!");
+
+        settarTodosOsEstados("Marca");
+
+        listarTodosOsCarros();
+      
+      }
+
+      } catch (e) {
+        toast.error(e.response.data.mensagem);
+
+      }
+    }
+
+    const voltar = () => {
+        history.goBack();
     }
 
     useEffect(() => {
@@ -78,13 +145,24 @@ export default function AgendarNovoCliente (props) {
   
     
     return (
+      <>
+       {todosOsCarros.length === 0 &&
+        <div className="semCarrosDisponiveis">
+          <h1>Não há Carros Disponíveis Para Test Drive</h1>
+          <button onClick={voltar} className="btn btn-danger">&nbsp; &nbsp; Voltar &nbsp; &nbsp;</button>
+        </div>
+        }
       <ContainerTotal>
+        
+        <ToastContainer/>
+
+       
         <div className="conteinerCentralAgendar">
           <h2 className="title">Faça seu Agendamento </h2>
 
           <div className="containerDadosCarro">
             <h4>Escolha o Carro</h4>
-
+           
             <div className="divInput1">
               <label>
                 Marca do carro
@@ -133,7 +211,6 @@ export default function AgendarNovoCliente (props) {
               </label>
             </div>
 
-            <p>{carroSeparadoPeloModelo.anoModelo}</p>
 
             <div className="divInput1">
               <label>
@@ -153,21 +230,22 @@ export default function AgendarNovoCliente (props) {
             <div className="divInput1">
               <label>
                 Data
-                <input className="form-control" type="date" />
+                <input onChange={e => setData(e.target.value)} className="form-control" type="date" />
               </label>
 
               <label>
                 Hora
-                <input className="form-control" type="time" />
+                <input onChange={e => setHora(e.target.value)} className="form-control" type="time" />
               </label>
             </div>
           </div>
 
           <div className="divInput1">
-            <button className="btn btn-danger">Cancelar</button>
-            <button className="btn btn-success">Agendar</button>
+            <button onClick={voltar} className="btn btn-danger">Cancelar</button>
+            <button onClick={agendarConsulta} className="btn btn-success">Agendar</button>
           </div>
         </div>
       </ContainerTotal>
+      </>
     );
 }

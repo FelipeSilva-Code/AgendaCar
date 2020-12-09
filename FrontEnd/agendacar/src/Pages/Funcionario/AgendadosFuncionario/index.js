@@ -112,8 +112,8 @@ export default function AgendadosFuncionario(props) {
 
         <div className="title">
           <h1>Agendamentos</h1>
-          <span onClick={() => mostrarAlgum("Atribuidos")}>Atribuidos</span> |
-          <span onClick={() => mostrarAlgum("Concluidos")}> Concluidos </span> |
+          <span onClick={() => mostrarAlgum("Atribuidos")}>Atribuídos</span> |
+          <span onClick={() => mostrarAlgum("Concluidos")}> Concluídos </span> |
           <span onClick={() => mostrarAlgum("Outros")}> Outros </span>
         </div>
 
