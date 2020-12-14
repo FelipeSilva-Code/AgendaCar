@@ -26,8 +26,6 @@ namespace BackEnd.Models
         public int? NrAnoVersao { get; set; }
         [Column("ds_cor", TypeName = "varchar(50)")]
         public string DsCor { get; set; }
-        [Column("bt_carro_adapitado")]
-        public bool? BtCarroAdapitado { get; set; }
         [Column("bt_disponivel")]
         public bool? BtDisponivel { get; set; }
 

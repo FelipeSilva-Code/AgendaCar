@@ -20,16 +20,16 @@ namespace BackEnd.Models
         public int? IdLogin { get; set; }
         [Column("nm_cliente", TypeName = "varchar(100)")]
         public string NmCliente { get; set; }
-        [Column("ds_cnh", TypeName = "varchar(11)")]
+        [Column("ds_cnh", TypeName = "varchar(14)")]
         public string DsCnh { get; set; }
-        [Column("ds_rg", TypeName = "varchar(9)")]
-        public string DsRg { get; set; }
-        [Column("ds_email", TypeName = "varchar(50)")]
-        public string DsEmail { get; set; }
+        [Column("ds_cpf", TypeName = "varchar(14)")]
+        public string DsCpf { get; set; }
         [Column("ds_telefone", TypeName = "varchar(15)")]
         public string DsTelefone { get; set; }
-        [Column("bt_deficiente")]
-        public bool? BtDeficiente { get; set; }
+        [Column("dt_nascimento", TypeName = "datetime")]
+        public DateTime? DtNascimento { get; set; }
+        [Column("ds_foto", TypeName = "varchar(200)")]
+        public string DsFoto { get; set; }
 
         [ForeignKey(nameof(IdLogin))]
         [InverseProperty(nameof(TbLogin.TbCliente))]

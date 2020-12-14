@@ -17,9 +17,9 @@ namespace BackEnd.Models
         [Key]
         [Column("Id_login")]
         public int IdLogin { get; set; }
-        [Column("ds_cpf", TypeName = "varchar(11)")]
-        public string DsCpf { get; set; }
-        [Column("ds_senha", TypeName = "varchar(25)")]
+        [Column("ds_email", TypeName = "varchar(50)")]
+        public string DsEmail { get; set; }
+        [Column("ds_senha", TypeName = "varchar(50)")]
         public string DsSenha { get; set; }
         [Column("ds_perfil", TypeName = "varchar(50)")]
         public string DsPerfil { get; set; }

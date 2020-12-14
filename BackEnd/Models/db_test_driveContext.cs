@@ -25,6 +25,7 @@ namespace BackEnd.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseMySql("server=localhost;user id=root;password=1234;database=db_test_drive", x => x.ServerVersion("8.0.19-mysql"));
             }
         }
@@ -98,11 +99,11 @@ namespace BackEnd.Models
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_0900_ai_ci");
 
-                entity.Property(e => e.DsEmail)
+                entity.Property(e => e.DsCpf)
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_0900_ai_ci");
 
-                entity.Property(e => e.DsRg)
+                entity.Property(e => e.DsFoto)
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_0900_ai_ci");
 
@@ -133,6 +134,10 @@ namespace BackEnd.Models
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_0900_ai_ci");
 
+                entity.Property(e => e.DsFoto)
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_0900_ai_ci");
+
                 entity.Property(e => e.DsPerfil)
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_0900_ai_ci");
@@ -153,7 +158,7 @@ namespace BackEnd.Models
                 entity.HasKey(e => e.IdLogin)
                     .HasName("PRIMARY");
 
-                entity.Property(e => e.DsCpf)
+                entity.Property(e => e.DsEmail)
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_0900_ai_ci");
 

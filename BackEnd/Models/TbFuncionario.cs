@@ -24,6 +24,8 @@ namespace BackEnd.Models
         public string DsCarteiraTrabalho { get; set; }
         [Column("ds_perfil", TypeName = "varchar(100)")]
         public string DsPerfil { get; set; }
+        [Column("ds_foto", TypeName = "varchar(200)")]
+        public string DsFoto { get; set; }
 
         [ForeignKey(nameof(IdLogin))]
         [InverseProperty(nameof(TbLogin.TbFuncionario))]

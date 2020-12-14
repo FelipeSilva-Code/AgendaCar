@@ -14,13 +14,13 @@ namespace BackEnd.Models
         [Column("id_funcionario")]
         public int? IdFuncionario { get; set; }
         [Column("id_cliente")]
-        public int IdCliente { get; set; }
+        public int? IdCliente { get; set; }
         [Column("id_carro")]
-        public int IdCarro { get; set; }
+        public int? IdCarro { get; set; }
         [Column("ds_situacao", TypeName = "varchar(50)")]
         public string DsSituacao { get; set; }
         [Column("dt_agendamento", TypeName = "datetime")]
-        public DateTime DtAgendamento { get; set; }
+        public DateTime? DtAgendamento { get; set; }
         [Column("nr_avaliacao")]
         public int? NrAvaliacao { get; set; }
 
