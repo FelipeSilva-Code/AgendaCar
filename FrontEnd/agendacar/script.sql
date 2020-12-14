@@ -6,8 +6,8 @@ USE db_test_drive;
 
 CREATE TABLE tb_login (
   Id_login INT PRIMARY KEY AUTO_INCREMENT,
-  ds_cpf           varchar(11),
-  ds_senha         varchar(25),
+  ds_email         varchar(50),
+  ds_senha         varchar(50),
   ds_perfil        varchar(50),
   dt_ultimo_login  datetime
 );
@@ -26,10 +26,9 @@ create table tb_cliente (
    id_login                int,
    nm_cliente              varchar(100),
    ds_cnh                  varchar(11),                                                                                                 ,
-   ds_rg                   varchar(9),
-   ds_email                varchar(50),
+   ds_cpf                  varchar(11),
    ds_telefone             varchar(15),
-   bt_deficiente           bool,
+   dt_nascimento           datetime,
    foreign key(id_login) references tb_login(id_login) ondelete cascade
 );
 
@@ -40,7 +39,6 @@ create table tb_carro (
    nr_ano_fabricacao       int,
    nr_ano_versao           int,
    ds_cor                  varchar(50),
-   bt_carro_adapitado      bool,
    bt_disponivel           bool
 );
 

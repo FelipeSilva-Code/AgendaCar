@@ -43,7 +43,7 @@ return (
       <h2>Login</h2>
 
       <div>
-        <label htmlFor="nome_login">CPF:</label>
+        <label htmlFor="nome_login">E-mail:</label>
         <input
           onChange={(e) => setCpf(e.target.value)}
           className="form-control inputLogin"

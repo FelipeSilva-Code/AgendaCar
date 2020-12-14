@@ -1,0 +1,22 @@
+.divFotoUsuario{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.divFotoUsuario > div{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fotoUsuario{
+    width: 20vw;
+    height: 40vh;
+    background-color: cyan;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
