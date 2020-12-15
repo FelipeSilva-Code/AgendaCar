@@ -11,7 +11,7 @@ namespace BackEnd.Business
     public class CadastroClienteBusiness
     {
         Validador.ValidadorCadastro validadorCadastro = new Validador.ValidadorCadastro();
-
+        Database.CadastroClienteDatabase database = new Database.CadastroClienteDatabase();
         public void VerSeSenhasSaoIguais(string senha1, string senha2)
         {
             if (senha1 != senha2)
@@ -22,7 +22,7 @@ namespace BackEnd.Business
         {
             validadorCadastro.GerenciarValidacoesCadastroCliente(login, cliente);
             
-            return null;
+            return database.GerenciarPostNasTabelas(login, cliente);
         }
 
       

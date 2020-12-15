@@ -16,6 +16,7 @@ namespace BackEnd.Controllers
         Business.CadastroClienteBusiness business = new Business.CadastroClienteBusiness();
         Utils.CadastroClienteConversor cadastroConversor = new Utils.CadastroClienteConversor();
 
+        [HttpPost]
         public ActionResult<Models.Response.LoginResponse> CadastrarCliente([FromForm] Models.Request.CadastroUsuario cadastroCliente)
         {
             try
