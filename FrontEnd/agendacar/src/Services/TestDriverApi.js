@@ -7,6 +7,26 @@ const api = axios.create({
 
 export default class TestDriverApi {
 
+    cadastrarCliente = async (cadastroRequest) => {
+        let formData = new FormData();
+        formData.append('nome', cadastroRequest.Nome);
+        formData.append('dataNascimento', cadastroRequest.DataNascimento);
+        formData.append('cnh', cadastroRequest.CNH);
+        formData.append('cpf', cadastroRequest.CPF);
+        formData.append('telefone', cadastroRequest.Telefone);
+        formData.append('email', cadastroRequest.Email);
+        formData.append('senha1', cadastroRequest.Senha1);
+        formData.append('senha2', cadastroRequest.Senha2);
+        formData.append('imagemUsuario', cadastroRequest.ImagemUsuario);
+
+        const resp = await api.post("/CadastroCliente", formData, {
+            headers: {'content-type': 'multipart/form-data'}
+        });
+
+        return resp.data;
+    
+    }
+
     logar = async (loginRequest) => {
         const resp = await api.post("/Geral/login", loginRequest);
         return resp.data;

@@ -15,12 +15,13 @@ namespace BackEnd.Business.Validador
         {
             login = validadorSituacoes.TirarEspacosDosCamposLogin(login);
             cliente = validadorSituacoes.TirarEspacosDosCamposCliente(cliente);
-            this.ValidarCnh(cliente.DsCnh);
-            this.ValidarForcaDaSenha(login.DsSenha);
+            this.ValidarNome(cliente.NmCliente);
             this.ValidarNascimento(cliente.DtNascimento);
+            this.ValidarCnh(cliente.DsCnh);
             this.ValidarCpf(cliente.DsCpf);
+            this.ValidarTelefone(cliente.DsTelefone);
             validadorSituacoes.ValidarEmail(login.DsEmail);
-    
+            this.ValidarForcaDaSenha(login.DsSenha);
         }
 
         public void ValidarCpf (string cpf)
@@ -57,15 +58,34 @@ namespace BackEnd.Business.Validador
         public void ValidarForcaDaSenha(string senha)
         {
 
-            if (senha.Length < 8)
+            if (string.IsNullOrEmpty(senha) || senha.Length < 8 )
                 throw new ArgumentException("A senha deve conter no mínimo 8 caracteres.");
 
-            if (this.QuantidadeDeNumeros(senha))
+            else if (this.QuantidadeDeNumeros(senha))
                 throw new ArgumentException("A senha deve conter no mínimo dois números.");
 
-            if (this.CaracteresEspeciais(senha))
+            else if (this.CaracteresEspeciais(senha))
                 throw new ArgumentException("A senha deve conter no mínimo um caractere especial.");
+     
+        }
 
+        public void ValidarTelefone (string telefone)
+        {
+            if(string.IsNullOrEmpty(telefone))
+                throw new ArgumentException("O número telefônico é obrigatório.");
+
+            else if (telefone.Length != 15)
+                throw new ArgumentException("O número telefônico está incorreto.");
+
+        }
+
+        public void ValidarNome (string nome)
+        {
+            if(string.IsNullOrEmpty(nome))
+                throw new ArgumentException("O nome é obrigatório.");
+
+            else if(!nome.Contains(" "))
+                throw new ArgumentException("O sobrenome é obrigatório.");
         }
 
         public bool QuantidadeDeNumeros(string senha)
@@ -73,7 +93,7 @@ namespace BackEnd.Business.Validador
             int x = 0;
             for (int i = 0; i < senha.Length; i++)
             {
-                if (senha[i] == '0' || senha[i] == '1' || senha[i] == '1' || senha[i] == '3' || senha[i] == '4'
+                if (senha[i] == '0' || senha[i] == '1' || senha[i] == '2' || senha[i] == '3' || senha[i] == '4'
                  || senha[i] == '5' || senha[i] == '6' || senha[i] == '7' || senha[i] == '8' || senha[i] == '9')
                     x++;
             }

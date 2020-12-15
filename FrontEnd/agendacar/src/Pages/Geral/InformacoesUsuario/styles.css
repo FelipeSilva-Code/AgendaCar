@@ -1,22 +1,78 @@
+.containerAlterarInformacoes{
+    width: 70vw;
+    height: 70vh;
+    background-color: var(--blue);
+    display: flex;
+    border-radius: 5px;
+    
+}
 .divFotoUsuario{
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 100%;
+    width: 40%;
 }
 
 .divFotoUsuario > div{
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    height: 75%;
+    flex-direction: column;
 }
 
 .fotoUsuario{
-    width: 20vw;
-    height: 40vh;
-    background-color: cyan;
+    width: 18vw;
+    height: 36vh;
     border-radius: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.imgFotoUsuario{
+    width: 18vw;
+    height: 36vh;
+    border-radius: 100%;
+    position: absolute;
+}
+
+.divTrocarFotoUsuario{
+
+    position: absolute;
+    height: 20vw;
+    width: 40vh;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+.containerComAsInformacoes{
+    display: flex;
+    width: 60%;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.containerComAsInformacoes > div{
+
+    display: flex;
+    width: 90%;
+    justify-content: space-between;
+} 
+
+.containerComAsInformacoes > div > label {
+    width: 48%;
+}
+.divBtnsInfo{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 30px;
 }

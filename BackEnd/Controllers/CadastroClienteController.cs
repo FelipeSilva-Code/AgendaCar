@@ -28,11 +28,16 @@ namespace BackEnd.Controllers
                 Models.TbLogin login = cadastroConversor.ParaTbLogin(cadastroCliente);
                 Models.TbCliente cliente = cadastroConversor.ParaTbCliente(cadastroCliente);
 
-                cliente.DsFoto = gerenciadorFoto.GerarNovoNome(cadastroCliente.ImagemUsuario.FileName);
+                if(cadastroCliente.ImagemUsuario != null)
+                    cliente.DsFoto = gerenciadorFoto.GerarNovoNome(cadastroCliente.ImagemUsuario.FileName);
+                
+                else
+                    cliente.DsFoto = "user.png";
 
                 login = business.CadastrarCliente(login, cliente);
 
-                gerenciadorFoto.SalvarFoto(cliente.DsFoto, cadastroCliente.ImagemUsuario);
+                if (cadastroCliente.ImagemUsuario != null)
+                    gerenciadorFoto.SalvarFoto(cliente.DsFoto, cadastroCliente.ImagemUsuario);
 
                 Models.Response.LoginResponse loginResponse = geralConversor.ParaLoginResponse(login);
                

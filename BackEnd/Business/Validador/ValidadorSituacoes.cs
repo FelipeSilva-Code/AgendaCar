@@ -15,16 +15,22 @@ namespace BackEnd.Business.Validador
 
         public Models.TbLogin TirarEspacosDosCamposLogin (Models.TbLogin login)
         {
-            login.DsEmail = login.DsEmail.Trim();
-            login.DsPerfil = login.DsSenha.Trim();
+            if(!string.IsNullOrEmpty(login.DsEmail) && !string.IsNullOrEmpty(login.DsSenha))
+            {
+                login.DsEmail = login.DsEmail.Trim();
+                login.DsSenha = login.DsSenha.Trim();
+            }
             
             return login;
         }
 
         public Models.TbCliente TirarEspacosDosCamposCliente (Models.TbCliente cliente)
         {
-            cliente.DsCnh = cliente.DsCnh.Trim();
-            cliente.NmCliente = cliente.NmCliente.Trim();
+            if(!string.IsNullOrEmpty(cliente.DsCnh) && !string.IsNullOrEmpty(cliente.NmCliente))
+            {
+                cliente.DsCnh = cliente.DsCnh.Trim();
+                cliente.NmCliente = cliente.NmCliente.Trim();
+            }
 
             return cliente;
         }

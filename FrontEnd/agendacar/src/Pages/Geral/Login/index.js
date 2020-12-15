@@ -8,7 +8,7 @@ import { ToastContainer, toast } from "react-toastify";
 const api = new TestDriverApi();
 export default function Login () {
 
-  const [cpf, setCpf] = useState(0);
+  const [email, setEmail] = useState("");
   const [senha, setSenha] = useState(0);
 
   const history = useHistory();
@@ -18,9 +18,11 @@ export default function Login () {
     try {
      
       const resp = await api.logar({
-        CPF: cpf,
+        Email: email,
         Senha: senha,
       });
+
+      console.log(resp);
       
         history.push({
           pathname: resp.perfil + "/menu",
@@ -45,7 +47,7 @@ return (
       <div>
         <label htmlFor="nome_login">E-mail:</label>
         <input
-          onChange={(e) => setCpf(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
           className="form-control inputLogin"
           id="nome_login"
           name="nome_login"
