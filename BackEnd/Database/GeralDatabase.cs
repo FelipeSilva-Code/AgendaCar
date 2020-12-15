@@ -39,5 +39,18 @@ namespace BackEnd.Database
             return agendamentos;
 
         }
+
+        public string RetornarFotoDoUsuario (Models.TbLogin login)
+        {
+            Models.TbCliente cliente = ctx.TbCliente.FirstOrDefault(x => x.IdLogin == login.IdLogin);
+            if (cliente != null)
+                return cliente.DsFoto;
+            else
+            {
+                Models.TbFuncionario funcionario = ctx.TbFuncionario.FirstOrDefault(x => x.IdLogin == login.IdLogin);
+                return funcionario.DsFoto;
+            }
+           
+        }
     }
 }

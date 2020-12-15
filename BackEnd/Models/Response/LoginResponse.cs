@@ -11,5 +11,6 @@ namespace BackEnd.Models.Response
     {
         public int IdUsuario {get; set;}
         public string Perfil {get; set;}
+        public string Foto {get; set;}
     }
 }

@@ -13,6 +13,7 @@ namespace BackEnd.Controllers
     {
 
         Business.LoginBusiness business = new Business.LoginBusiness();
+        Business.GerenciadorFotoBusiness gerenciadorFoto = new Business.GerenciadorFotoBusiness();
         Utils.GeralConversor conversor = new Utils.GeralConversor();
 
 
@@ -27,6 +28,24 @@ namespace BackEnd.Controllers
                 Models.Response.LoginResponse resp = conversor.ParaLoginResponse(tbLogin);
 
                 return resp;
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(new Models.Response.ErroResponse(
+                    400, ex.Message
+                ));
+            }
+        }
+
+        [HttpGet("PegarFoto/{foto}")]
+        public ActionResult BuscarFoto (string nome)
+        {
+            try
+            {
+                byte[] foto = gerenciadorFoto.LerFoto(nome);
+
+                string contentType = gerenciadorFoto.GerarContentType(nome);
+                return File(foto, contentType);
             }
             catch (System.Exception ex)
             {

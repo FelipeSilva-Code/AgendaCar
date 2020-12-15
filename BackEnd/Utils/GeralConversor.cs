@@ -99,6 +99,8 @@ namespace BackEnd.Utils
 
             resp.Perfil = request.DsPerfil;
 
+            resp.Foto = db.RetornarFotoDoUsuario(request);
+
             return resp;
         }
 
