@@ -16,7 +16,7 @@ namespace BackEnd.Database
        
         public Models.TbLogin ValidarLogin (Models.TbLogin login)
         {
-            Models.TbLogin tbLogin = ctx.TbLogin.FirstOrDefault(x => x.DsCpf == login.DsCpf  && x.DsSenha == login.DsSenha );
+            Models.TbLogin tbLogin = ctx.TbLogin.FirstOrDefault(x => x.DsEmail == login.DsEmail  && x.DsSenha == login.DsSenha );
             if(tbLogin != null)
             {
                 tbLogin.DtUltimoLogin = DateTime.Now;
@@ -26,7 +26,7 @@ namespace BackEnd.Database
             return tbLogin;
         }     
 
-        public bool ValidarDataAgendamento (DateTime dataAgendamento, int Id)
+        public bool ValidarDataAgendamento (DateTime? dataAgendamento, int? Id)
         {
             List<Models.TbAgendamento> agendamento = ctx.TbAgendamento.Where( x => x.IdCliente == Id).ToList();
             foreach(Models.TbAgendamento item in agendamento)
@@ -37,7 +37,7 @@ namespace BackEnd.Database
             return false;
         }
 
-        public bool ValidarCarroDoAgendamento (int IdDoCarro)
+        public bool ValidarCarroDoAgendamento (int? IdDoCarro)
         {
             Models.TbCarro carro = ctx.TbCarro.FirstOrDefault(x => x.IdCarro == IdDoCarro);
             return carro.BtDisponivel == false;

@@ -13,6 +13,8 @@ namespace BackEnd.Business
 
         Database.ValidacoesDatabase db = new Database.ValidacoesDatabase();
 
+        Validador.ValidadorSituacoes validadorSituacoes = new Validador.ValidadorSituacoes();
+
         public Models.TbLogin Logar (Models.TbLogin login)
         {
             return this.ValidarLogin(login);
@@ -20,10 +22,12 @@ namespace BackEnd.Business
 
           public Models.TbLogin ValidarLogin(Models.TbLogin login)
         {
-            if (login.DsCpf.Length < 11 || login.DsCpf.Length > 11)
-                throw new ArgumentException("O CPF deverá conter 11 números");
+            if(string.IsNullOrEmpty(login.DsSenha) )
+                throw new ArgumentException("A senha é obrigatória");
 
-            if (db.ValidarLogin(login) == null)
+            validadorSituacoes.ValidarEmail(login.DsEmail);    
+
+            if(db.ValidarLogin(login) == null)
                 throw new ArgumentException("Usúario não encontrado");
 
             return db.ValidarLogin(login);

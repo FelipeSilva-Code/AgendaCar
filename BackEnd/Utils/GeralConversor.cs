@@ -85,7 +85,7 @@ namespace BackEnd.Utils
         {
             Models.TbLogin tbLogin = new Models.TbLogin();
             
-            tbLogin.DsCpf = request.CPF;
+            tbLogin.DsEmail = request.Email;
             tbLogin.DsSenha = request.Senha;
 
             return tbLogin;

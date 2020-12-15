@@ -13,8 +13,8 @@ namespace BackEnd.Business
     {
 
         Database.ClienteDatabase database = new Database.ClienteDatabase();
-        Business.ValidadorSituacoes ValidarSituacao = new ValidadorSituacoes();
-        Business.ValidacoesAgendamentoBusiness ValidacoesAgendamentos = new ValidacoesAgendamentoBusiness();
+        Business.Validador.ValidadorSituacoes ValidarSituacao = new Validador.ValidadorSituacoes();
+        Business.Validador.ValidacoesAgendamentoBusiness ValidacoesAgendamentos = new Validador.ValidacoesAgendamentoBusiness();
          
 
         
@@ -58,7 +58,7 @@ namespace BackEnd.Business
             return database.PegarCarroPeloModelo(modelo);
         }
 
-        public void MarcarCarroComoIndisponivel(int idCarro)
+        public void MarcarCarroComoIndisponivel(int? idCarro)
         {
             database.MarcarCarroComoIndisponivel(idCarro);
         }

@@ -12,8 +12,8 @@ namespace BackEnd.Business
     {
 
         Database.FuncionarioDatabase db = new Database.FuncionarioDatabase();
-        Business.ValidadorSituacoes ValidadorSituacoes = new Business.ValidadorSituacoes();
-        Business.ValidacoesAgendamentoBusiness ValidadodorAgendamento = new ValidacoesAgendamentoBusiness();
+        Business.Validador.ValidadorSituacoes ValidadorSituacoes = new Validador.ValidadorSituacoes();
+        Business.Validador.ValidacoesAgendamentoBusiness ValidadodorAgendamento = new Validador.ValidacoesAgendamentoBusiness();
 
         public List<Models.TbAgendamento> RetornarAgendadosFuncionario (int idFuncionario)
         {

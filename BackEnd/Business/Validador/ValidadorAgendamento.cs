@@ -5,7 +5,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace BackEnd.Business
+namespace BackEnd.Business.Validador
 {
     public class ValidacoesAgendamentoBusiness
     {
@@ -34,12 +34,12 @@ namespace BackEnd.Business
              this.ValidarCarroDoAgendamento(agendamento.IdCarro);
         }
 
-        public void ValidarDataDoAgendamento (DateTime dataAgendamento, int idCliente)
+        public void ValidarDataDoAgendamento (DateTime? dataAgendamento, int? idCliente)
         {
             if (dataAgendamento < DateTime.Now)
                 throw new ArgumentException("A data do agendamento, não pode ser menor do que a data atual");
             
-            if (dataAgendamento.DayOfWeek == DayOfWeek.Saturday || dataAgendamento.DayOfWeek == DayOfWeek.Sunday)
+            if (dataAgendamento.Value.DayOfWeek == DayOfWeek.Saturday || dataAgendamento.Value.DayOfWeek == DayOfWeek.Sunday)
                 throw new ArgumentException("O test drive não pode ser em um final de semana");
 
             if (dbValidacoes.ValidarDataAgendamento(dataAgendamento, idCliente))
@@ -48,14 +48,14 @@ namespace BackEnd.Business
             if (dataAgendamento > DateTime.Now.AddDays(14))
                 throw new ArgumentException("A data do agendamento não pode ser maior do que 2 semanas");   
 
-            if (dataAgendamento.Hour >= 17 || dataAgendamento.Hour < 8)
+            if (dataAgendamento.Value.Hour >= 17 || dataAgendamento.Value.Hour < 8)
                  throw new ArgumentException("Estamos fechados nesse horário"); 
 
-            if (dataAgendamento.Hour >= 12 && dataAgendamento.Hour < 13) 
+            if (dataAgendamento.Value.Hour >= 12 && dataAgendamento.Value.Hour < 13) 
                 throw new ArgumentException("Horário de almoço dos funcionários");         
         }
 
-        public void ValidarCarroDoAgendamento (int idDoCarro)
+        public void ValidarCarroDoAgendamento (int? idDoCarro)
         {
             if(idDoCarro == 0)
                 throw new ArgumentException("A escolha de um carro é obrigatória");
