@@ -17,5 +17,21 @@ namespace BackEnd.Database
 
             return cliente;
         }
+
+        public void AlterarInformacoes (Models.TbLogin login, Models.TbCliente cliente)
+        {
+            Models.TbCliente clienteQueSeraAlterado = this.PegarInformacoesUsuario(cliente.IdCliente);
+            clienteQueSeraAlterado.DsCnh = cliente.DsCnh;
+            clienteQueSeraAlterado.DsCpf = cliente.DsCpf;
+            clienteQueSeraAlterado.DsTelefone = cliente.DsTelefone;
+            clienteQueSeraAlterado.DtNascimento = cliente.DtNascimento;
+            clienteQueSeraAlterado.NmCliente = cliente.NmCliente;
+            clienteQueSeraAlterado.DsFoto = cliente.DsFoto;
+            clienteQueSeraAlterado.IdLoginNavigation.DsEmail = login.DsEmail;
+
+            ctx.SaveChanges();
+        }
+
+
     }
 }

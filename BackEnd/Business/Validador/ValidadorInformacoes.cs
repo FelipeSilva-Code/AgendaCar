@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BackEnd.Business.Validador
 {
-    public class ValidadorCadastro
+    public class ValidadorInformacoes
     {
         Validador.ValidadorSituacoes validadorSituacoes = new ValidadorSituacoes();
         public void GerenciarValidacoesCadastroCliente (Models.TbLogin login, Models.TbCliente cliente)
@@ -22,6 +22,18 @@ namespace BackEnd.Business.Validador
             this.ValidarTelefone(cliente.DsTelefone);
             validadorSituacoes.ValidarEmail(login.DsEmail);
             this.ValidarForcaDaSenha(login.DsSenha);
+        }
+
+        public void GerenciarValidacoesAlterarDadosUsuario (Models.TbLogin login, Models.TbCliente cliente)
+        {
+            login = validadorSituacoes.TirarEspacosDosCamposLogin(login);
+            cliente = validadorSituacoes.TirarEspacosDosCamposCliente(cliente);
+            this.ValidarNome(cliente.NmCliente);
+            this.ValidarNascimento(cliente.DtNascimento);
+            this.ValidarCnh(cliente.DsCnh);
+            this.ValidarCpf(cliente.DsCpf);
+            this.ValidarTelefone(cliente.DsTelefone);
+            validadorSituacoes.ValidarEmail(login.DsEmail);
         }
 
         public void ValidarCpf (string cpf)

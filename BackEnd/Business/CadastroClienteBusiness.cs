@@ -10,7 +10,7 @@ namespace BackEnd.Business
 {
     public class CadastroClienteBusiness
     {
-        Validador.ValidadorCadastro validadorCadastro = new Validador.ValidadorCadastro();
+        Validador.ValidadorInformacoes validadorInformacoes= new Validador.ValidadorInformacoes();
         Database.CadastroClienteDatabase database = new Database.CadastroClienteDatabase();
         public void VerSeSenhasSaoIguais(string senha1, string senha2)
         {
@@ -20,7 +20,7 @@ namespace BackEnd.Business
 
         public Models.TbLogin CadastrarCliente(Models.TbLogin login, Models.TbCliente cliente)
         {
-            validadorCadastro.GerenciarValidacoesCadastroCliente(login, cliente);
+            validadorInformacoes.GerenciarValidacoesCadastroCliente(login, cliente);
             
             return database.GerenciarPostNasTabelas(login, cliente);
         }

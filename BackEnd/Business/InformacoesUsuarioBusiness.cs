@@ -10,6 +10,7 @@ namespace BackEnd.Business
     public class InformacoesUsuarioBusiness
     {
         Database.InformacoesUsuarioDatabase db = new Database.InformacoesUsuarioDatabase();
+        Validador.ValidadorInformacoes validadorInformacoes = new Validador.ValidadorInformacoes();
         public Models.TbCliente PegarInformacoesUsuario(int? idUsuario)
         {
             if(idUsuario == 0 || idUsuario == null)
@@ -17,6 +18,13 @@ namespace BackEnd.Business
 
             return db.PegarInformacoesUsuario(idUsuario);
 
+        }
+
+        public void AlterarInformacoesUsuario (Models.TbLogin login, Models.TbCliente cliente)
+        {
+            validadorInformacoes.GerenciarValidacoesAlterarDadosUsuario(login, cliente);
+
+            db.AlterarInformacoes(login, cliente);
         }
     }
 }

@@ -24,5 +24,29 @@ namespace BackEnd.Utils
 
             return informacoesResponse;
         }
+
+        public Models.TbLogin ParaTbLogin(Models.Request.InformacoesRequest informacoesRequest)
+        {
+            Models.TbLogin login = new Models.TbLogin();
+
+            login.DsEmail = informacoesRequest.Email;
+            login.DsSenha = informacoesRequest.Senha;
+            
+            return login;
+        }
+
+        public Models.TbCliente ParaTbCliente (Models.Request.InformacoesRequest informacoesRequest, int idUsuario)
+        {
+            Models.TbCliente cliente = new Models.TbCliente();
+
+            cliente.IdCliente = idUsuario;
+            cliente.DsCnh = informacoesRequest.CNH;
+            cliente.DsCpf = informacoesRequest.CPF;
+            cliente.DsTelefone = informacoesRequest.Telefone;
+            cliente.DtNascimento = informacoesRequest.DataNascimento;
+            cliente.NmCliente = informacoesRequest.Nome;
+            
+            return cliente;
+        }
     }
 }
