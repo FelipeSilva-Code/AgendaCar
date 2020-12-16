@@ -1,5 +1,5 @@
 import React, { useState } from'react'
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import ContainerTotal from '../../../Components/ContainerTotal'
 import BlueContainer from '../../../Components/BlueContainer'
 import './Style.css'
@@ -35,7 +35,7 @@ export default function MenuCliente (props) {
       <ContainerTotal
        menu={
        <>  
-        Imagem do User
+        <Link  to={{pathname:"/informacoesUsuario", state:idUsuario}} > Imagem do User </Link>
        </>
       }>
         <div className="tituloMenuCliente">

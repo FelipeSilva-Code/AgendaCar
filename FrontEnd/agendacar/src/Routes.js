@@ -9,7 +9,7 @@ import Home from './Pages/Geral/Home';
 import Pendentes from './Pages/Funcionario/AceitarAgendado';
 import AgendadosFuncionario from './Pages/Funcionario/AgendadosFuncionario';
 import Cadastrar from './Pages/Cliente/Cadastrar';
-import InformacoesUsuario from './Pages/Geral/InformacoesUsuario';
+import InformacoesUsuario from './Pages/Cliente/InformacoesUsuario';
 
 export default function Routes() {
     return(

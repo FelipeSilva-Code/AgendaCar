@@ -81,4 +81,15 @@ export default class TestDriverApi {
         const resp = await api.post(`/Cliente/Agendar`, request);
         return resp.data;
     }
+
+    pegarInformacoesUsuario = async (idUsuario) => {
+        const resp = await api.get(`/InformacoesUsuario/${idUsuario}`);
+        return resp.data;
+    }
+
+    buscarFotoUsuario = (nomeFoto) => {
+        const resp = api.defaults.baseURL + "/Geral/PegarFoto/" + nomeFoto;
+        
+        return resp;
+    }
 }
