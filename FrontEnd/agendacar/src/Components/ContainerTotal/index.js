@@ -6,9 +6,9 @@ import './Styles.css'
 export default function ContainerTotal (props) {
     return(
         <>
-            <Menu/>
+            <Menu>{props.menu}</Menu>
             <div className="ContainerTotal">
-           {props.children}
+            {props.children}
                 
             </div>
             <Footer/>

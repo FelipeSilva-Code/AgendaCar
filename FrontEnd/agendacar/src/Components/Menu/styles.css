@@ -4,11 +4,24 @@
     background-color : var(--blue);
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding: 10px;
+    justify-content: space-between;
+    padding-right: 80px;
+    padding-left: 80px;
 }
 
 .logo{
 
     width: 200px;
+}
+
+.divMenuDireita{
+    min-width: 20vw;
+    display: flex;
+  
+    align-items: center;
+    justify-content: center;
+}
+
+.divMenuDireita > button {
+    margin: 10px;
 }

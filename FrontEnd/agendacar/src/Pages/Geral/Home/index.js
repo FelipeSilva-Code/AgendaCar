@@ -6,7 +6,13 @@ import { Link } from 'react-router-dom'
 
 export default function Home () {
     return (
-      <ContainerTotal>
+      <ContainerTotal
+       menu={
+       <>  
+       <button className="btn btn-danger">&nbsp; Login &nbsp;</button>
+       <button className="btn btn-danger">Cadastrar</button>
+       </>
+       }>
         <h4 className="tituloHome">
           Bem vindo ao AgendaCar
           <br /> Somos uma empresa que foca na facilidade e na comodidade

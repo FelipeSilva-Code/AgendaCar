@@ -137,7 +137,12 @@ export default function AgendadosCliente (props) {
 
   return (
     <div>
-      <ContainerTotal>
+      <ContainerTotal
+       menu={
+       <>  
+        Imagem do User
+       </>
+      }>
         <LoadingBar height={7} color="red" ref={loadingBar} />
 
         <div className="title">

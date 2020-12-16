@@ -152,7 +152,11 @@ export default function AgendarNovoCliente (props) {
           <button onClick={voltar} className="btn btn-danger">&nbsp; &nbsp; Voltar &nbsp; &nbsp;</button>
         </div>
         }
-      <ContainerTotal>
+      <ContainerTotal menu={
+       <>  
+        Imagem do User
+       </>
+    }>
         
         <ToastContainer/>
 

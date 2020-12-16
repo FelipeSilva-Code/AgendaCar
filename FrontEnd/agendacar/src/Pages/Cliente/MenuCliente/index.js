@@ -32,7 +32,12 @@ export default function MenuCliente (props) {
         })
     }
     return (
-      <ContainerTotal>
+      <ContainerTotal
+       menu={
+       <>  
+        Imagem do User
+       </>
+      }>
         <div className="tituloMenuCliente">
           <h3>
             Seja bem vindo ao AgendaCar, site especializado no agendamento de

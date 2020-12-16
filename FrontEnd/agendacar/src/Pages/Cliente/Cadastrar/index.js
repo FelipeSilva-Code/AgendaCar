@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import "./styles.css";
 import ContainerTotal from "./../../../Components/ContainerTotal"
-import {Link} from "react-router-dom"
+import { Link, useHistory } from "react-router-dom";
 import InputMask from "react-input-mask";
 import TestDriveApi from "../../../Services/TestDriverApi";
 import {toast, ToastContainer} from "react-toastify"
+
 
 const api = new TestDriveApi();
 
@@ -20,12 +21,13 @@ export default function Cadastrar () {
     const [senha2, setSenha2] = useState("");
     const [foto, setFoto] = useState(null);
 
+    const history = useHistory();
+    
+
     const cadastrar = async () => {
         try {
 
-            toast.success("olaaa")
-
-             const req = {
+            const req = {
                Nome: nome,
                DataNascimento: dataNascimento,
                CNH: cnh,
@@ -35,14 +37,16 @@ export default function Cadastrar () {
                Senha1: senha1,
                Senha2: senha2,
                ImagemUsuario: foto,
-             };
+            };
 
-             console.log(req);
+            console.log(req);
 
-              await api.cadastrarCliente(req);
+            const resp = await api.cadastrarCliente(req);
 
-              toast.success("Cadastrado com sucesso")
-            
+            toast.success("Cadastrado com sucesso");
+
+            history.push({ pathname: "/Cliente/Menu", state: resp });
+
         } catch (e) {
 
             toast.error(e.response.data.mensagem);
