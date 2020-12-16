@@ -92,4 +92,22 @@ export default class TestDriverApi {
         
         return resp;
     }
+
+    alterarInformacoesUsuario = async (novasInformacoes, idUsuario) => {
+        let formData = new FormData();
+        formData.append("nome", novasInformacoes.Nome);
+        formData.append("dataNascimento", novasInformacoes.DataNascimento);
+        formData.append("cnh", novasInformacoes.CNH);
+        formData.append("cpf", novasInformacoes.CPF);
+        formData.append("telefone", novasInformacoes.Telefone);
+        formData.append("email", novasInformacoes.Email);
+        formData.append("senha", novasInformacoes.Senha1);
+        formData.append("imagemUsuario", novasInformacoes.ImagemUsuario);
+
+        const resp = await api.put("/InformacoesUsuario/" + idUsuario, formData, {
+          headers: { "content-type": "multipart/form-data" },
+        });
+
+        return resp.data;       
+    }
 }

@@ -26,8 +26,10 @@ namespace BackEnd.Database
             clienteQueSeraAlterado.DsTelefone = cliente.DsTelefone;
             clienteQueSeraAlterado.DtNascimento = cliente.DtNascimento;
             clienteQueSeraAlterado.NmCliente = cliente.NmCliente;
-            clienteQueSeraAlterado.DsFoto = cliente.DsFoto;
             clienteQueSeraAlterado.IdLoginNavigation.DsEmail = login.DsEmail;
+
+            if (cliente.DsFoto != null)
+                clienteQueSeraAlterado.DsFoto = cliente.DsFoto;
 
             ctx.SaveChanges();
         }
