@@ -35,7 +35,13 @@ export default function MenuCliente (props) {
       <ContainerTotal
        menu={
        <>  
-        <Link  to={{pathname:"/informacoesUsuario", state:idUsuario}} > Imagem do User </Link>
+        <Link  to={{pathname:"/informacoesUsuario", state:idUsuario}} > 
+          <button type="button" class="btn btn-danger">
+            Ver Perfil
+          </button>  
+        </Link>
+
+        <button type="button" class="btn btn-danger">&nbsp; Sair &nbsp;</button>
        </>
       }>
         <div className="tituloMenuCliente">

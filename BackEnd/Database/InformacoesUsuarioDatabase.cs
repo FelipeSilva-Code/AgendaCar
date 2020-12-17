@@ -34,6 +34,22 @@ namespace BackEnd.Database
             ctx.SaveChanges();
         }
 
+        public bool VerSeASenhaAtualEstaCerta(string senhaPassada, int idUsuario)
+        {
+            Models.TbCliente cliente = this.PegarInformacoesUsuario(idUsuario);
+            string senhaAtualDoBanco = cliente.IdLoginNavigation.DsSenha;
+            bool mesmaSenha = senhaAtualDoBanco == senhaPassada;
+            return mesmaSenha;
+        }
+
+        public void AlterarSenha (string novaSenha, int idUsuario)
+        {
+            Models.TbCliente cliente = this.PegarInformacoesUsuario(idUsuario);
+
+            cliente.IdLoginNavigation.DsSenha = novaSenha;
+            ctx.SaveChanges();
+        }
+
 
     }
 }

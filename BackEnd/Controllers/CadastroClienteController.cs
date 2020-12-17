@@ -15,6 +15,7 @@ namespace BackEnd.Controllers
     {
         Business.CadastroClienteBusiness business = new Business.CadastroClienteBusiness();
         Business.GerenciadorFotoBusiness gerenciadorFoto = new Business.GerenciadorFotoBusiness();
+        Business.Validador.ValidadorInformacoes validador = new Business.Validador.ValidadorInformacoes();
         Utils.CadastroClienteConversor cadastroConversor = new Utils.CadastroClienteConversor();
         Utils.GeralConversor geralConversor = new Utils.GeralConversor();
 
@@ -23,7 +24,7 @@ namespace BackEnd.Controllers
         {
             try
             {
-                business.VerSeSenhasSaoIguais(cadastroCliente.Senha1, cadastroCliente.Senha2);
+                validador.VerSeSenhasSaoIguais(cadastroCliente.Senha1, cadastroCliente.Senha2);
 
                 Models.TbLogin login = cadastroConversor.ParaTbLogin(cadastroCliente);
                 Models.TbCliente cliente = cadastroConversor.ParaTbCliente(cadastroCliente);

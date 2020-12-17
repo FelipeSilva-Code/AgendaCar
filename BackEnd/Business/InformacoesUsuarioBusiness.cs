@@ -26,5 +26,18 @@ namespace BackEnd.Business
 
             db.AlterarInformacoes(login, cliente);
         }
+
+        public void VerSeASenhaAtualEstaCerta(string senhaPassada, int idUsuario)
+        {
+            if(!db.VerSeASenhaAtualEstaCerta(senhaPassada, idUsuario))
+                throw new ArgumentException("A senha atual está incorreta.");
+        }
+
+        public void AlterarSenha (string novaSenha, int idUsario)
+        {
+            validadorInformacoes.ValidarForcaDaSenha(novaSenha);
+
+            db.AlterarSenha(novaSenha, idUsario);
+        }
     }
 }

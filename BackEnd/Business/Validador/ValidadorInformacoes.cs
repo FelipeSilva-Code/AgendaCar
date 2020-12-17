@@ -36,6 +36,12 @@ namespace BackEnd.Business.Validador
             validadorSituacoes.ValidarEmail(login.DsEmail);
         }
 
+        public void VerSeSenhasSaoIguais(string senha1, string senha2)
+        {
+            if (senha1 != senha2)
+                throw new ArgumentException("As senhas são diferentes.");
+        }
+
         public void ValidarCpf (string cpf)
         {
             if(string.IsNullOrEmpty(cpf))

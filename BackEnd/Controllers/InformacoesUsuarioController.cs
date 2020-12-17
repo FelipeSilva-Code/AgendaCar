@@ -13,6 +13,7 @@ namespace BackEnd.Controllers
     {
         Business.InformacoesUsuarioBusiness business = new Business.InformacoesUsuarioBusiness();
         Business.GerenciadorFotoBusiness gerenciadorFotoBusiness = new Business.GerenciadorFotoBusiness();
+        Business.Validador.ValidadorInformacoes validador = new Business.Validador.ValidadorInformacoes();
         Utils.InformacoesUsuarioConversor conversorInfoUsuario = new Utils.InformacoesUsuarioConversor();
         
 
@@ -62,6 +63,30 @@ namespace BackEnd.Controllers
                 ));
             }
        
+        }
+
+        [HttpPut("AlterarSenha/{idUsuario}")]
+        public ActionResult<Models.Response.SucessoResponse> AlterarSenha (Models.Request.AlterarSenhaRequest request, int idUsuario)
+        {
+            try
+            {
+                string senhaPassada = request.SenhaAtual;
+                business.VerSeASenhaAtualEstaCerta(senhaPassada, idUsuario);
+
+                validador.VerSeSenhasSaoIguais(request.NovaSenha1, request.NovaSenha2);
+
+                string novaSenha = request.NovaSenha1;
+
+                business.AlterarSenha(novaSenha, idUsuario);
+
+                return new Models.Response.SucessoResponse(200, "Senha alterada.");
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(new Models.Response.ErroResponse(
+                    400, ex.Message
+                ));
+            }
         }
     }
 }

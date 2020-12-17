@@ -10,6 +10,7 @@ import Pendentes from './Pages/Funcionario/AceitarAgendado';
 import AgendadosFuncionario from './Pages/Funcionario/AgendadosFuncionario';
 import Cadastrar from './Pages/Cliente/Cadastrar';
 import InformacoesUsuario from './Pages/Cliente/InformacoesUsuario';
+import AlterarSenha from './Pages/Cliente/AlterarSenha';
 
 export default function Routes() {
     return(
@@ -21,6 +22,7 @@ export default function Routes() {
             <Route path="/Cliente/Agendados" exact component={AgendadosAtribuidosCliente} />
             <Route path="/Cliente/Agendar" exact component={AgendarNovoCliente} />
             <Route path="/Cliente/Menu" exact component={MenuCliente} />
+            <Route path="/Cliente/AlterarSenha" exact component={AlterarSenha} />
             <Route path="/Funcionario/agendados" exact component={AgendadosFuncionario} />
             <Route path="/Funcionario/Menu" exact component={MenuFuncionario} />
             <Route path="/Funcionario/Pendentes" exact component={Pendentes} />

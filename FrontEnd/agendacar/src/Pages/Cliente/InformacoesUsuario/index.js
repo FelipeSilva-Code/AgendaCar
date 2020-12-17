@@ -145,6 +145,8 @@ export default function InformacoesUsuario(props) {
               Senha:
               <input readOnly value={senha} className="form-control" type="password" />
             </label>
+
+            <button className="btn btn-outline-light"> Alterar Senha</button>
           </div>
 
           <div>
