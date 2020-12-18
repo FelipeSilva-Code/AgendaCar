@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./styles.css";
 import ContainerTotal from "../../../Components/ContainerTotal";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import TestDriveApi from "../../../Services/TestDriverApi";
 import {toast, ToastContainer} from "react-toastify"
 import InputMask from "react-input-mask"
@@ -21,6 +21,10 @@ export default function InformacoesUsuario(props) {
     const [foto, setFoto] = useState();
     const [url, setUrl] = useState();
     const [imagemUsuario, setImagemUsuario] = useState();
+
+    console.log(idUsuario);
+
+    const history = useHistory();
 
     const pegarInfoUsuario = async () => {
 
@@ -79,6 +83,10 @@ export default function InformacoesUsuario(props) {
           toast.error(e.response.data.mensagem);
           console.log(e.response.data.mensagem)
       }
+    }
+
+    const voltar = () => {
+      history.goBack();
     }
 
     useEffect(() => {
@@ -143,15 +151,19 @@ export default function InformacoesUsuario(props) {
           <div>
             <label>
               Senha:
-              <input readOnly value={senha} className="form-control" type="password" />
+             <input readOnly value={senha} className="form-control" type="password" /> 
             </label>
 
-            <button className="btn btn-outline-light"> Alterar Senha</button>
+            <Link to={{pathname:"cliente/alterarsenha", state: idUsuario}} className="linkInfoUsuario"> 
+              <button className="btn btn-outline-light"> 
+                Alterar Senha
+              </button>
+            </Link>
           </div>
 
           <div>
             <div className="divBtnsInfo">
-              <button className="btn btn-danger">Cancelar</button>
+              <button onClick={voltar} className="btn btn-danger">Cancelar</button>
               <button onClick={alterarInformacoes} className="btn btn-success">&nbsp; Salvar &nbsp;</button>
             </div>
           </div>

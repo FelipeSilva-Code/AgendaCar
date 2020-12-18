@@ -110,4 +110,9 @@ export default class TestDriverApi {
 
         return resp.data;       
     }
+
+    alterarSenha = async (senhaRequest, idUsuario) => {
+        const resp = await api.put("/InformacoesUsuario/AlterarSenha/" + idUsuario, senhaRequest);
+        return resp.data;
+    }
 }
