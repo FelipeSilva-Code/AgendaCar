@@ -17,7 +17,7 @@ namespace BackEnd.Controllers
         Business.GerenciadorFotoBusiness gerenciadorFoto = new Business.GerenciadorFotoBusiness();
         Business.Validador.ValidadorInformacoes validador = new Business.Validador.ValidadorInformacoes();
         Utils.CadastroClienteConversor cadastroConversor = new Utils.CadastroClienteConversor();
-        Utils.GeralConversor geralConversor = new Utils.GeralConversor();
+        Utils.LoginConversor loginConversor = new Utils.LoginConversor();
 
         [HttpPost]
         public ActionResult<Models.Response.LoginResponse> CadastrarCliente([FromForm] Models.Request.CadastroUsuario cadastroCliente)
@@ -40,7 +40,7 @@ namespace BackEnd.Controllers
                 if (cadastroCliente.ImagemUsuario != null)
                     gerenciadorFoto.SalvarFoto(cliente.DsFoto, cadastroCliente.ImagemUsuario);
 
-                Models.Response.LoginResponse loginResponse = geralConversor.ParaLoginResponse(login);
+                Models.Response.LoginResponse loginResponse = loginConversor.ParaLoginResponse(login);
                
                 return loginResponse;
             }

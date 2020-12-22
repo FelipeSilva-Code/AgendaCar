@@ -1,11 +1,9 @@
 using System;
-using System.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
-
 
 namespace BackEnd.Database
 {
@@ -13,18 +11,7 @@ namespace BackEnd.Database
     {
         Models.db_test_driveContext ctx = new Models.db_test_driveContext();
 
-       
-        public Models.TbLogin ValidarLogin (Models.TbLogin login)
-        {
-            Models.TbLogin tbLogin = ctx.TbLogin.FirstOrDefault(x => x.DsEmail == login.DsEmail  && x.DsSenha == login.DsSenha );
-            if(tbLogin != null)
-            {
-                tbLogin.DtUltimoLogin = DateTime.Now;
-                ctx.SaveChanges();
-            }
 
-            return tbLogin;
-        }     
 
         public bool ValidarDataAgendamento (DateTime? dataAgendamento, int? Id)
         {

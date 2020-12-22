@@ -7,10 +7,23 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BackEnd.Database
 {
-    public class GeralDatabase
+    public class LoginDatabase
     {
         Models.db_test_driveContext ctx = new Models.db_test_driveContext();
-       
+
+        public Models.TbLogin ValidarLogin(Models.TbLogin login)
+        {
+            Models.TbLogin tbLogin = ctx.TbLogin.FirstOrDefault(x => x.DsEmail == login.DsEmail 
+                                                                && x.DsSenha == login.DsSenha);
+            if (tbLogin != null)
+            {
+                tbLogin.DtUltimoLogin = DateTime.Now;
+                ctx.SaveChanges();
+            }
+
+            return tbLogin;
+        }
+        
         public int RetornarIdDoUsuario(Models.TbLogin login)
         {
             Models.TbCliente cliente = ctx.TbCliente.FirstOrDefault(x => x.IdLogin == login.IdLogin);
@@ -23,24 +36,7 @@ namespace BackEnd.Database
             }
         }
 
-        public List<Models.TbAgendamento> AlterarSituacaoSeNinguemAceitar(List<Models.TbAgendamento> agendamentos)
-        {
-
-            foreach (Models.TbAgendamento item in agendamentos)
-            {
-                if (item.DtAgendamento <= DateTime.Now
-                && item.DsSituacao == "Pendente")
-                {
-                    item.DsSituacao = "Não Aprovado";
-                    ctx.SaveChanges();
-                }
-            }
-
-            return agendamentos;
-
-        }
-
-        public string RetornarFotoDoUsuario (Models.TbLogin login)
+        public string RetornarFotoDoUsuario(Models.TbLogin login)
         {
             Models.TbCliente cliente = ctx.TbCliente.FirstOrDefault(x => x.IdLogin == login.IdLogin);
             if (cliente != null)
@@ -50,7 +46,9 @@ namespace BackEnd.Database
                 Models.TbFuncionario funcionario = ctx.TbFuncionario.FirstOrDefault(x => x.IdLogin == login.IdLogin);
                 return funcionario.DsFoto;
             }
-           
+
         }
+
+    
     }
 }

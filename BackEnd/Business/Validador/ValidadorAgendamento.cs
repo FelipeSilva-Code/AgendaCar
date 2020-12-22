@@ -7,10 +7,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BackEnd.Business.Validador
 {
-    public class ValidacoesAgendamentoBusiness
+    public class ValidacoesAgendamento
     {
 
-        Database.ClienteDatabase dbCliente = new Database.ClienteDatabase();
+
         Database.ValidacoesDatabase dbValidacoes = new Database.ValidacoesDatabase();
 
        

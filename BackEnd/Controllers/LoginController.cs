@@ -7,25 +7,24 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BackEnd.Controllers
 {
-    [Route("[controller]")]
     [ApiController]
-    public class GeralController : ControllerBase
-    {
+    [Route("[controller]")]
 
+    public class LoginController : ControllerBase
+    {
         Business.LoginBusiness business = new Business.LoginBusiness();
         Business.GerenciadorFotoBusiness gerenciadorFoto = new Business.GerenciadorFotoBusiness();
-        Utils.GeralConversor conversor = new Utils.GeralConversor();
-
-
-        [HttpPost("login")]
+        Utils.LoginConversor loginConversor = new Utils.LoginConversor();
+        
+        [HttpPost]
         public ActionResult<Models.Response.LoginResponse> Logar(Models.Request.LoginRequest loginRequest)
         {
             try
             {
-                Models.TbLogin tbLogin = conversor.ParaTbLogin(loginRequest);
+                Models.TbLogin tbLogin = loginConversor.ParaTbLogin(loginRequest);
                 tbLogin = business.Logar(tbLogin);
 
-                Models.Response.LoginResponse resp = conversor.ParaLoginResponse(tbLogin);
+                Models.Response.LoginResponse resp = loginConversor.ParaLoginResponse(tbLogin);
 
                 return resp;
             }
@@ -38,7 +37,7 @@ namespace BackEnd.Controllers
         }
 
         [HttpGet("PegarFoto/{nome}")]
-        public ActionResult BuscarFoto (string nome)
+        public ActionResult BuscarFoto(string nome)
         {
             try
             {
@@ -55,6 +54,8 @@ namespace BackEnd.Controllers
             }
         }
 
-
+   
+   
+   
     }
 }
