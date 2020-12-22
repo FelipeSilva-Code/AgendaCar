@@ -8,11 +8,11 @@ export default function AdicionarCarro () {
 
     const history = useHistory();
 
-    const [marca, setMarca] = useState();
-    const [modelo, setModelo] = useState();
+    const [marca, setMarca] = useState("");
+    const [modelo, setModelo] = useState("");
     const [anoVersao, setAnoVersao] = useState();
     const [anoModelo, setAnoModelo] = useState();
-    const [cor, setCor] = useState();
+    const [cor, setCor] = useState("");
     const [qtdCarros, setQtdCarros] = useState(1);
 
     return (
@@ -50,7 +50,7 @@ export default function AdicionarCarro () {
 
                 <label>
                     Qtd de carros:
-                    <input value={qtdCarros} type="number" className="form-control" />
+                    <input onChange={e => setQtdCarros(e.target.value)} value={qtdCarros} min="1" type="number" className="form-control" />
                 </label>
 
             </div>
