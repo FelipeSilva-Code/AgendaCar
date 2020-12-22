@@ -11,6 +11,7 @@ import AgendadosFuncionario from './Pages/Funcionario/AgendadosFuncionario';
 import Cadastrar from './Pages/Cliente/Cadastrar';
 import InformacoesUsuario from './Pages/Cliente/InformacoesUsuario';
 import AlterarSenha from './Pages/Cliente/AlterarSenha';
+import AdicionarCarro from './Pages/Funcionario/AdicionarCarro';
 
 export default function Routes() {
     return(
@@ -26,6 +27,7 @@ export default function Routes() {
             <Route path="/Funcionario/agendados" exact component={AgendadosFuncionario} />
             <Route path="/Funcionario/Menu" exact component={MenuFuncionario} />
             <Route path="/Funcionario/Pendentes" exact component={Pendentes} />
+            <Route path="/Funcionario/AdicionarCarro" exact component={AdicionarCarro} />
             <Route path="/InformacoesUsuario" exact component={InformacoesUsuario} />
           </Switch>
         </BrowserRouter>
