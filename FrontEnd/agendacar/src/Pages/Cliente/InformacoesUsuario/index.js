@@ -22,8 +22,6 @@ export default function InformacoesUsuario(props) {
     const [url, setUrl] = useState();
     const [imagemUsuario, setImagemUsuario] = useState();
 
-    console.log(idUsuario);
-
     const history = useHistory();
 
     const pegarInfoUsuario = async () => {
@@ -46,7 +44,7 @@ export default function InformacoesUsuario(props) {
           console.log(resp);
         
       } catch (e) {
-        console.log(e);
+
         toast.error(e.response.data.mensagem);
       }
     }
@@ -69,7 +67,6 @@ export default function InformacoesUsuario(props) {
               ImagemUsuario: imagemUsuario,
             };
 
-            console.log(req);
 
             await api.alterarInformacoesUsuario(req, idUsuario);
 
@@ -92,6 +89,8 @@ export default function InformacoesUsuario(props) {
     useEffect(() => {
       pegarInfoUsuario();
     }, []);
+
+    
   return (
     <ContainerTotal>
       <ToastContainer/>

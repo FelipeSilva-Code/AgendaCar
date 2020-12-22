@@ -16,13 +16,13 @@ namespace BackEnd.Controllers
         Utils.VerAgendamentosConversor conversor = new Utils.VerAgendamentosConversor();
 
         [HttpGet("agendados/cliente/{idCliente}")]
-        public ActionResult<Models.Response.AgendadosResponseCompleto> ListarAgendados(int id)
+        public ActionResult<Models.Response.AgendadosResponseCompleto> ListarAgendados(int idCliente)
         {
 
             try
             {
 
-                List<Models.TbAgendamento> agendamentos = business.ListarAgendadosCliente(id);
+                List<Models.TbAgendamento> agendamentos = business.ListarAgendadosCliente(idCliente);
                 if (agendamentos.Count == 0 || agendamentos == null)
                     return NotFound("Nenhum agendamento encontrado");
 

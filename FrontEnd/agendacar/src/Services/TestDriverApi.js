@@ -6,113 +6,111 @@ const api = axios.create({
 
 
 export default class TestDriverApi {
+  cadastrarCliente = async (cadastroRequest) => {
+    let formData = new FormData();
+    formData.append("nome", cadastroRequest.Nome);
+    formData.append("dataNascimento", cadastroRequest.DataNascimento);
+    formData.append("cnh", cadastroRequest.CNH);
+    formData.append("cpf", cadastroRequest.CPF);
+    formData.append("telefone", cadastroRequest.Telefone);
+    formData.append("email", cadastroRequest.Email);
+    formData.append("senha1", cadastroRequest.Senha1);
+    formData.append("senha2", cadastroRequest.Senha2);
+    formData.append("imagemUsuario", cadastroRequest.ImagemUsuario);
 
-    cadastrarCliente = async (cadastroRequest) => {
-        let formData = new FormData();
-        formData.append('nome', cadastroRequest.Nome);
-        formData.append('dataNascimento', cadastroRequest.DataNascimento);
-        formData.append('cnh', cadastroRequest.CNH);
-        formData.append('cpf', cadastroRequest.CPF);
-        formData.append('telefone', cadastroRequest.Telefone);
-        formData.append('email', cadastroRequest.Email);
-        formData.append('senha1', cadastroRequest.Senha1);
-        formData.append('senha2', cadastroRequest.Senha2);
-        formData.append('imagemUsuario', cadastroRequest.ImagemUsuario);
+    const resp = await api.post("/CadastroCliente", formData, {
+      headers: { "content-type": "multipart/form-data" },
+    });
 
-        const resp = await api.post("/CadastroCliente", formData, {
-            headers: {'content-type': 'multipart/form-data'}
-        });
+    return resp.data;
+  };
 
-        return resp.data;
-    
-    }
+  logar = async (loginRequest) => {
+    const resp = await api.post("/Login", loginRequest);
+    return resp.data;
+  };
 
-    logar = async (loginRequest) => {
-        const resp = await api.post("/Geral/login", loginRequest);
-        return resp.data;
-    }
+  agendadosDoCliente = async (idUsuario) => {
+    const resp = await api.get(`/VerAgendamentos/agendados/cliente/${idUsuario}`);
+    return resp.data;
+  };
 
-    agendadosDoCliente = async (idUsuario) =>  {
-       const resp = await api.get(`/cliente/agendados/${idUsuario}`);
-       return resp.data;    
-    }
+  listarTodosOsCarros = async () => {
+    const resp = await api.get("/NovoAgendamento/listar/carro");
+    return resp.data;
+  };
 
-    avaliarTestDrive = async (id, nota) => {
-       const resp = await api.put(`/cliente/agendados/avaliar/${id}`, nota)
-       return resp;
-    }
+  listarCarrosPelaMarca = async (marca) => {
+    const resp = await api.get(`/NovoAgendamento/${marca}/listar`);
+    return resp.data;
+  };
 
-    agendadosDoFuncionario = async (idFuncionario) => {
-        const resp = await api.get(`/Funcionario/agendados/${idFuncionario}`)
-        return resp.data;
-    }
+  voltarCarroPeloModelo = async (modelo) => {
+    const resp = await api.get(`/NovoAgendamento/${modelo}/carroUnico`);
+    return resp.data;
+  };
 
-    esperandoAprovacao = async () => {
-        const resp = await api.get(`/Funcionario/EsperandoAceitacao`)
-        return resp.data;
-    }
+  agendarTestCliente = async (request) => {
+    const resp = await api.post(`/NovoAgendamento/Agendar`, request);
+    return resp.data;
+  };
 
-    aceitarAgendamento = async (idFuncionario, idAgendamento) => {
-        const resp = await api.put( `/Funcionario/Aceitar/${idFuncionario}/${idAgendamento}`);
-        return resp.data;
-    }
+  avaliarTestDrive = async (id, nota) => {
+    const resp = await api.put(`/Avaliacao/${id}`, nota);
+    return resp;
+  };
 
-    mudarSituacao = async (idAgendamento, situacaoRequest) => {
-        const resp = await api.put(`/Funcionario/MudarSituacao/${idAgendamento}`, situacaoRequest);
-        return resp.data;
-    }
+  agendadosDoFuncionario = async (idFuncionario) => {
+    const resp = await api.get(`/VerAgendamentos/agendados/funcionario/${idFuncionario}`);
+    return resp.data;
+  };
 
-    listarTodosOsCarros = async () => {
-       const resp = await api.get("/Cliente/listar/carro");
-       return resp.data;  
-    }
+  esperandoAprovacao = async () => {
+    const resp = await api.get(`/AlteracaoDeSituacao/EsperandoAceitacao`);
+    return resp.data;
+  };
 
-    listarCarrosPelaMarca = async (marca) => {
-        const resp = await api.get(`/Cliente/${marca}/listar`);
-        return resp.data;
-    }
+  aceitarAgendamento = async (idFuncionario, idAgendamento) => {
+    const resp = await api.put(`/NovoAgendamento/Aceitar/${idFuncionario}/${idAgendamento}`);
+    return resp.data;
+  };
 
-    voltarCarroPeloModelo = async (modelo) => {
-        const resp = await api.get(`/Cliente/${modelo}/carroUnico`)
-        return resp.data;
-    }
+  mudarSituacao = async (idAgendamento, situacaoRequest) => {
+    const resp = await api.put(`/AlteracaoDeSituacao/MudarSituacao/${idAgendamento}`, situacaoRequest);
+    return resp.data;
+  };
 
-    agendarTestCliente = async (request) => {
-        const resp = await api.post(`/Cliente/Agendar`, request);
-        return resp.data;
-    }
+  pegarInformacoesUsuario = async (idUsuario) => {
+    const resp = await api.get(`/InformacoesUsuario/${idUsuario}`);
+    return resp.data;
+  };
 
-    pegarInformacoesUsuario = async (idUsuario) => {
-        const resp = await api.get(`/InformacoesUsuario/${idUsuario}`);
-        return resp.data;
-    }
+  buscarFotoUsuario = (nomeFoto) => {
+    const resp = api.defaults.baseURL + "/Login/PegarFoto/" + nomeFoto;
 
-    buscarFotoUsuario = (nomeFoto) => {
-        const resp = api.defaults.baseURL + "/Geral/PegarFoto/" + nomeFoto;
-        
-        return resp;
-    }
+    return resp;
+  };
 
-    alterarInformacoesUsuario = async (novasInformacoes, idUsuario) => {
-        let formData = new FormData();
-        formData.append("nome", novasInformacoes.Nome);
-        formData.append("dataNascimento", novasInformacoes.DataNascimento);
-        formData.append("cnh", novasInformacoes.CNH);
-        formData.append("cpf", novasInformacoes.CPF);
-        formData.append("telefone", novasInformacoes.Telefone);
-        formData.append("email", novasInformacoes.Email);
-        formData.append("senha", novasInformacoes.Senha1);
-        formData.append("imagemUsuario", novasInformacoes.ImagemUsuario);
+  alterarInformacoesUsuario = async (novasInformacoes, idUsuario) => {
+    let formData = new FormData();
+    formData.append("nome", novasInformacoes.Nome);
+    formData.append("dataNascimento", novasInformacoes.DataNascimento);
+    formData.append("cnh", novasInformacoes.CNH);
+    formData.append("cpf", novasInformacoes.CPF);
+    formData.append("telefone", novasInformacoes.Telefone);
+    formData.append("email", novasInformacoes.Email);
+    formData.append("senha", novasInformacoes.Senha1);
+    formData.append("imagemUsuario", novasInformacoes.ImagemUsuario);
 
-        const resp = await api.put("/InformacoesUsuario/" + idUsuario, formData, {
-          headers: { "content-type": "multipart/form-data" },
-        });
+    const resp = await api.put("/InformacoesUsuario/" + idUsuario, formData, {
+      headers: { "content-type": "multipart/form-data" },
+    });
 
-        return resp.data;       
-    }
+    return resp.data;
+  };
 
-    alterarSenha = async (senhaRequest, idUsuario) => {
-        const resp = await api.put("/InformacoesUsuario/AlterarSenha/" + idUsuario, senhaRequest);
-        return resp.data;
-    }
+  alterarSenha = async (senhaRequest, idUsuario) => {
+    const resp = await api.put( "/InformacoesUsuario/AlterarSenha/" + idUsuario, senhaRequest);
+    return resp.data;
+  };
 }

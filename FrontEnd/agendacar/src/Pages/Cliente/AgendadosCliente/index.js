@@ -50,7 +50,7 @@ export default function AgendadosCliente (props) {
           setConcluidos(resp.concluidos);
           setOutros(resp.outros);
 
-          console.log(agendados.length);
+          console.log(resp);
 
           loadingBar.current.complete();
 
@@ -140,7 +140,11 @@ export default function AgendadosCliente (props) {
       <ContainerTotal
        menu={
        <>  
-        Imagem do User
+          <Link  to={{pathname:"/informacoesUsuario", state:idUsuario}} > 
+          <button type="button" class="btn btn-danger">
+            Ver Perfil
+          </button>  
+        </Link>
        </>
       }>
         <LoadingBar height={7} color="red" ref={loadingBar} />

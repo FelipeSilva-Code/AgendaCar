@@ -9,8 +9,8 @@ export default function Home () {
       <ContainerTotal
        menu={
        <>  
-       <button className="btn btn-danger">&nbsp; Login &nbsp;</button>
-       <button className="btn btn-danger">Cadastrar</button>
+       <Link to="/login"> <button className="btn btn-danger">&nbsp; Login &nbsp;</button></Link>
+       <Link to="/cadastrar"><button className="btn btn-danger">Cadastrar</button></Link>
        </>
        }>
         <h4 className="tituloHome">

@@ -4,7 +4,7 @@ import ContainerTotal from '../../../Components/ContainerTotal';
 import TestDriverApi from '../../../Services/TestDriverApi'
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 
 const api = new TestDriverApi();
@@ -24,6 +24,7 @@ export default function AgendarNovoCliente (props) {
 
     const listarTodosOsCarros = async () => {
      const resp = await api.listarTodosOsCarros();
+     console.log(resp);
      setTodosOsCarros([...resp]);
 
     }
@@ -146,110 +147,127 @@ export default function AgendarNovoCliente (props) {
     
     return (
       <>
-       {todosOsCarros.length === 0 &&
-        <div className="semCarrosDisponiveis">
-          <h1>Não há Carros Disponíveis Para Test Drive</h1>
-          <button onClick={voltar} className="btn btn-danger">&nbsp; &nbsp; Voltar &nbsp; &nbsp;</button>
-        </div>
-        }
-      <ContainerTotal menu={
-       <>  
-        Imagem do User
-       </>
-    }>
-        
-        <ToastContainer/>
+        {todosOsCarros.length === 0 && (
+          <div className="semCarrosDisponiveis">
+            <h1>Não há Carros Disponíveis Para Test Drive</h1>
+            <button onClick={voltar} className="btn btn-danger">
+              &nbsp; &nbsp; Voltar &nbsp; &nbsp;
+            </button>
+          </div>
+        )}
+        <ContainerTotal
+          menu={
+            <>
+              <Link to={{ pathname: "/informacoesUsuario", state: idUsuario }}>
+                <button type="button" class="btn btn-danger">
+                  Ver Perfil
+                </button>
+              </Link>
+            </>
+          }
+        >
+          <ToastContainer />
 
-       
-        <div className="conteinerCentralAgendar">
-          <h2 className="title">Faça seu Agendamento </h2>
+          <div className="conteinerCentralAgendar">
+            <h2 className="title">Faça seu Agendamento </h2>
 
-          <div className="containerDadosCarro">
-            <h4>Escolha o Carro</h4>
-           
-            <div className="divInput1">
-              <label>
-                Marca do carro
-                <select
-                  onChange={(e) => listarCarrosPelaMarca(e.target.value)}
-                  class="form-control"
-                >
-                  <option value="nao passou"></option>
-                  {todosOsCarros.map((x) => (
-                    <option> {x.marca} </option>
-                  ))}
-                </select>
-              </label>
+            <div className="containerDadosCarro">
+              <h4>Escolha o Carro</h4>
 
-              <label>
-                Modelo do carro
-                <select
-                  onChange={(e) => retornarCarroPeloModelo(e.target.value)}
-                  class="form-control"
-                >
-                  <option value="nao passou"></option>
-                  {carrosSeparadosPelaMarca.map((x) => (
-                    <option>{x.modelo}</option>
-                  ))}
-                </select>
-              </label>
+              <div className="divInput1">
+                <label>
+                  Marca do carro
+                  <select
+                    onChange={(e) => listarCarrosPelaMarca(e.target.value)}
+                    class="form-control"
+                  >
+                    <option value="nao passou"></option>
+                    {todosOsCarros.map((x) => (
+                      <option> {x.marca} </option>
+                    ))}
+                  </select>
+                </label>
+
+                <label>
+                  Modelo do carro
+                  <select
+                    onChange={(e) => retornarCarroPeloModelo(e.target.value)}
+                    class="form-control"
+                  >
+                    <option value="nao passou"></option>
+                    {carrosSeparadosPelaMarca.map((x) => (
+                      <option>{x.modelo}</option>
+                    ))}
+                  </select>
+                </label>
+              </div>
+
+              <div className="divInput1">
+                <label>
+                  Ano Fabricação
+                  <input
+                    value={carroSeparadoPeloModelo.anoFabricacao}
+                    class="form-control"
+                    readOnly
+                  ></input>
+                </label>
+
+                <label>
+                  Ano Versão
+                  <input
+                    value={carroSeparadoPeloModelo.anoModelo}
+                    class="form-control"
+                    readOnly
+                  ></input>
+                </label>
+              </div>
+
+              <div className="divInput1">
+                <label>
+                  Cor
+                  <input
+                    value={carroSeparadoPeloModelo.cor}
+                    class="cor form-control"
+                    readOnly
+                  />
+                </label>
+              </div>
+            </div>
+
+            <div className="containerDadosHorario">
+              <h4>Escolha o horário</h4>
+
+              <div className="divInput1">
+                <label>
+                  Data
+                  <input
+                    onChange={(e) => setData(e.target.value)}
+                    className="form-control"
+                    type="date"
+                  />
+                </label>
+
+                <label>
+                  Hora
+                  <input
+                    onChange={(e) => setHora(e.target.value)}
+                    className="form-control"
+                    type="time"
+                  />
+                </label>
+              </div>
             </div>
 
             <div className="divInput1">
-              <label>
-                Ano Fabricação
-                <input
-                  value={carroSeparadoPeloModelo.anoFabricacao}
-                  class="form-control"
-                  readOnly
-                ></input>
-              </label>
-
-              <label>
-                Ano Versão
-                <input
-                  value={carroSeparadoPeloModelo.anoModelo}
-                  class="form-control"
-                  readOnly
-                ></input>
-              </label>
-            </div>
-
-
-            <div className="divInput1">
-              <label>
-                Cor
-                <input
-                  value={carroSeparadoPeloModelo.cor}
-                  class="cor form-control"
-                  readOnly
-                />
-              </label>
+              <button onClick={voltar} className="btn btn-danger">
+                Cancelar
+              </button>
+              <button onClick={agendarConsulta} className="btn btn-success">
+                Agendar
+              </button>
             </div>
           </div>
-
-          <div className="containerDadosHorario">
-            <h4>Escolha o horário</h4>
-
-            <div className="divInput1">
-              <label>
-                Data
-                <input onChange={e => setData(e.target.value)} className="form-control" type="date" />
-              </label>
-
-              <label>
-                Hora
-                <input onChange={e => setHora(e.target.value)} className="form-control" type="time" />
-              </label>
-            </div>
-          </div>
-
-          <div className="divInput1">
-            <button onClick={voltar} className="btn btn-danger">Cancelar</button>
-            <button onClick={agendarConsulta} className="btn btn-success">Agendar</button>
-          </div>
-        </div>
-      </ContainerTotal>
+        </ContainerTotal>
       </>
     );
 }

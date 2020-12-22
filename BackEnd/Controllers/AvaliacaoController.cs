@@ -13,7 +13,7 @@ namespace BackEnd.Controllers
     {
         Business.AvaliacaoBusiness business = new Business.AvaliacaoBusiness();
 
-        [HttpPut("agendados/avaliar/{id}")]
+        [HttpPut("{id}")]
         public ActionResult<string> AvaliarTestDriver(int id, Models.Request.AvaliacaoRequest nota)
         {
 
