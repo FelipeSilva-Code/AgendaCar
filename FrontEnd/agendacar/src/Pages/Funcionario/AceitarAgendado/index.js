@@ -17,25 +17,19 @@ export default function AgendadosFuncionario (props) {
     const retornarPendentes = async () => 
     {
         const resp = await api.esperandoAprovacao();
-
         setPendentes(resp)
-    
-        console.log(resp);
-        console.log(pendentes);
     }
 
     const aceitarAgendamento = async (idAgendamento) => 
     {
         try {
           const resp = await api.aceitarAgendamento(idUsuario, idAgendamento);
-          console.log(resp);
           toast.success("Agendado com sucesso");
 
           retornarPendentes();
 
         } catch (e) {
-          toast.error(e.response.data.menssagem)
-          console.log(e.response.data.menssagem);
+          toast.error(e.response.data.mensagem)
         }
     }
 

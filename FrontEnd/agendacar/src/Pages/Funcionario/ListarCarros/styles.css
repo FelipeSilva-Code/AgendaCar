@@ -1,0 +1,32 @@
+.procurarCarros{
+    margin-top: 10px;
+    width: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.procurarCarros > label {
+    width: 80%;
+}
+
+.infoCarro{
+    width: 90%;
+    height: 8vh;
+    display: flex;
+    box-shadow: 1px 1px 2px 1px rgb(194, 193, 193);
+    border-radius: 3px;
+    align-items: center;
+    padding-left: 25px;
+    padding-right: 25px;
+    margin-top: 20px;
+    justify-content: space-between;
+}
+
+.ladoDireitoCarroListado{
+    display: flex;
+    align-items: center;
+    width: 20%;
+    justify-content: space-between;
+
+}

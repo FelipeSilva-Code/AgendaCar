@@ -15,10 +15,10 @@ namespace BackEnd.Database
 
         public bool ValidarDataAgendamento (DateTime? dataAgendamento, int? Id)
         {
-            List<Models.TbAgendamento> agendamento = ctx.TbAgendamento.Where( x => x.IdCliente == Id).ToList();
+            List<Models.TbAgendamento> agendamento = ctx.TbAgendamento.Where( x => x.IdCliente == Id && x.DtAgendamento.Value.Date == dataAgendamento.Value.Date).ToList();
             foreach(Models.TbAgendamento item in agendamento)
             {
-                if( item.DtAgendamento == dataAgendamento)
+                if(dataAgendamento < item.DtAgendamento.Value.AddHours(1) && dataAgendamento > item.DtAgendamento.Value.AddHours(-1) )
                    return true;
             }
             return false;

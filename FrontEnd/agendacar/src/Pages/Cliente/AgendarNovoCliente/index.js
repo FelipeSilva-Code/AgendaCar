@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
+import InfoAposAgendar from "../../../Components/InformacoesAposAgendar"
 
 const api = new TestDriverApi();
 
@@ -19,6 +20,8 @@ export default function AgendarNovoCliente (props) {
     const [data, setData] = useState();
     const [hora, setHora] = useState();
     const [idCarro, setIdCarro] = useState(0);
+
+    const [mostrarMsgDeAgendameto, setMostrarMsgDeAgendameto] = useState(false);
 
     const history = useHistory();
 
@@ -124,6 +127,8 @@ export default function AgendarNovoCliente (props) {
 
         toast.success("Test Drive agendado com sucesso!");
 
+        mostrarMsg();
+
         settarTodosOsEstados("Marca");
 
         listarTodosOsCarros();
@@ -140,6 +145,10 @@ export default function AgendarNovoCliente (props) {
         history.goBack();
     }
 
+    const mostrarMsg = () => {
+        setMostrarMsgDeAgendameto(true);
+    }
+
     useEffect(() => {
       listarTodosOsCarros();
     }, []);
@@ -147,6 +156,10 @@ export default function AgendarNovoCliente (props) {
     
     return (
       <>
+        {mostrarMsgDeAgendameto === true && 
+          <InfoAposAgendar/>
+        }
+
         {todosOsCarros.length === 0 && (
           <div className="semCarrosDisponiveis">
             <h1>Não há Carros Disponíveis Para Test Drive</h1>

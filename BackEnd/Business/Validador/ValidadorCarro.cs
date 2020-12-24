@@ -23,7 +23,7 @@ namespace BackEnd.Business.Validador
         public void ValidarSeCampoENuloOuVazio (string valorPassado, string campo )
         {
             if(string.IsNullOrEmpty(valorPassado))
-                throw new ArgumentException($"{campo} é obrigatório.");
+                throw new ArgumentException($"{campo} é obrigatória.");
         }
 
         public void ValidarAnoVersaoEFabricacao (int ano, string campo)

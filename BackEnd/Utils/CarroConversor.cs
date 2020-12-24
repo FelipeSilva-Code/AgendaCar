@@ -10,27 +10,45 @@ namespace BackEnd.Utils
 {
     public class CarroConversor
     {
-        public List<Models.TbCarro> ParaListTbCarro (Models.Request.NovoCarroRequest request)
+        public Models.TbCarro ParaListTbCarro (Models.Request.NovoCarroRequest request)
         {
-            List<Models.TbCarro> listaDeCarros  = new List<Models.TbCarro>();
 
-            int qtdCarros = request.QtdCarros;
+            Models.TbCarro carro = new Models.TbCarro();
 
-            for(int i = 1; i <= qtdCarros; i++)
+            carro.BtDisponivel = true;
+            carro.DsCor = request.Cor;
+            carro.DsMarca = request.Marca;
+            carro.DsModelo = request.Modelo;
+            carro.NrAnoFabricacao = request.AnoFabricacao;
+            carro.NrAnoVersao = request.AnoVersao;
+            carro.QtdDisponivel = request.QtdCarros;
+            carro.QtdTotal = request.QtdCarros;
+
+            return carro;
+        }    
+
+        public List<Models.Response.CarrosResponse> ListarCarros (List<Models.TbCarro> carros)
+        {
+            List<Models.Response.CarrosResponse> carrosResponse = new List<Models.Response.CarrosResponse>();
+
+            foreach(Models.TbCarro item in carros)
             {
-                Models.TbCarro carro = new Models.TbCarro();
+                Models.Response.CarrosResponse carrosForeach = new Models.Response.CarrosResponse();
 
-                carro.BtDisponivel = true;
-                carro.DsCor = request.Cor;
-                carro.DsMarca = request.Marca;
-                carro.DsModelo = request.Modelo;
-                carro.NrAnoFabricacao = request.AnoFabricacao;
-                carro.NrAnoVersao = request.AnoVersao;
+                carrosForeach.AnoFabricacao = item.NrAnoFabricacao;
+                carrosForeach.AnoModelo = item.NrAnoVersao;
+                carrosForeach.Cor = item.DsCor;
+                carrosForeach.Marca = item.DsMarca;
+                carrosForeach.Id = item.IdCarro;
+                carrosForeach.Modelo = item.DsModelo;
+                carrosForeach.QtdDisponivel = item.QtdDisponivel;
+                carrosForeach.QtdTotal = item.QtdTotal;
                 
-                listaDeCarros.Add(carro);
+                carrosResponse.Add(carrosForeach);
+                
             }
 
-            return listaDeCarros;
-        }        
+            return carrosResponse.OrderBy(x => x.Marca).ToList();
+        }     
     }
 }

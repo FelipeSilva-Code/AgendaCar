@@ -39,19 +39,19 @@ namespace BackEnd.Business.Validador
             if (dataAgendamento < DateTime.Now)
                 throw new ArgumentException("A data do agendamento, não pode ser menor do que a data atual");
             
-            if (dataAgendamento.Value.DayOfWeek == DayOfWeek.Saturday || dataAgendamento.Value.DayOfWeek == DayOfWeek.Sunday)
+            else if (dataAgendamento.Value.DayOfWeek == DayOfWeek.Saturday || dataAgendamento.Value.DayOfWeek == DayOfWeek.Sunday)
                 throw new ArgumentException("O test drive não pode ser em um final de semana");
 
-            if (dbValidacoes.ValidarDataAgendamento(dataAgendamento, idCliente))
+            else if (dbValidacoes.ValidarDataAgendamento(dataAgendamento, idCliente))
                 throw new ArgumentException("Você ja tem um test drive marcado nesse horário");
 
-            if (dataAgendamento > DateTime.Now.AddDays(14))
+            else if (dataAgendamento > DateTime.Now.AddDays(14))
                 throw new ArgumentException("A data do agendamento não pode ser maior do que 2 semanas");   
 
-            if (dataAgendamento.Value.Hour >= 17 || dataAgendamento.Value.Hour < 8)
+            else if (dataAgendamento.Value.Hour >= 17 || dataAgendamento.Value.Hour < 8)
                  throw new ArgumentException("Estamos fechados nesse horário"); 
 
-            if (dataAgendamento.Value.Hour >= 12 && dataAgendamento.Value.Hour < 13) 
+            else if (dataAgendamento.Value.Hour >= 12 && dataAgendamento.Value.Hour < 13) 
                 throw new ArgumentException("Horário de almoço dos funcionários");         
         }
 

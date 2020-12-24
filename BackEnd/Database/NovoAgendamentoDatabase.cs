@@ -41,7 +41,10 @@ namespace BackEnd.Database
         {
             Models.TbCarro carro = ctx.TbCarro.FirstOrDefault(x => x.IdCarro == idCarro);
 
-            carro.BtDisponivel = false;
+            carro.QtdDisponivel -= 1;
+
+            if(carro.QtdDisponivel == 0)
+                carro.BtDisponivel = false;
 
             ctx.SaveChanges();
         }

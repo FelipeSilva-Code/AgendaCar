@@ -16,9 +16,19 @@ namespace BackEnd.Business
             validadorCarro.GerenciarNovoCarro(carroRequest);
         }
 
-        public void AdicionarNovoCarro(List<Models.TbCarro> listaDeCarros)
+        public void AdicionarNovoCarro(Models.TbCarro carro)
         {
-            db.AdicionarCarros(listaDeCarros);
-        }   
+            db.AdicionarCarros(carro);
+        }
+
+        public List<Models.TbCarro> ListarCarros(string busca)
+        {
+            return db.ListarCarros(busca);
+        }
+
+        public void DeletarCarro(int? idCarro)
+        {
+            db.DeletarCarro(idCarro);
+        } 
     }
 }

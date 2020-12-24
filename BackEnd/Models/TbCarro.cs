@@ -26,6 +26,10 @@ namespace BackEnd.Models
         public int? NrAnoVersao { get; set; }
         [Column("ds_cor", TypeName = "varchar(50)")]
         public string DsCor { get; set; }
+        [Column("qtd_total")]
+        public int? QtdTotal { get; set; }
+        [Column("qtd_disponivel")]
+        public int? QtdDisponivel { get; set; }
         [Column("bt_disponivel")]
         public bool? BtDisponivel { get; set; }
 

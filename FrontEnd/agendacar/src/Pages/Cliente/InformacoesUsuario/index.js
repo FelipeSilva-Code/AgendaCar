@@ -83,7 +83,9 @@ export default function InformacoesUsuario(props) {
     }
 
     const voltar = () => {
-      history.goBack();
+      const r = window.confirm("Todas ás alterações não salvas serão perdidas.")
+      if(r === true)
+         history.goBack();
     }
 
     useEffect(() => {

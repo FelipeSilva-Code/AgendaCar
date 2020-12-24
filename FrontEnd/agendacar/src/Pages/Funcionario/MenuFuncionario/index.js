@@ -28,7 +28,7 @@ export default function MenuFuncionario(props) {
            <h3>Ver Meus Agendamentos</h3>
 
             <p>
-             Veja os seus test drives agendados
+             Veja os seus test drives agendados.
             </p>
 
             <Link to = {{
@@ -56,6 +56,48 @@ export default function MenuFuncionario(props) {
             }}>
               <button type="button" className="btn btn-success">
               Ver Pendentes
+              </button>
+            </Link>
+  
+        </BlueContainer>
+
+      </div>  
+
+       <div className="containerMenuFuncionario">
+
+    
+        <BlueContainer>
+           <h3>Adicionar Novo Carro</h3>
+
+            <p>
+             Adicione um novo carro para os tests drives.
+            </p>
+
+            <Link to = {{
+            pathname:`/Funcionario/AdicionarCarro`,
+            state: total,
+            }}>
+              <button type="button" className="btn btn-success">
+              Adicionar
+              </button>
+            </Link>
+  
+        </BlueContainer>
+  
+
+        <BlueContainer>
+           <h3>Ver Carros Cadastrados</h3>
+
+            <p>
+             Veja os carros cadastrados para tests drives.
+            </p>
+
+            <Link to = {{
+            pathname:`/Funcionario/ListarCarros`,
+            state: total,
+            }}>
+              <button type="button" className="btn btn-success">
+              Ver Cadastrados
               </button>
             </Link>
   
