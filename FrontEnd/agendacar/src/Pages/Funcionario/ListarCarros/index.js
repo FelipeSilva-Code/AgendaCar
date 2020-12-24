@@ -67,7 +67,7 @@ export default function ListarCarros() {
            
           <div className="ladoDireitoCarroListado">
             <button onClick={() => excluirCarro(item.id)} className="btn btn-outline-danger">Excluir Carro</button>
-            <Link>Ver Mais</Link>
+            <Link to={{pathname:"/Funcionario/VerInfoCarro", state:item.id}}>Ver Mais / Alterar Info </Link>
           </div>
         </div>
       ))}

@@ -13,6 +13,7 @@ import InformacoesUsuario from './Pages/Cliente/InformacoesUsuario';
 import AlterarSenha from './Pages/Cliente/AlterarSenha';
 import AdicionarCarro from './Pages/Funcionario/AdicionarCarro';
 import ListarCarros from './Pages/Funcionario/ListarCarros';
+import VerInfoDoCarro from './Pages/Funcionario/VerInfoDoCarro';
 
 export default function Routes() {
     return(
@@ -29,6 +30,7 @@ export default function Routes() {
             <Route path="/Funcionario/Menu" exact component={MenuFuncionario} />
             <Route path="/Funcionario/Pendentes" exact component={Pendentes} />
             <Route path="/Funcionario/ListarCarros" exact component={ListarCarros} />
+            <Route path="/Funcionario/VerInfoCarro" exact component={VerInfoDoCarro} />
             <Route path="/Funcionario/AdicionarCarro" exact component={AdicionarCarro} />
             <Route path="/InformacoesUsuario" exact component={InformacoesUsuario} />
           </Switch>
