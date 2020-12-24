@@ -133,4 +133,9 @@ export default class TestDriverApi {
         const resp = await api.get("/Carro/pegarCarro/" + idCarro);
         return resp.data;
       }
+
+      alterarInfoCarro = async (idCarro, request) => {
+        const resp = await api.put("/Carro/" + idCarro, request );
+        return resp.data;
+      }
 }

@@ -10,7 +10,7 @@ namespace BackEnd.Utils
 {
     public class CarroConversor
     {
-        public Models.TbCarro ParaListTbCarro (Models.Request.NovoCarroRequest request)
+        public Models.TbCarro ParaTbCarro (Models.Request.NovoCarroRequest request)
         {
 
             Models.TbCarro carro = new Models.TbCarro();

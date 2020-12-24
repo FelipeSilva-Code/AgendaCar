@@ -23,7 +23,6 @@ export default function ListarCarros() {
             setCarrosListados(resp);
     } catch (e) {
             toast.error(e.response.data);
-            console.log(e.response)
             setCarrosListados([]);
     }
   };

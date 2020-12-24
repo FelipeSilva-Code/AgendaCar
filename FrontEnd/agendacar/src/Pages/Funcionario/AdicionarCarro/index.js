@@ -31,8 +31,6 @@ export default function AdicionarCarro () {
               QtdCarros: qtdCarros,
             };
 
-            console.log(request);
-
             await api.adicionarCarro(request);   
 
             limparInputs();
@@ -40,7 +38,6 @@ export default function AdicionarCarro () {
             toast.success("Carro adicionado com sucesso!")
         } catch (e) {
             toast.error(e.response.data.mensagem);
-            console.log(e.response.data.mensagem);
         }
     }
 

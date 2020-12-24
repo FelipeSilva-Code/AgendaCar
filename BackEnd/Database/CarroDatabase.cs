@@ -47,5 +47,20 @@ namespace BackEnd.Database
             Models.TbCarro carro = ctx.TbCarro.FirstOrDefault(x => x.IdCarro == idCarro);
             return carro;
         }
+
+        public Models.TbCarro AlterarInfoCarro(int? idCarro, Models.TbCarro novaInfoCarro)
+        {
+           Models.TbCarro carro = this.PegarInfoDoCarro(idCarro);
+           carro.DsCor = novaInfoCarro.DsCor;
+           carro.DsMarca = novaInfoCarro.DsMarca;
+           carro.DsModelo = novaInfoCarro.DsModelo;
+           carro.NrAnoFabricacao = novaInfoCarro.NrAnoFabricacao;
+           carro.NrAnoVersao = novaInfoCarro.NrAnoVersao;
+           carro.QtdDisponivel = novaInfoCarro.QtdDisponivel;
+
+           ctx.SaveChanges();
+           
+           return carro;
+        }
     }
 }

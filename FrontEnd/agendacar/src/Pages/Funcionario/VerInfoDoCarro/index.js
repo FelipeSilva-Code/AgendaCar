@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import ContainerTotal from "../../../Components/ContainerTotal"
 import TestDriveApi from "../../../Services/TestDriverApi";
+import {toast, ToastContainer} from "react-toastify"
 
 const api = new TestDriveApi();
 
@@ -17,18 +18,14 @@ export default function VerInfoDoCarro (props) {
     const [anoVersao, setAnoVersao] = useState();
     const [anoFabricacao, setAnoFabricacao] = useState();
     const [cor, setCor] = useState("");
-    const [qtdCarros, setQtdCarros] = useState(1);
+    const [qtdCarros, setQtdCarros] = useState();
 
     const history = useHistory();
-
-    console.log(idCarro);
 
     const pegarInfoCarro = async () => {
         try {
             
             const resp = await api.pegarSomenteUmCarro(idCarro);
-            
-            console.log(resp);
             
             setMarca(resp.marca);
             setModelo(resp.modelo);
@@ -38,7 +35,28 @@ export default function VerInfoDoCarro (props) {
             setQtdCarros(resp.qtdDisponivel);
         
         } catch (e) {
-            
+            toast.error(e.reponse.data.mensagem);
+        }
+    }
+
+    const alterarInfoCarro = async () => {
+        try {
+
+            const request = {
+              Marca: marca,
+              Modelo: modelo,
+              Cor: cor,
+              AnoFabricacao: anoFabricacao,
+              AnoVersao: anoVersao,
+              QtdCarros: qtdCarros,
+            };
+
+            api.alterarInfoCarro(idCarro, request);
+
+            toast.success("Informações alteradas com sucesso!");
+
+        } catch (e) {
+            toast.error(e.reponse.data.mensagem);
         }
     }
 
@@ -55,6 +73,7 @@ export default function VerInfoDoCarro (props) {
 
     return(
         <ContainerTotal>
+            <ToastContainer/>
              <div className="containerAdicionarCarro">
           <h3>Alterar Informações</h3>
 
@@ -95,7 +114,7 @@ export default function VerInfoDoCarro (props) {
 
             <div className="divBtnsAdicionarCarro">
                 <button onClick={voltar} className="btn btn-danger">Voltar</button>
-                <button  className="btn btn-success">Alterar</button>
+                <button onClick={alterarInfoCarro} className="btn btn-success">Alterar</button>
             </div>
 
         </div>

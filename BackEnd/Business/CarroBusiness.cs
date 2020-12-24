@@ -41,5 +41,14 @@ namespace BackEnd.Business
 
             return db.PegarInfoDoCarro(idCarro);   
         }
+
+        public Models.TbCarro AlterarInfoCarro(int? idCarro, Models.TbCarro novoInfoCarro)
+        {
+            if (idCarro == 0 || idCarro == null)
+                throw new ArgumentException("Houve um erro, tente novamente mais tarde.");
+
+            return db.AlterarInfoCarro( idCarro, novoInfoCarro);
+           
+        }
     }
 }

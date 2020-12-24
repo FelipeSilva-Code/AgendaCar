@@ -21,7 +21,7 @@ namespace BackEnd.Controllers
             {
                 business.ValidarInformacoesDoCarroQueSeraAdicionado(carroRequest);
 
-                Models.TbCarro carro = conversor.ParaListTbCarro(carroRequest);
+                Models.TbCarro carro = conversor.ParaTbCarro(carroRequest);
                 
                 business.AdicionarNovoCarro(carro);
                 
@@ -85,6 +85,30 @@ namespace BackEnd.Controllers
                 Models.Response.CarrosResponse carroResponse = conversor.SomenteUmCarroResponse(carro);
 
                 return carroResponse;
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(new Models.Response.ErroResponse(
+                    400, ex.Message
+                ));
+            }
+        }
+
+        [HttpPut("{idCarro}")]
+        public ActionResult<Models.Response.CarrosResponse> AlterarInfoCarro (int? idCarro, Models.Request.NovoCarroRequest carroRequest)
+        {
+            try
+            {
+                
+                business.ValidarInformacoesDoCarroQueSeraAdicionado(carroRequest);
+
+                Models.TbCarro carro = conversor.ParaTbCarro(carroRequest);
+
+                carro = business.AlterarInfoCarro( idCarro ,carro);
+
+                Models.Response.CarrosResponse carrosResponse = conversor.SomenteUmCarroResponse(carro);
+
+                return carrosResponse;
             }
             catch (System.Exception ex)
             {
