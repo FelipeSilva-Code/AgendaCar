@@ -1,7 +1,11 @@
 import React from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import ContainerTotal from "../../../Components/ContainerTotal"
+import TestDriveApi from "../../../Services/TestDriverApi";
+
+const api = new TestDriveApi();
 
 
 export default function VerInfoDoCarro (props) {
@@ -19,12 +23,35 @@ export default function VerInfoDoCarro (props) {
 
     console.log(idCarro);
 
+    const pegarInfoCarro = async () => {
+        try {
+            
+            const resp = await api.pegarSomenteUmCarro(idCarro);
+            
+            console.log(resp);
+            
+            setMarca(resp.marca);
+            setModelo(resp.modelo);
+            setAnoVersao(resp.anoModelo);
+            setAnoFabricacao(resp.anoFabricacao);
+            setCor(resp.cor);
+            setQtdCarros(resp.qtdDisponivel);
+        
+        } catch (e) {
+            
+        }
+    }
+
     const voltar = () => {
         const r = window.confirm("Todas as alterações não salvas serão perdidas");
 
         if(r === true)
             history.goBack();
     }
+
+    useEffect(() => {
+      pegarInfoCarro();
+    }, []);
 
     return(
         <ContainerTotal>

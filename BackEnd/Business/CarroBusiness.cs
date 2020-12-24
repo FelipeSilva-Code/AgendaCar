@@ -28,7 +28,18 @@ namespace BackEnd.Business
 
         public void DeletarCarro(int? idCarro)
         {
+            if (idCarro == 0 || idCarro == null)
+                throw new ArgumentException("Houve um erro, tente novamente mais tarde.");
+
             db.DeletarCarro(idCarro);
-        } 
+        }
+
+        public Models.TbCarro PegarInfoDoCarro(int? idCarro)
+        {
+            if(idCarro == 0 || idCarro == null)
+                throw new ArgumentException("Houve um erro, tente novamente mais tarde.");
+
+            return db.PegarInfoDoCarro(idCarro);   
+        }
     }
 }

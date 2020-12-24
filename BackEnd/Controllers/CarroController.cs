@@ -75,5 +75,24 @@ namespace BackEnd.Controllers
             }
         }
 
+        [HttpGet("pegarCarro/{idCarro}")]
+        public ActionResult<Models.Response.CarrosResponse> PegarInfoDoCarro (int? idCarro)
+        {
+            try
+            {
+                Models.TbCarro carro =  business.PegarInfoDoCarro(idCarro);
+
+                Models.Response.CarrosResponse carroResponse = conversor.SomenteUmCarroResponse(carro);
+
+                return carroResponse;
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(new Models.Response.ErroResponse(
+                    400, ex.Message
+                ));
+            }
+        }
+
     }
 }

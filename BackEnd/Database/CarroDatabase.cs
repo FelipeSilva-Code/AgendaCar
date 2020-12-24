@@ -41,5 +41,11 @@ namespace BackEnd.Database
             ctx.TbCarro.Remove(carro);
             ctx.SaveChanges();
         }
+
+        public Models.TbCarro PegarInfoDoCarro(int? idCarro)
+        {
+            Models.TbCarro carro = ctx.TbCarro.FirstOrDefault(x => x.IdCarro == idCarro);
+            return carro;
+        }
     }
 }

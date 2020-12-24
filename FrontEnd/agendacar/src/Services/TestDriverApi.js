@@ -128,4 +128,9 @@ export default class TestDriverApi {
         const resp = await api.delete("/Carro/" + idCarro);
         return resp.data;
       }
+
+      pegarSomenteUmCarro = async (idCarro) => {
+        const resp = await api.get("/Carro/pegarCarro/" + idCarro);
+        return resp.data;
+      }
 }

@@ -49,6 +49,24 @@ namespace BackEnd.Utils
             }
 
             return carrosResponse.OrderBy(x => x.Marca).ToList();
-        }     
+        }  
+
+        public Models.Response.CarrosResponse SomenteUmCarroResponse (Models.TbCarro carro)   
+        {
+            Models.Response.CarrosResponse carrosResponse = new Models.Response.CarrosResponse();
+
+            carrosResponse.AnoFabricacao = carro.NrAnoFabricacao;
+            carrosResponse.AnoModelo = carro.NrAnoVersao;
+            carrosResponse.Cor = carro.DsCor;
+            carrosResponse.Id = carro.IdCarro;
+            carrosResponse.Marca = carro.DsMarca;
+            carrosResponse.Modelo = carro.DsModelo;
+            carrosResponse.QtdDisponivel = carro.QtdDisponivel;
+            carrosResponse.QtdTotal = carro.QtdTotal;
+            
+            return carrosResponse;
+        }
+    
+    
     }
 }
