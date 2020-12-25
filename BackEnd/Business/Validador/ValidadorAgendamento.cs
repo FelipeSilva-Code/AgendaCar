@@ -42,9 +42,6 @@ namespace BackEnd.Business.Validador
             else if (dataAgendamento.Value.DayOfWeek == DayOfWeek.Saturday || dataAgendamento.Value.DayOfWeek == DayOfWeek.Sunday)
                 throw new ArgumentException("O test drive não pode ser em um final de semana");
 
-            else if (dbValidacoes.ValidarDataAgendamento(dataAgendamento, idCliente))
-                throw new ArgumentException("Você ja tem um test drive marcado nesse horário");
-
             else if (dataAgendamento > DateTime.Now.AddDays(14))
                 throw new ArgumentException("A data do agendamento não pode ser maior do que 2 semanas");   
 
@@ -52,7 +49,10 @@ namespace BackEnd.Business.Validador
                  throw new ArgumentException("Estamos fechados nesse horário"); 
 
             else if (dataAgendamento.Value.Hour >= 12 && dataAgendamento.Value.Hour < 13) 
-                throw new ArgumentException("Horário de almoço dos funcionários");         
+                throw new ArgumentException("Horário de almoço dos funcionários");
+
+            else if (dbValidacoes.ValidarDataAgendamento(dataAgendamento, idCliente))
+                throw new ArgumentException("Você ja tem um test drive marcado nesse horário");     
         }
 
         public void ValidarCarroDoAgendamento (int? idDoCarro)

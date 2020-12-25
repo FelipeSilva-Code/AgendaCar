@@ -11,6 +11,7 @@ namespace BackEnd.Business.Validador
     public class ValidadorInformacoes
     {
         Validador.ValidadorSituacoes validadorSituacoes = new ValidadorSituacoes();
+        Database.ValidacoesDatabase validacoesDatabase = new Database.ValidacoesDatabase(); 
         public void GerenciarValidacoesCadastroCliente (Models.TbLogin login, Models.TbCliente cliente)
         {
             login = validadorSituacoes.TirarEspacosDosCamposLogin(login);
@@ -22,6 +23,7 @@ namespace BackEnd.Business.Validador
             this.ValidarTelefone(cliente.DsTelefone);
             validadorSituacoes.ValidarEmail(login.DsEmail);
             this.ValidarForcaDaSenha(login.DsSenha);
+            this.VerSeEmailJaEstaCadastrado(login.DsEmail);
         }
 
         public void GerenciarValidacoesAlterarDadosUsuario (Models.TbLogin login, Models.TbCliente cliente)
@@ -40,6 +42,12 @@ namespace BackEnd.Business.Validador
         {
             if (senha1 != senha2)
                 throw new ArgumentException("As senhas são diferentes.");
+        }
+
+        public void VerSeEmailJaEstaCadastrado (string email) 
+        {
+            if(validacoesDatabase.VerSeEmailJaEstaCadastrado(email))
+                throw new ArgumentException("Esse email ja está cadastrado.");
         }
 
         public void ValidarCpf (string cpf)

@@ -30,6 +30,13 @@ namespace BackEnd.Database
             return carro.BtDisponivel == false;
         }
 
+        public bool VerSeEmailJaEstaCadastrado (string email)
+        {
+            bool x = ctx.TbLogin.Any(x => x.DsEmail == email);
+
+            return x;
+        }
+
         
 
     }
