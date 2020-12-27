@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
+using BackEnd.Business;
 
 namespace BackEnd.Controllers
 {
@@ -14,7 +17,14 @@ namespace BackEnd.Controllers
         Business.NovoAgendamentoBusiness business = new Business.NovoAgendamentoBusiness();
         Utils.NovoAgendamentoConversor conversor = new Utils.NovoAgendamentoConversor();
         Utils.VerAgendamentosConversor verAgendamentosConversor = new Utils.VerAgendamentosConversor();
-        
+        private readonly ILogger<NovoAgendamentoController> _logger;
+        private readonly IMailer _mailer;
+
+        public NovoAgendamentoController(ILogger<NovoAgendamentoController> logger, IMailer mailer)
+        {
+            _logger = logger;
+            _mailer = mailer;
+        }
         
         [HttpGet("listar/carro")]
         public ActionResult<List<Models.Response.CarrosDisponiveis>> ListarCarrosDisponiveis()
@@ -70,13 +80,19 @@ namespace BackEnd.Controllers
 
 
         [HttpPost("agendar")]
-        public ActionResult<string> AgendarTestDrive(Models.Request.AgendarNovoRequest request)
+        public async Task<ActionResult<Models.Response.SucessoResponse>> AgendarTestDrive(Models.Request.AgendarNovoRequest request)
         {
             try
             {
                 Models.TbAgendamento agendamento = conversor.ParaAgendamentoTabela(request);
-                business.AgendarNovo(agendamento);
-                return "Agendado com sucesso!!!";
+              
+                agendamento = business.AgendarNovo(agendamento);
+              
+                string corpo = $"Olá, {agendamento.IdClienteNavigation.NmCliente}. O seu test drive para o dia {agendamento.DtAgendamento}, com o carro {agendamento.IdCarroNavigation.DsMarca} {agendamento.IdCarroNavigation.DsModelo} - {agendamento.IdCarroNavigation.DsCor} foi agendado. Agora basta esperar que um funcionário aceite.";
+
+                await _mailer.EnviarEmailAsync(agendamento.IdClienteNavigation.IdLoginNavigation.DsEmail, "Novo Agendamento", corpo);
+              
+                return new Models.Response.SucessoResponse(200, "Agendado com sucesso.");
             }
             catch (System.Exception ex)
             {
@@ -89,7 +105,7 @@ namespace BackEnd.Controllers
 
         //Funcionário
         [HttpPut("Aceitar/{idFuncionario}/{idAgendamento}")]
-        public ActionResult<Models.Response.AgendadosResponse> AceitarAgendamento(int idFuncionario, int idAgendamento)
+        public async Task<ActionResult<Models.Response.AgendadosResponse>> AceitarAgendamento(int idFuncionario, int idAgendamento)
         {
             try
             {
@@ -97,6 +113,12 @@ namespace BackEnd.Controllers
 
                 Models.Response.AgendadosResponse response = verAgendamentosConversor.ParaResponseAgendados(agendamento);
 
+                string corpo = $"Olá. Um funcionário aceitou o seu agendamento para {response.Data.Value.Day}/{response.Data.Value.Month} ás {response.Data.Value.Hour}:{response.Data.Value.Minute}. Você pode ver mais detalhadamente em nosso site. Estamos te esperando.";
+               
+                string email = business.PegarEmailUsuario(agendamento.IdCliente);
+                
+                await _mailer.EnviarEmailAsync(email, "Test Drive Confirmado", corpo);
+                
                 return response;
             }
             catch (System.Exception ex)
@@ -108,4 +130,4 @@ namespace BackEnd.Controllers
 
         }
     }
-}
+}  

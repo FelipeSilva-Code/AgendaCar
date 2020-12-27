@@ -30,11 +30,20 @@ namespace BackEnd.Database
             Models.TbCarro carro = listaDeDisponiveis.FirstOrDefault(x => x.DsModelo == modelo);
             return carro;
         }
-        public void AgendarNovo(Models.TbAgendamento request)
+        public Models.TbAgendamento AgendarNovo(Models.TbAgendamento request)
         {
             ctx.TbAgendamento.Add(request);
             ctx.SaveChanges();
 
+            return this.PegarAgendamento(request.IdAgendamento);
+
+        }
+
+        public Models.TbAgendamento PegarAgendamento (int idAgendamento)
+        {
+            return ctx.TbAgendamento.Include(x => x.IdCarroNavigation).Include(x => x.IdClienteNavigation)
+                                    .Include(x => x.IdFuncionarioNavigation)
+                                    .FirstOrDefault(x => x.IdAgendamento == idAgendamento);
         }
 
         public void MarcarCarroComoIndisponivel(int? idCarro)
@@ -64,6 +73,16 @@ namespace BackEnd.Database
             ctx.SaveChanges();
 
             return agendamento;
+        }
+
+        public string PegarEmailUsuario (int? idCliente)
+        {
+            Models.TbCliente cliente = ctx.TbCliente.Include(x => x.IdLoginNavigation)
+                                                .FirstOrDefault(x => x.IdCliente == idCliente);
+
+            string email = cliente.IdLoginNavigation.DsEmail;
+
+            return email;
         }
     }
 }

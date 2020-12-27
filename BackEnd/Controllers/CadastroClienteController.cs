@@ -1,10 +1,12 @@
 using System;
-using System.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
+using BackEnd.Business;
 
 namespace BackEnd.Controllers
 {
@@ -19,8 +21,17 @@ namespace BackEnd.Controllers
         Utils.CadastroClienteConversor cadastroConversor = new Utils.CadastroClienteConversor();
         Utils.LoginConversor loginConversor = new Utils.LoginConversor();
 
+        private readonly ILogger<CadastroClienteController> _logger;
+        private readonly IMailer _mailer;
+
+        public CadastroClienteController(ILogger<CadastroClienteController> logger, IMailer mailer)
+        {
+            _logger = logger;
+            _mailer = mailer;
+        }
+
         [HttpPost]
-        public ActionResult<Models.Response.LoginResponse> CadastrarCliente([FromForm] Models.Request.CadastroUsuario cadastroCliente)
+        public async Task<ActionResult<Models.Response.LoginResponse>> CadastrarCliente([FromForm] Models.Request.CadastroUsuario cadastroCliente)
         {
             try
             {
@@ -41,7 +52,11 @@ namespace BackEnd.Controllers
                     gerenciadorFoto.SalvarFoto(cliente.DsFoto, cadastroCliente.ImagemUsuario);
 
                 Models.Response.LoginResponse loginResponse = loginConversor.ParaLoginResponse(login);
-               
+
+                string corpo = $"Olá {cliente.NmCliente}. Nós da AgendaCar ficamos muito felizes por você se juntar a nós. Que tal agendar seu primeiro Test Drive?";
+
+                await _mailer.EnviarEmailAsync(login.DsEmail, "Cadastro no AgendaCar", corpo);
+                
                 return loginResponse;
             }
             catch (System.Exception ex)

@@ -26,13 +26,15 @@ namespace BackEnd.Business
         {
             return db.PegarCarroPeloModelo(modelo);
         }
-        public void AgendarNovo(Models.TbAgendamento agendamento)
+        public Models.TbAgendamento AgendarNovo(Models.TbAgendamento agendamento)
         {
             validadorAgendamentos.ValidarAgendamento(agendamento);
 
-            db.AgendarNovo(agendamento);
+            agendamento = db.AgendarNovo(agendamento);
 
             this.MarcarCarroComoIndisponivel(agendamento.IdCarro);
+
+            return agendamento;
         }
 
         public void MarcarCarroComoIndisponivel(int? idCarro)
@@ -46,6 +48,11 @@ namespace BackEnd.Business
             validadorSituacoes.ValidarId(idFuncionario);
             validadorSituacoes.ValidarId(idAgendamento);
             return db.AceitarAgendamento(idFuncionario, idAgendamento);
+        }
+
+        public string PegarEmailUsuario (int? idCliente)
+        {
+            return db.PegarEmailUsuario(idCliente);
         }
 
         

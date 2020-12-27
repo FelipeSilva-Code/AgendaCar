@@ -37,7 +37,7 @@ namespace BackEnd.Database
         {
             Models.TbAgendamento agendamento = ctx.TbAgendamento.Include(x => x.IdCarroNavigation).FirstOrDefault(x => x.IdAgendamento == idAgendamento);
 
-            agendamento.IdCarroNavigation.BtDisponivel = true;
+            agendamento.IdCarroNavigation.QtdDisponivel ++;
 
             ctx.SaveChanges();
         }

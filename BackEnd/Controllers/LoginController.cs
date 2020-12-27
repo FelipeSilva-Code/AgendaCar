@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
+using BackEnd.Business;
 
 namespace BackEnd.Controllers
 {
@@ -15,7 +18,8 @@ namespace BackEnd.Controllers
         Business.LoginBusiness business = new Business.LoginBusiness();
         Business.GerenciadorFotoBusiness gerenciadorFoto = new Business.GerenciadorFotoBusiness();
         Utils.LoginConversor loginConversor = new Utils.LoginConversor();
-        
+
+
         [HttpPost]
         public ActionResult<Models.Response.LoginResponse> Logar(Models.Request.LoginRequest loginRequest)
         {
@@ -35,6 +39,7 @@ namespace BackEnd.Controllers
                 ));
             }
         }
+
 
         [HttpGet("PegarFoto/{nome}")]
         public ActionResult BuscarFoto(string nome)

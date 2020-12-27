@@ -35,12 +35,14 @@ namespace BackEnd.Controllers
         }
 
         [HttpPut("MudarSituacao/{idAgendamento}")]
-        public ActionResult<string> MudarSituacao(int idAgendamento, Models.Request.MudarSituacao situacao)
+        public ActionResult<Models.Response.SucessoResponse> MudarSituacao(int idAgendamento, Models.Request.MudarSituacao situacao)
         {
             try
             {
                 business.MudarSituacao(idAgendamento, situacao);
-                return ("Situação alterada com sucesso!");
+                return new Models.Response.SucessoResponse(
+                    200, "Situação alterada com sucesso!"
+                );
 
             }
             catch (System.Exception ex)
