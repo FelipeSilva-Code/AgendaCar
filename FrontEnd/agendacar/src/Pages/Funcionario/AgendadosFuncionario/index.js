@@ -42,8 +42,6 @@ export default function AgendadosFuncionario(props) {
     try {
       const resp = await api.agendadosDoFuncionario(idUsuario);
 
-      console.log(resp);
-
       loadingBar.current.continuousStart();
 
       setAgendados(resp);
@@ -56,26 +54,34 @@ export default function AgendadosFuncionario(props) {
       loadingBar.current.complete();
     } catch (e) {
       toast.error(e.response.data.messagem);
-      console.log(e.response.data.messagem);
+      console.log(e.response)
     }
   };
 
   const mudarSituacaoClick = async (idAgendamento) => {
 
-    console.log(situacao);
-
       try {
 
-            const resp = await api.mudarSituacao(
-            idAgendamento,
-            {
-              Situacao: situacao,
-            });
+            await api.mudarSituacao(idAgendamento, "Cancelado");
 
             agendadosClick()
 
       } catch (e) {
-          console.log(e.response.data);
+          toast.error(e.response.data.mensagem);
+      }
+  }
+
+  const cancelarClick = async (idAgendamento) => {
+      try {
+
+        await api.mudarSituacao(idAgendamento, "Cancelado");
+
+        agendadosClick();
+
+      } catch (e) {
+        
+        toast.error(e.response.data.mensagem);
+
       }
   }
 
@@ -143,8 +149,9 @@ export default function AgendadosFuncionario(props) {
                               onChange={(e) => setSituacao(e.target.value)}
                               className="form-control selectFuncionario"
                             >
-                              <option>Concluido</option>
+                              <option>Concluído</option>
                               <option>Não Compareceu</option>
+                              <option>Cancelado</option>
                             </select>
                           </div>
                           <button
@@ -178,8 +185,17 @@ export default function AgendadosFuncionario(props) {
                       }
                       Conteudo={
                         <div>
-                          <div>Funcionário: {x.funcionario}</div>
-                          <div>Situação: {x.situacao}</div>
+                          <div>
+                            <div>Funcionário: {x.funcionario}</div>
+                            <div>Situação: {x.situacao}</div>
+                          </div>
+                          <button
+                            onClick={() => cancelarClick(x.idAgendamento)}
+                            type="button"
+                            className="btn btn-outline-danger"
+                          >
+                            Cancelar Test Drive
+                          </button>
                         </div>
                       }
                     ></AccordionTeste>
@@ -204,8 +220,17 @@ export default function AgendadosFuncionario(props) {
                       }
                       Conteudo={
                         <div>
-                          <div>Funcionário: {x.funcionario}</div>
-                          <div>Situação: {x.situacao}</div>
+                          <div>
+                            <div>Funcionário: {x.funcionario}</div>
+                            <div>Situação: {x.situacao}</div>
+                          </div>
+                          <button
+                            onClick={() =>cancelarClick(x.idAgendamento)}
+                            type="button"
+                            className="btn btn-outline-danger"
+                          >
+                            Cancelar Test Drive
+                          </button>
                         </div>
                       }
                     ></AccordionTeste>

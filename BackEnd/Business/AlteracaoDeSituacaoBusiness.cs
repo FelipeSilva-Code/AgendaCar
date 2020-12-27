@@ -15,7 +15,7 @@ namespace BackEnd.Business
             return db.VerEsperandoAceitacao();
         }
 
-        public void MudarSituacao(int idAgendamento, Models.Request.MudarSituacao situacao)
+        public void MudarSituacao(int idAgendamento, string situacao)
         {
             db.MudarSituacao(idAgendamento, situacao);
         }

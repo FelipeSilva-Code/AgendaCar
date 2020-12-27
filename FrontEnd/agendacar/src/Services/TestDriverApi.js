@@ -76,7 +76,8 @@ export default class TestDriverApi {
       };
 
       mudarSituacao = async (idAgendamento, situacaoRequest) => {
-        const resp = await api.put(`/AlteracaoDeSituacao/MudarSituacao/${idAgendamento}`, situacaoRequest);
+        console.log(situacaoRequest);
+        const resp = await api.put(`/AlteracaoDeSituacao/MudarSituacao/${idAgendamento}?situacao=${situacaoRequest}`);
         return resp.data;
       };
 

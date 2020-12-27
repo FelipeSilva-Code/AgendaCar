@@ -22,11 +22,11 @@ namespace BackEnd.Database
             return agendamentos;
         }
 
-        public void MudarSituacao(int idAgendamento, Models.Request.MudarSituacao situacao)
+        public void MudarSituacao(int idAgendamento, string situacao)
         {
             Models.TbAgendamento agendamento = ctx.TbAgendamento.FirstOrDefault(x => x.IdAgendamento == idAgendamento);
 
-            agendamento.DsSituacao = situacao.Situacao;
+            agendamento.DsSituacao =situacao;
 
             ctx.SaveChanges();
 

@@ -35,7 +35,7 @@ namespace BackEnd.Controllers
         }
 
         [HttpPut("MudarSituacao/{idAgendamento}")]
-        public ActionResult<Models.Response.SucessoResponse> MudarSituacao(int idAgendamento, Models.Request.MudarSituacao situacao)
+        public ActionResult<Models.Response.SucessoResponse> MudarSituacao(int idAgendamento, string situacao)
         {
             try
             {
