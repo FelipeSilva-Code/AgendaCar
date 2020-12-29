@@ -76,9 +76,10 @@ return (
         </button>
       </div>
 
-      <Link className="linkCadastrar" to="/cadastrar">
-        Ainda não tem uma conta? Cadastre-se.
+      <Link className="linkCadastrar" to="/ProcurarConta">
+        Esqueceu a Senha?
       </Link>
+
     </div>
     <ToastContainer/>
   </ContainerTotal>

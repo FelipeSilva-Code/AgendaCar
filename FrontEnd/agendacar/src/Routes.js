@@ -14,6 +14,10 @@ import AlterarSenha from './Pages/Cliente/AlterarSenha';
 import AdicionarCarro from './Pages/Funcionario/AdicionarCarro';
 import ListarCarros from './Pages/Funcionario/ListarCarros';
 import VerInfoDoCarro from './Pages/Funcionario/VerInfoDoCarro';
+import ProcuararConta from './Pages/Geral/EsqueceuSenha/ProcurarConta';
+import EnviarCodigo from './Pages/Geral/EsqueceuSenha/EnviarCodigo';
+import InserirCodigo from './Pages/Geral/EsqueceuSenha/InserirCodigo';
+import NovaSenha from './Pages/Geral/EsqueceuSenha/NovaSenha';
 
 export default function Routes() {
     return(
@@ -21,6 +25,10 @@ export default function Routes() {
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/Login" exact component={Login} />
+            <Route path="/ProcurarConta" exact component={ProcuararConta} />
+            <Route path="/EnviarCodigo" exact component={EnviarCodigo} />
+            <Route path="/InserirCodigo" exact component={InserirCodigo} />
+            <Route path="/NovaSenha" exact component={NovaSenha} />
             <Route path="/Cadastrar" exact component={Cadastrar} />
             <Route path="/Cliente/Agendados" exact component={AgendadosAtribuidosCliente} />
             <Route path="/Cliente/Agendar" exact component={AgendarNovoCliente} />

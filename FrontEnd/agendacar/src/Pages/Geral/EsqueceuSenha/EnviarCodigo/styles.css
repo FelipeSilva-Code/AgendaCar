@@ -1,0 +1,50 @@
+.containerEnviarCodigo{
+    height: 44vh;
+    width: 50%;
+    display: flex;
+    background-color: var(--blue);
+    flex-direction: column;
+    border-radius: 5px;
+    padding-right: 20px;
+    padding-top: 20px;
+    padding-left: 20px;
+    margin-top: 4%;
+    justify-content: space-between;
+}
+
+.divRedefinaSenhaEnviarCodigo{
+    height: 17%;
+    border-bottom: 1px solid rgba(94, 91, 91, 0.5);
+    display: flex;
+}
+
+.divDadosDaPessoaEnviarCodigo{
+    display: flex;
+    height: 35%;
+}
+
+.ladoDireitoEnviarCodigo{
+    width: 70%;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid rgba(94, 91, 91, 0.5);
+    padding-left: 50px;
+}
+
+.ladoEsquerdoEnviarCodigo{
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.divBtnsEnviarCodigo{
+    height: 25%;
+    display: flex;
+    align-items: center;
+}
+
+.divBtnsEnviarCodigo > button {
+    margin-right: 20px;
+}

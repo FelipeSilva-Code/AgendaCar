@@ -62,7 +62,7 @@ export default function AgendadosFuncionario(props) {
 
       try {
 
-            await api.mudarSituacao(idAgendamento, "Cancelado");
+            await api.mudarSituacao(idAgendamento, situacao);
 
             agendadosClick()
 

@@ -32,7 +32,7 @@ namespace BackEnd.Business
             {
                 var message = new MimeMessage();
                 message.From.Add(new MailboxAddress(_smptSettings.SenderName, _smptSettings.SenderEmail));
-                message.To.Add(new MailboxAddress(email));
+                message.To.Add(MailboxAddress.Parse(email));
                 message.Subject = subjetc;
                 message.Body = new TextPart("html")
                 {
