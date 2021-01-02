@@ -58,6 +58,9 @@ namespace BackEnd.Database
            carro.NrAnoVersao = novaInfoCarro.NrAnoVersao;
            carro.QtdDisponivel = novaInfoCarro.QtdDisponivel;
 
+           if(novaInfoCarro.QtdDisponivel >= 1)
+                carro.BtDisponivel = true;
+
            ctx.SaveChanges();
            
            return carro;

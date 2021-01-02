@@ -26,15 +26,15 @@ namespace BackEnd.Business
         {
             return db.PegarCarroPeloModelo(modelo);
         }
-        public Models.TbAgendamento AgendarNovo(Models.TbAgendamento agendamento)
+        public string AgendarNovo(Models.TbAgendamento agendamento)
         {
             validadorAgendamentos.ValidarAgendamento(agendamento);
 
-            agendamento = db.AgendarNovo(agendamento);
+            string email = db.AgendarNovo(agendamento);
 
             this.MarcarCarroComoIndisponivel(agendamento.IdCarro);
 
-            return agendamento;
+            return email;
         }
 
         public void MarcarCarroComoIndisponivel(int? idCarro)

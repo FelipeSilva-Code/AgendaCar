@@ -139,4 +139,20 @@ export default class TestDriverApi {
         const resp = await api.put("/Carro/" + idCarro, request );
         return resp.data;
       }
+
+
+      procurarConta = async (email) => {
+        const resp = await api.get("/EsqueceuSenha?email=" + email);
+        return resp.data;
+      }
+
+      gerarCodigo = async (email) => {
+        const resp = await api.post("/EsqueceuSenha?email=" + email);
+        return resp.data;
+      }
+
+      mudarSenhaPorqueEsqueceu = async (request, idLogin) => {
+        const resp = await api.put("/EsqueceuSenha/" + idLogin, request);
+        return resp.data;
+      }
 }

@@ -86,11 +86,11 @@ namespace BackEnd.Controllers
             {
                 Models.TbAgendamento agendamento = conversor.ParaAgendamentoTabela(request);
               
-                agendamento = business.AgendarNovo(agendamento);
+                string email = business.AgendarNovo(agendamento);
               
                 string corpo = $"Olá, {agendamento.IdClienteNavigation.NmCliente}. O seu test drive para o dia {agendamento.DtAgendamento}, com o carro {agendamento.IdCarroNavigation.DsMarca} {agendamento.IdCarroNavigation.DsModelo} - {agendamento.IdCarroNavigation.DsCor} foi agendado. Agora basta esperar que um funcionário aceite.";
 
-                await _mailer.EnviarEmailAsync(agendamento.IdClienteNavigation.IdLoginNavigation.DsEmail, "Novo Agendamento", corpo);
+                await _mailer.EnviarEmailAsync(email, "Novo Agendamento", corpo);
               
                 return new Models.Response.SucessoResponse(200, "Agendado com sucesso.");
             }

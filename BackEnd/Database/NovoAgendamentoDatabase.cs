@@ -30,20 +30,20 @@ namespace BackEnd.Database
             Models.TbCarro carro = listaDeDisponiveis.FirstOrDefault(x => x.DsModelo == modelo);
             return carro;
         }
-        public Models.TbAgendamento AgendarNovo(Models.TbAgendamento request)
+        public string AgendarNovo(Models.TbAgendamento request)
         {
             ctx.TbAgendamento.Add(request);
             ctx.SaveChanges();
 
-            return this.PegarAgendamento(request.IdAgendamento);
+            return this.PegarEmail(request.IdCliente);
 
         }
 
-        public Models.TbAgendamento PegarAgendamento (int idAgendamento)
+        public string PegarEmail (int? idCliente)
         {
-            return ctx.TbAgendamento.Include(x => x.IdCarroNavigation).Include(x => x.IdClienteNavigation)
-                                    .Include(x => x.IdFuncionarioNavigation)
-                                    .FirstOrDefault(x => x.IdAgendamento == idAgendamento);
+            Models.TbCliente cliente = ctx.TbCliente.Include(x => x.IdLoginNavigation).FirstOrDefault(x => x.IdCliente == idCliente);
+            return cliente.IdLoginNavigation.DsEmail;
+
         }
 
         public void MarcarCarroComoIndisponivel(int? idCarro)
