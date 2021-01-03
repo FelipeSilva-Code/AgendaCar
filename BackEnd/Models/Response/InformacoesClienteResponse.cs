@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BackEnd.Models.Response
 {
-    public class InformacoesResponse
+    public class InformacoesClienteResponse
     {
         public string Nome { get; set; }
         public DateTime? DataNascimento { get; set; }

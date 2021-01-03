@@ -19,14 +19,14 @@ namespace BackEnd.Controllers
 
 
         [HttpGet("{idUsuario}")]
-        public ActionResult<Models.Response.InformacoesResponse> PegarInformacoesUsuario (int idUsuario)
+        public ActionResult<Models.Response.InformacoesClienteResponse> PegarInformacoesUsuario (int idUsuario)
         {
     
             try
             {
                 Models.TbCliente cliente = business.PegarInformacoesUsuario(idUsuario);
 
-                Models.Response.InformacoesResponse informacoesResponse = conversorInfoUsuario.ParaInformacoesResponse(cliente);
+                Models.Response.InformacoesClienteResponse informacoesResponse = conversorInfoUsuario.ParaInformacoesResponse(cliente);
 
                 return informacoesResponse;         
             }

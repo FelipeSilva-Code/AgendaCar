@@ -155,4 +155,14 @@ export default class TestDriverApi {
         const resp = await api.put("/EsqueceuSenha/" + idLogin, request);
         return resp.data;
       }
+
+      pegarInfoCliente = async (nome) => {
+        const resp = await api.get("/ProcuraPorUsuario/cliente?nome=" + nome);
+        return resp.data;
+      }
+
+      pegarInfoFuncionario = async (nome) => {
+        const resp = await api.get("/ProcuraPorUsuario/funcionario?nome=" + nome);
+        return resp.data;
+      }
 }

@@ -22,7 +22,6 @@ namespace BackEnd.Utils
             carro.NrAnoFabricacao = request.AnoFabricacao;
             carro.NrAnoVersao = request.AnoVersao;
             carro.QtdDisponivel = request.QtdCarros;
-            carro.QtdTotal = request.QtdCarros;
 
             return carro;
         }    
@@ -42,7 +41,6 @@ namespace BackEnd.Utils
                 carrosForeach.Id = item.IdCarro;
                 carrosForeach.Modelo = item.DsModelo;
                 carrosForeach.QtdDisponivel = item.QtdDisponivel;
-                carrosForeach.QtdTotal = item.QtdTotal;
                 
                 carrosResponse.Add(carrosForeach);
                 
@@ -62,7 +60,6 @@ namespace BackEnd.Utils
             carrosResponse.Marca = carro.DsMarca;
             carrosResponse.Modelo = carro.DsModelo;
             carrosResponse.QtdDisponivel = carro.QtdDisponivel;
-            carrosResponse.QtdTotal = carro.QtdTotal;
             
             return carrosResponse;
         }

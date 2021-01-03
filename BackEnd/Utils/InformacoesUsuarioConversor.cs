@@ -9,9 +9,9 @@ namespace BackEnd.Utils
 {
     public class InformacoesUsuarioConversor
     {
-        public Models.Response.InformacoesResponse ParaInformacoesResponse (Models.TbCliente cliente)
+        public Models.Response.InformacoesClienteResponse ParaInformacoesResponse (Models.TbCliente cliente)
         {
-            Models.Response.InformacoesResponse informacoesResponse = new Models.Response.InformacoesResponse();
+            Models.Response.InformacoesClienteResponse informacoesResponse = new Models.Response.InformacoesClienteResponse();
 
             informacoesResponse.CNH = cliente.DsCnh;
             informacoesResponse.CPF = cliente.DsCpf;

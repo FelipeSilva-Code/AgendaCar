@@ -18,6 +18,7 @@ import ProcuararConta from './Pages/Geral/EsqueceuSenha/ProcurarConta';
 import EnviarCodigo from './Pages/Geral/EsqueceuSenha/EnviarCodigo';
 import InserirCodigo from './Pages/Geral/EsqueceuSenha/InserirCodigo';
 import NovaSenha from './Pages/Geral/EsqueceuSenha/NovaSenha';
+import ProcurarUsuario from './Pages/Funcionario/ProcurarUsuuario';
 
 export default function Routes() {
     return(
@@ -40,6 +41,7 @@ export default function Routes() {
             <Route path="/Funcionario/ListarCarros" exact component={ListarCarros} />
             <Route path="/Funcionario/VerInfoCarro" exact component={VerInfoDoCarro} />
             <Route path="/Funcionario/AdicionarCarro" exact component={AdicionarCarro} />
+            <Route path="/Funcionario/ProcurarUsuario" exact component={ProcurarUsuario} />
             <Route path="/InformacoesUsuario" exact component={InformacoesUsuario} />
           </Switch>
         </BrowserRouter>
