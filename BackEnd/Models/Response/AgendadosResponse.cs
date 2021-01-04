@@ -12,6 +12,7 @@ namespace BackEnd.Models.Response
     {
         public int idCliente {get; set;}
         public int idAgendamento {get; set;}
+        public string Cliente {get; set;}
         public string Marca {get; set;}
         public string Modelo {get; set;}
         public string Funcionario {get; set;}

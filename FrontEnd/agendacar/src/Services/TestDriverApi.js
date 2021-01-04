@@ -165,4 +165,9 @@ export default class TestDriverApi {
         const resp = await api.get("/ProcuraPorUsuario/funcionario?nome=" + nome);
         return resp.data;
       }
+
+      pegarTodosOsAgendamentos = async () => {
+        const resp = await api.get("VerAgendamentos/pegarTodosAgendamentos");
+        return resp.data;
+      }
 }

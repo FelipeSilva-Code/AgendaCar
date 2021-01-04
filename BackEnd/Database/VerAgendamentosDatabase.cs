@@ -35,6 +35,16 @@ namespace BackEnd.Database
 
         }
 
+        public List<Models.TbAgendamento> PegarTodosAgendamentos()
+        {
+            List<Models.TbAgendamento> agendamentos = ctx.TbAgendamento.Include(x => x.IdClienteNavigation)
+                                                                        .Include(x => x.IdCarroNavigation)
+                                                                        .Include(x => x.IdFuncionarioNavigation)
+                                                                        .ToList();
+
+            return agendamentos;                                                           
+        }
+
         
         //Altera a situação dos agendamentos ao logar no sistema
         public List<Models.TbAgendamento> AlterarSituacaoSeNinguemAceitar(List<Models.TbAgendamento> agendamentos)

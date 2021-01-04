@@ -19,6 +19,7 @@ import EnviarCodigo from './Pages/Geral/EsqueceuSenha/EnviarCodigo';
 import InserirCodigo from './Pages/Geral/EsqueceuSenha/InserirCodigo';
 import NovaSenha from './Pages/Geral/EsqueceuSenha/NovaSenha';
 import ProcurarUsuario from './Pages/Funcionario/ProcurarUsuuario';
+import VerTodosOsAgendamentos from './Pages/Funcionario/VerTodosAgendamentos';
 
 export default function Routes() {
     return(
@@ -42,6 +43,7 @@ export default function Routes() {
             <Route path="/Funcionario/VerInfoCarro" exact component={VerInfoDoCarro} />
             <Route path="/Funcionario/AdicionarCarro" exact component={AdicionarCarro} />
             <Route path="/Funcionario/ProcurarUsuario" exact component={ProcurarUsuario} />
+            <Route path="/Funcionario/VerTodosAgendamentos" exact component={VerTodosOsAgendamentos} />
             <Route path="/InformacoesUsuario" exact component={InformacoesUsuario} />
           </Switch>
         </BrowserRouter>

@@ -18,6 +18,7 @@ namespace BackEnd.Utils
             resp.Marca = agendamento.IdCarroNavigation.DsMarca;
             resp.Modelo = agendamento.IdCarroNavigation.DsModelo;
             resp.Data = agendamento.DtAgendamento;
+            resp.Cliente = agendamento.IdClienteNavigation.NmCliente;
 
             if (agendamento.IdFuncionarioNavigation == null)
                 resp.Funcionario = string.Empty;

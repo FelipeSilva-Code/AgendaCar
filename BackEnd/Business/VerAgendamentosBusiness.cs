@@ -24,5 +24,10 @@ namespace BackEnd.Business
             validarSituacoes.ValidarId(idFuncionario);
             return db.RetornarAgendadosFuncionario(idFuncionario);
         }
+
+        public List<Models.TbAgendamento> PegarTodosAgendamentos()
+        {
+            return db.PegarTodosAgendamentos();
+        }
     }
 }

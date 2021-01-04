@@ -64,5 +64,25 @@ namespace BackEnd.Controllers
                 ));
             }
         }
+
+        [HttpGet("pegarTodosAgendamentos")]
+        public ActionResult<Models.Response.AgendadosResponseCompleto> PegarTodosAgendamentos ()
+        {
+            try
+            {
+                List<Models.TbAgendamento> agendamentos = business.PegarTodosAgendamentos();
+
+                if(agendamentos.Count == 0)
+                    return NotFound("Nenhum agendamento encontrado");
+
+                Models.Response.AgendadosResponseCompleto response = conversor.SepararPorTipo(agendamentos);    
+
+                return response;
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(new Models.Response.ErroResponse(400, ex.Message));
+            }
+        }
     }
 }
