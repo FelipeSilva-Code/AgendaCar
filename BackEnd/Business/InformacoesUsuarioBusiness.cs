@@ -11,12 +11,12 @@ namespace BackEnd.Business
     {
         Database.InformacoesUsuarioDatabase db = new Database.InformacoesUsuarioDatabase();
         Validador.ValidadorInformacoes validadorInformacoes = new Validador.ValidadorInformacoes();
-        public Models.TbCliente PegarInformacoesUsuario(int? idUsuario)
+        public Models.TbCliente PegarInformacoesCliente(int? idCliente)
         {
-            if(idUsuario == 0 || idUsuario == null)
+            if(idCliente == 0 || idCliente == null)
                 throw new ArgumentException("Ocorreu um erro. Tente novamente mais tarde.");
 
-            return db.PegarInformacoesUsuario(idUsuario);
+            return db.PegarInformacoesCliente(idCliente);
 
         }
 
@@ -24,20 +24,33 @@ namespace BackEnd.Business
         {
             validadorInformacoes.GerenciarValidacoesAlterarDadosUsuario(login, cliente);
 
-            db.AlterarInformacoes(login, cliente);
+            db.AlterarInformacoesCliente(login, cliente);
         }
 
-        public void VerSeASenhaAtualEstaCerta(string senhaPassada, int idUsuario)
+        public void VerSeASenhaAtualEstaCertaCliente(string senhaPassada, int idUsuario)
         {
-            if(!db.VerSeASenhaAtualEstaCerta(senhaPassada, idUsuario))
+            if(!db.VerSeASenhaAtualEstaCertaCliente(senhaPassada, idUsuario))
                 throw new ArgumentException("A senha atual está incorreta.");
         }
 
-        public void AlterarSenha (string novaSenha, int idUsario)
+        public void AlterarSenhaCliente (string novaSenha, int idUsario)
         {
             validadorInformacoes.ValidarForcaDaSenha(novaSenha);
 
-            db.AlterarSenha(novaSenha, idUsario);
+            db.AlterarSenhaCliente(novaSenha, idUsario);
         }
+
+
+
+        // Funcionario
+        public Models.TbFuncionario PegarInformacoesFuncionario(int? idFuncionario)
+        {
+            if (idFuncionario == 0 || idFuncionario == null)
+                throw new ArgumentException("Ocorreu um erro. Tente novamente mais tarde.");
+
+            return db.PegarInformacoesFuncionario(idFuncionario);
+
+        }        
+
     }
 }

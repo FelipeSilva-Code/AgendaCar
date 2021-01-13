@@ -49,5 +49,25 @@ namespace BackEnd.Utils
             
             return cliente;
         }
+
+
+        // Funcionário
+        public Models.Response.InformacoesFuncionarioResponse ParaInformacoesResponse(Models.TbFuncionario funcionario)
+        {
+            Models.Response.InformacoesFuncionarioResponse informacoesResponse = new Models.Response.InformacoesFuncionarioResponse();
+
+            informacoesResponse.CarteiraTrabalho = funcionario.DsCarteiraTrabalho;
+            informacoesResponse.CPF = funcionario.DsCpf;
+            informacoesResponse.DataNascimento = funcionario.DtNascimento;
+            informacoesResponse.Email = funcionario.IdLoginNavigation.DsEmail;
+            informacoesResponse.ImagemUsuario = funcionario.DsFoto;
+            informacoesResponse.Nome = funcionario.NmFuncionario;
+            informacoesResponse.Senha = funcionario.IdLoginNavigation.DsSenha;
+            informacoesResponse.Telefone = funcionario.DsTelefone;
+            informacoesResponse.IdUsuario = funcionario.IdLogin;
+
+            return informacoesResponse;
+        }
+
     }
 }

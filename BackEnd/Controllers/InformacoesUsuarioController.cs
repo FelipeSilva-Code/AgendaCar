@@ -17,14 +17,14 @@ namespace BackEnd.Controllers
         Utils.InformacoesUsuarioConversor conversorInfoUsuario = new Utils.InformacoesUsuarioConversor();
         
 
-
-        [HttpGet("{idUsuario}")]
-        public ActionResult<Models.Response.InformacoesClienteResponse> PegarInformacoesUsuario (int idUsuario)
+        //  Somentes Infos do Cliente
+        [HttpGet("{idCliente}")]
+        public ActionResult<Models.Response.InformacoesClienteResponse> PegarInformacoesCliente (int idCliente)
         {
     
             try
             {
-                Models.TbCliente cliente = business.PegarInformacoesUsuario(idUsuario);
+                Models.TbCliente cliente = business.PegarInformacoesCliente(idCliente);
 
                 Models.Response.InformacoesClienteResponse informacoesResponse = conversorInfoUsuario.ParaInformacoesResponse(cliente);
 
@@ -71,13 +71,13 @@ namespace BackEnd.Controllers
             try
             {
                 string senhaPassada = request.SenhaAtual;
-                business.VerSeASenhaAtualEstaCerta(senhaPassada, idUsuario);
+                business.VerSeASenhaAtualEstaCertaCliente(senhaPassada, idUsuario);
 
                 validador.VerSeSenhasSaoIguais(request.NovaSenha1, request.NovaSenha2);
 
                 string novaSenha = request.NovaSenha1;
 
-                business.AlterarSenha(novaSenha, idUsuario);
+                business.AlterarSenhaCliente(novaSenha, idUsuario);
 
                 return new Models.Response.SucessoResponse(200, "Senha alterada.");
             }
@@ -88,5 +88,28 @@ namespace BackEnd.Controllers
                 ));
             }
         }
+
+
+        // Somente Infos Funcionário
+        [HttpGet("infoFuncionario/{idFuncionario}")]
+        public ActionResult<Models.Response.InformacoesFuncionarioResponse> PegarInformacoesFuncionario(int idFuncionario)
+        {
+
+            try
+            {
+                Models.TbFuncionario funcionario = business.PegarInformacoesFuncionario(idFuncionario);
+
+                Models.Response.InformacoesFuncionarioResponse informacoesResponse = conversorInfoUsuario.ParaInformacoesResponse(funcionario);
+
+                return informacoesResponse;
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(new Models.Response.ErroResponse(
+                    400, ex.Message
+                ));
+            }
+        }
+
     }
 }
