@@ -20,9 +20,9 @@ namespace BackEnd.Business
 
         }
 
-        public void AlterarInformacoesUsuario (Models.TbLogin login, Models.TbCliente cliente)
+        public void AlterarInformacoesCliente (Models.TbLogin login, Models.TbCliente cliente)
         {
-            validadorInformacoes.GerenciarValidacoesAlterarDadosUsuario(login, cliente);
+            validadorInformacoes.GerenciarValidacoesAlterarDadosCliente(login, cliente);
 
             db.AlterarInformacoesCliente(login, cliente);
         }
@@ -50,7 +50,26 @@ namespace BackEnd.Business
 
             return db.PegarInformacoesFuncionario(idFuncionario);
 
-        }        
+        }
+        public void AlterarInformacoesFuncionario(Models.TbLogin login, Models.TbFuncionario funcionario)
+        {
+            validadorInformacoes.GerenciarValidacoesAlterarDadosFuncionario(login, funcionario);
+
+            db.AlterarInformacoesFuncionario(login, funcionario);
+        }
+
+        public void VerSeASenhaAtualEstaCertaFuncionario(string senhaPassada, int idUsuario)
+        {
+            if (!db.VerSeASenhaAtualEstaCertaFuncionario(senhaPassada, idUsuario))
+                throw new ArgumentException("A senha atual está incorreta.");
+        }
+
+        public void AlterarSenhaFuncionario(string novaSenha, int idUsario)
+        {
+            validadorInformacoes.ValidarForcaDaSenha(novaSenha);
+
+            db.AlterarSenhaFuncionario(novaSenha, idUsario);
+        }     
 
     }
 }

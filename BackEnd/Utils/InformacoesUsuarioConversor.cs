@@ -26,7 +26,7 @@ namespace BackEnd.Utils
             return informacoesResponse;
         }
 
-        public Models.TbLogin ParaTbLogin(Models.Request.InformacoesRequest informacoesRequest)
+        public Models.TbLogin ParaTbLogin(Models.Request.InformacoesClienteRequest informacoesRequest)
         {
             Models.TbLogin login = new Models.TbLogin();
 
@@ -36,7 +36,7 @@ namespace BackEnd.Utils
             return login;
         }
 
-        public Models.TbCliente ParaTbCliente (Models.Request.InformacoesRequest informacoesRequest, int idUsuario)
+        public Models.TbCliente ParaTbCliente (Models.Request.InformacoesClienteRequest informacoesRequest, int idUsuario)
         {
             Models.TbCliente cliente = new Models.TbCliente();
 
@@ -67,6 +67,30 @@ namespace BackEnd.Utils
             informacoesResponse.IdUsuario = funcionario.IdLogin;
 
             return informacoesResponse;
+        }
+
+        public Models.TbLogin ParaTbLogin(Models.Request.InformacoesFuncionarioRequest informacoesRequest)
+        {
+            Models.TbLogin login = new Models.TbLogin();
+
+            login.DsEmail = informacoesRequest.Email;
+            login.DsSenha = informacoesRequest.Senha;
+
+            return login;
+        }
+
+        public Models.TbFuncionario ParaTbFuncionario(Models.Request.InformacoesFuncionarioRequest informacoesRequest, int idUsuario)
+        {
+            Models.TbFuncionario funcionario = new Models.TbFuncionario();
+
+            funcionario.IdFuncionario = idUsuario;
+            funcionario.DsCarteiraTrabalho = informacoesRequest.CarteiraTrabalho;
+            funcionario.DsCpf = informacoesRequest.CPF;
+            funcionario.DsTelefone = informacoesRequest.Telefone;
+            funcionario.DtNascimento = informacoesRequest.DataNascimento;
+            funcionario.NmFuncionario = informacoesRequest.Nome;
+
+            return funcionario;
         }
 
     }

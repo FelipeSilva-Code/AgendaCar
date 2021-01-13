@@ -60,6 +60,38 @@ namespace BackEnd.Database
             return funcionario;
         }
 
+        public void AlterarInformacoesFuncionario(Models.TbLogin login, Models.TbFuncionario funcionario)
+        {
+            Models.TbFuncionario funcionarioQueSeraAlterado = this.PegarInformacoesFuncionario(funcionario.IdFuncionario);
+            funcionarioQueSeraAlterado.DsCarteiraTrabalho = funcionario.DsCarteiraTrabalho;
+            funcionarioQueSeraAlterado.DsCpf = funcionario.DsCpf;
+            funcionarioQueSeraAlterado.DsTelefone = funcionario.DsTelefone;
+            funcionarioQueSeraAlterado.DtNascimento = funcionario.DtNascimento;
+            funcionarioQueSeraAlterado.NmFuncionario = funcionario.NmFuncionario;
+            funcionarioQueSeraAlterado.IdLoginNavigation.DsEmail = login.DsEmail;
+
+            if (funcionario.DsFoto != null)
+                funcionarioQueSeraAlterado.DsFoto = funcionario.DsFoto;
+
+            ctx.SaveChanges();
+        }
+
+        public bool VerSeASenhaAtualEstaCertaFuncionario(string senhaPassada, int idUsuario)
+        {
+            Models.TbFuncionario funcionario = this.PegarInformacoesFuncionario(idUsuario);
+            string senhaAtualDoBanco = funcionario.IdLoginNavigation.DsSenha;
+            bool mesmaSenha = senhaAtualDoBanco == senhaPassada;
+            return mesmaSenha;
+        }
+
+        public void AlterarSenhaFuncionario(string novaSenha, int idUsuario)
+        {
+            Models.TbFuncionario funcionario = this.PegarInformacoesFuncionario(idUsuario);
+
+            funcionario.IdLoginNavigation.DsSenha = novaSenha;
+            ctx.SaveChanges();
+        }
+
 
     }
 }

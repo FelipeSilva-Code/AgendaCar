@@ -39,7 +39,7 @@ namespace BackEnd.Controllers
         }
 
         [HttpPut("{idUsuario}")]
-        public ActionResult<Models.Response.SucessoResponse> AlterarInformacoesUsuario ([FromForm] Models.Request.InformacoesRequest  informacoesRequest, int idUsuario)
+        public ActionResult<Models.Response.SucessoResponse> AlterarInformacoesCliente ([FromForm] Models.Request.InformacoesClienteRequest  informacoesRequest, int idUsuario)
         {
             try
             {
@@ -49,7 +49,7 @@ namespace BackEnd.Controllers
                 if (informacoesRequest.ImagemUsuario != null)
                     cliente.DsFoto = gerenciadorFotoBusiness.GerarNovoNome(informacoesRequest.ImagemUsuario.FileName);
 
-                business.AlterarInformacoesUsuario(login, cliente);
+                business.AlterarInformacoesCliente(login, cliente);
 
                 if (informacoesRequest.ImagemUsuario != null)
                     gerenciadorFotoBusiness.SalvarFoto(cliente.DsFoto, informacoesRequest.ImagemUsuario);
@@ -102,6 +102,57 @@ namespace BackEnd.Controllers
                 Models.Response.InformacoesFuncionarioResponse informacoesResponse = conversorInfoUsuario.ParaInformacoesResponse(funcionario);
 
                 return informacoesResponse;
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(new Models.Response.ErroResponse(
+                    400, ex.Message
+                ));
+            }
+        }
+
+        [HttpPut("alterarInfoFuncionario/{idUsuario}")]
+        public ActionResult<Models.Response.SucessoResponse> AlterarInformacoesFuncionario([FromForm] Models.Request.InformacoesFuncionarioRequest informacoesRequest, int idUsuario)
+        {
+            try
+            {
+                Models.TbLogin login = conversorInfoUsuario.ParaTbLogin(informacoesRequest);
+                Models.TbFuncionario funcionario = conversorInfoUsuario.ParaTbFuncionario(informacoesRequest, idUsuario);
+
+                if (informacoesRequest.ImagemUsuario != null)
+                    funcionario.DsFoto = gerenciadorFotoBusiness.GerarNovoNome(informacoesRequest.ImagemUsuario.FileName);
+
+                business.AlterarInformacoesFuncionario(login, funcionario);
+
+                if (informacoesRequest.ImagemUsuario != null)
+                    gerenciadorFotoBusiness.SalvarFoto(funcionario.DsFoto, informacoesRequest.ImagemUsuario);
+
+                return new Models.Response.SucessoResponse(200, "Alterado Com Sucesso.");
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(new Models.Response.ErroResponse(
+                    400, ex.Message
+                ));
+            }
+
+        }
+
+        [HttpPut("AlterarSenha/Funcionario/{idUsuario}")]
+        public ActionResult<Models.Response.SucessoResponse> AlterarSenhaFuncionario(Models.Request.AlterarSenhaRequest request, int idUsuario)
+        {
+            try
+            {
+                string senhaPassada = request.SenhaAtual;
+                business.VerSeASenhaAtualEstaCertaFuncionario(senhaPassada, idUsuario);
+
+                validador.VerSeSenhasSaoIguais(request.NovaSenha1, request.NovaSenha2);
+
+                string novaSenha = request.NovaSenha1;
+
+                business.AlterarSenhaFuncionario(novaSenha, idUsuario);
+
+                return new Models.Response.SucessoResponse(200, "Senha alterada.");
             }
             catch (System.Exception ex)
             {

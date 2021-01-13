@@ -40,7 +40,7 @@ namespace BackEnd.Business.Validador
             this.VerSeEmailJaEstaCadastrado(login.DsEmail);
         }
 
-        public void GerenciarValidacoesAlterarDadosUsuario (Models.TbLogin login, Models.TbCliente cliente)
+        public void GerenciarValidacoesAlterarDadosCliente (Models.TbLogin login, Models.TbCliente cliente)
         {
             login = validadorSituacoes.TirarEspacosDosCamposLogin(login);
             cliente = validadorSituacoes.TirarEspacosDosCamposCliente(cliente);
@@ -50,6 +50,20 @@ namespace BackEnd.Business.Validador
             this.ValidarCpf(cliente.DsCpf);
             this.ValidarTelefone(cliente.DsTelefone);
             validadorSituacoes.ValidarEmail(login.DsEmail);
+        }
+
+        public void GerenciarValidacoesAlterarDadosFuncionario (Models.TbLogin login, Models.TbFuncionario funcionario)
+        {
+            login = validadorSituacoes.TirarEspacosDosCamposLogin(login);
+            funcionario = validadorSituacoes.TirarEspacosDosCamposFuncionario(funcionario);
+            this.ValidarNome(funcionario.NmFuncionario);
+            this.ValidarNascimento(funcionario.DtNascimento);
+            this.validarCarteiraDeTrabalho(funcionario.DsCarteiraTrabalho);
+            this.ValidarCpf(funcionario.DsCpf);
+            this.ValidarTelefone(funcionario.DsTelefone);
+            validadorSituacoes.ValidarEmail(login.DsEmail);
+            this.ValidarForcaDaSenha(login.DsSenha);
+            this.VerSeEmailJaEstaCadastrado(login.DsEmail);
         }
 
         public void VerSeSenhasSaoIguais(string senha1, string senha2)
