@@ -1,6 +1,6 @@
 import React from 'react';
 import './style.css';
-import ContainerTotal from '../../../Components/ContainerTotal';
+import ContainerTotal from '../../../Components/ContainerTotalLogado';
 import TestDriverApi from '../../../Services/TestDriverApi'
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -21,14 +21,26 @@ export default function AgendarNovoCliente (props) {
     const [hora, setHora] = useState();
     const [idCarro, setIdCarro] = useState(0);
 
+    const [mostrarMsdDeFaltaDeCarro, setMostrarMsgDeFaltaDeCarro] = useState(false);
+
     const [mostrarMsgDeAgendameto, setMostrarMsgDeAgendameto] = useState(false);
 
     const history = useHistory();
 
     const listarTodosOsCarros = async () => {
-     const resp = await api.listarTodosOsCarros();
-     console.log(resp);
-     setTodosOsCarros([...resp]);
+
+     try {
+
+        const resp = await api.listarTodosOsCarros();
+        setTodosOsCarros([...resp]);
+        
+        if(resp.length == 0)
+          setMostrarMsgDeFaltaDeCarro(true)
+       
+     } catch (e) {
+       setMostrarMsgDeFaltaDeCarro(true)
+       toast.error(e.response.date.mensagem)
+     }
 
     }
 
@@ -45,58 +57,19 @@ export default function AgendarNovoCliente (props) {
         return true;
     }
 
-    const settarTodosOsEstados = (set) => {
-      
-      console.log(set);
-
-      if (set === "Marca") {
-        setCarrosSeparadosPelaMarca([]);
-        carroSeparadoPeloModelo.cor = "";
-        carroSeparadoPeloModelo.anoFabricacao = "";
-        carroSeparadoPeloModelo.anoModelo = "";
-        carroSeparadoPeloModelo.idCarro = 0;
-        carroSeparadoPeloModelo.marca = "";
-        carroSeparadoPeloModelo.modelo = "";
-        carroSeparadoPeloModelo.id = 0;
-        setIdCarro(0);
-
-      }else{
-        carroSeparadoPeloModelo.cor = "";
-        carroSeparadoPeloModelo.anoFabricacao = "";
-        carroSeparadoPeloModelo.anoModelo = "";
-        carroSeparadoPeloModelo.idCarro = 0;
-        carroSeparadoPeloModelo.marca = "";
-        carroSeparadoPeloModelo.modelo = "";
-        carroSeparadoPeloModelo.id = 0;
-        setIdCarro(0)
-       
-      }
-
-    }
-
     const listarCarrosPelaMarca = async (marca) => {
 
-      if(marca == "nao passou")
-        settarTodosOsEstados("Marca");
-      else{
       const resp = await api.listarCarrosPelaMarca(marca);
      
       setCarrosSeparadosPelaMarca([...resp]);
-      }
-
-
     }
 
     const retornarCarroPeloModelo = async (modelo) => {
-      if(modelo == "nao passou")
-        settarTodosOsEstados("Modelo");
-      else{   
         const resp = await api.voltarCarroPeloModelo(modelo);
 
         setCarroSeparadoPeloModelo(resp);
 
         setIdCarro(resp.id);
-      }
     }
 
     const transformarEmHorarioCompleto = () => {
@@ -128,11 +101,6 @@ export default function AgendarNovoCliente (props) {
         toast.success("Test Drive agendado com sucesso!");
 
         mostrarMsg();
-
-        settarTodosOsEstados("Marca");
-
-        listarTodosOsCarros();
-      
       }
 
       } catch (e) {
@@ -160,7 +128,7 @@ export default function AgendarNovoCliente (props) {
           <InfoAposAgendar/>
         }
 
-        {todosOsCarros.length === 0 && (
+        {mostrarMsdDeFaltaDeCarro === true && (
           <div className="semCarrosDisponiveis">
             <h1>Não há Carros Disponíveis Para Test Drive</h1>
             <button onClick={voltar} className="btn btn-danger">
@@ -169,16 +137,19 @@ export default function AgendarNovoCliente (props) {
           </div>
         )}
         <ContainerTotal
-          menu={
-            <>
-              <Link to={{ pathname: "/informacoesUsuario", state: idUsuario }}>
-                <button type="button" class="btn btn-danger">
-                  Ver Perfil
-                </button>
-              </Link>
-            </>
-          }
-        >
+            menu={
+       <>  
+        <Link  to={{pathname:"/informacoesUsuario", state:idUsuario}} > 
+          <button type="button" class="btn btn-danger">
+            Ver Perfil
+          </button>  
+        </Link>
+
+        <Link  to={{pathname:"/"}} > 
+          <button type="button" class="btn btn-danger">&nbsp; Sair &nbsp;</button>
+        </Link>
+       </>
+      }>
           <ToastContainer />
 
           <div className="conteinerCentralAgendar">

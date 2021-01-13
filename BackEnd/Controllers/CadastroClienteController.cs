@@ -18,7 +18,7 @@ namespace BackEnd.Controllers
         Business.CadastroClienteBusiness business = new Business.CadastroClienteBusiness();
         Business.GerenciadorFotoBusiness gerenciadorFoto = new Business.GerenciadorFotoBusiness();
         Business.Validador.ValidadorInformacoes validador = new Business.Validador.ValidadorInformacoes();
-        Utils.CadastroClienteConversor cadastroConversor = new Utils.CadastroClienteConversor();
+        Utils.CadastroConversor cadastroConversor = new Utils.CadastroConversor();
         Utils.LoginConversor loginConversor = new Utils.LoginConversor();
 
         private readonly ILogger<CadastroClienteController> _logger;
@@ -31,7 +31,7 @@ namespace BackEnd.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Models.Response.LoginResponse>> CadastrarCliente([FromForm] Models.Request.CadastroUsuario cadastroCliente)
+        public async Task<ActionResult<Models.Response.LoginResponse>> CadastrarCliente([FromForm] Models.Request.CadastroClienteRequest cadastroCliente)
         {
             try
             {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./styles.css";
-import ContainerTotal from "../../../Components/ContainerTotal";
+import ContainerTotal from "../../../Components/ContainerTotalLogado";
 import { Link, useHistory } from "react-router-dom";
 import TestDriveApi from "../../../Services/TestDriverApi";
 import {toast, ToastContainer} from "react-toastify"
@@ -41,7 +41,6 @@ export default function InformacoesUsuario(props) {
 
           buscarFoto(resp.imagemUsuario);
 
-          console.log(resp);
         
       } catch (e) {
 
@@ -78,12 +77,11 @@ export default function InformacoesUsuario(props) {
         
       } catch (e) {
           toast.error(e.response.data.mensagem);
-          console.log(e.response.data.mensagem)
       }
     }
 
     const voltar = () => {
-      const r = window.confirm("Todas ás alterações não salvas serão perdidas.")
+      const r = window.confirm("Todas as alterações não salvas serão perdidas.")
       if(r === true)
          history.goBack();
     }
@@ -94,7 +92,7 @@ export default function InformacoesUsuario(props) {
 
     
   return (
-    <ContainerTotal>
+    <ContainerTotal idUsuario={idUsuario}>
       <ToastContainer/>
       <div className="containerAlterarInformacoes">
         <div className="divFotoUsuario">

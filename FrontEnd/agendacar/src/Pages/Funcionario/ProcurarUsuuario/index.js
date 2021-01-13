@@ -1,6 +1,6 @@
 import React from "react";
 import "./styles.css";
-import ContainerTotal from "../../../Components/ContainerTotal";
+import ContainerTotal from "../../../Components/ContainerTotalLogado";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import TestDriverApi from "../../../Services/TestDriverApi";
@@ -36,6 +36,24 @@ export default function ProcurarUsuario () {
             setUsuarios([]);
             toast.error(e.response.data.mensagem)   
             console.log(e.response);
+        }
+    }
+
+    const excluirUsuario = async (idUsuario) => {
+        try {
+            
+            const r = window.confirm("Você irá excluir um usuário do sistema. Tem certeza?");
+           
+            if(r){
+                await api.excluirUsuario(idUsuario);
+                toast.success("Usuário excluido!");
+                gerenciar(nome, perfil)
+            }
+
+        } catch (e) {
+            
+            toast.error(e.response.data.mensagem);
+
         }
     }
 
@@ -75,13 +93,22 @@ export default function ProcurarUsuario () {
 
                 {usuarios.map(item => 
                     <div className="infoUsuario">
-                    <h4>
-                        {item.nome} - {item.telefone} - {item.email}
-                    </h4>
+                    <h5>
+                       {perfil === "Funcionario" && 
+                            <>
+                                {item.nome} - {item.telefone} - {item.email} - {item.cpf} - {item.carteiraTrabalho}
+                            </> 
+                        }  
+                        
+                        {perfil === "Cliente" && 
+                            <>
+                                {item.nome} - {item.telefone} - {item.email} - {item.cpf} - {item.cnh}
+                            </>   
+                        }
+                    </h5>
                     
                     <div className="ladoDireitoUsuarioListado">
-                        <button className="btn btn-outline-danger">Excluir Usuário</button>
-                        <Link to={{pathname:""}}>Ver Mais </Link>
+                        <button onClick={() => excluirUsuario(item.idUsuario)} className="btn btn-outline-danger">Excluir Usuário</button>
                     </div>
                     </div>
                 )}

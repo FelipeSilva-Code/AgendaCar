@@ -40,6 +40,7 @@ namespace BackEnd.Utils
                 infoFuncionario.Nome = item.NmFuncionario;
                 infoFuncionario.Senha = item.IdLoginNavigation.DsSenha;
                 infoFuncionario.Telefone = item.DsTelefone;
+                infoFuncionario.IdUsuario = item.IdLogin;
                 
                 response.Add(infoFuncionario);
             }

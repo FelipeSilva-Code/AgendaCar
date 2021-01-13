@@ -2,7 +2,7 @@ import React from "react";
 import "./styles.css"
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import ContainerTotal from "../../../Components/ContainerTotal";
+import ContainerTotal from "../../../Components/ContainerTotalLogado";
 import TestDriveApi from "../../../Services/TestDriverApi";
 import { toast, ToastContainer } from "react-toastify";
 import { useEffect } from "react";

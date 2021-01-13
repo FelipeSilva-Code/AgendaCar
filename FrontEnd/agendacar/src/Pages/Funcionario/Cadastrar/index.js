@@ -1,61 +1,57 @@
-import React, { useState } from "react";
+import React from "react";
 import "./styles.css";
-import ContainerTotal from "./../../../Components/ContainerTotalDeslogado"
-import { Link, useHistory } from "react-router-dom";
-import InputMask from "react-input-mask";
+import ContainerTotal from "../../../Components/ContainerTotalLogado";
 import TestDriveApi from "../../../Services/TestDriverApi";
-import {toast, ToastContainer} from "react-toastify"
-
+import { toast, ToastContainer } from "react-toastify";
+import { useState } from "react";
+import { useHistory, Link } from "react-router-dom";
+import InputMask from "react-input-mask"
 
 const api = new TestDriveApi();
 
-export default function Cadastrar () {
+export default function CadastrarFuncionario () {
+        
+        const [nome, setNome] = useState("");
+        const [dataNascimento, setDataNascimento] = useState();
+        const [carteiraTrabalho, setCarteiraTrabalho] = useState("");
+        const [cpf, setCpf] = useState("");
+        const [telefone, setTelefone] = useState("");
+        const [email, setEmail] = useState("");
+        const [senha1, setSenha1] = useState("");
+        const [senha2, setSenha2] = useState("");
+        const [foto, setFoto] = useState(null);
 
-    const [nome, setNome] = useState("");
-    const [dataNascimento, setDataNascimento] = useState();
-    const [cnh, setCnh] = useState("");
-    const [cpf, setCpf] = useState("");
-    const [telefone, setTelefone] = useState("");
-    const [email, setEmail] = useState("");
-    const [senha1, setSenha1] = useState("");
-    const [senha2, setSenha2] = useState("");
-    const [foto, setFoto] = useState(null);
+        const history = useHistory();
 
-    const history = useHistory();
-    
-
-    const cadastrar = async () => {
-        try {
-
+        const cadastrar = async () => {
+          try {
             const req = {
-               Nome: nome,
-               DataNascimento: dataNascimento,
-               CNH: cnh,
-               CPF: cpf,
-               Telefone: telefone,
-               Email: email,
-               Senha1: senha1,
-               Senha2: senha2,
-               ImagemUsuario: foto,
+              Nome: nome,
+              DataNascimento: dataNascimento,
+              CarteiraTrabalho: carteiraTrabalho,
+              CPF: cpf,
+              Telefone: telefone,
+              Email: email,
+              Senha1: senha1,
+              Senha2: senha2,
+              ImagemUsuario: foto,
             };
+
 
             console.log(req);
 
-            const resp = await api.cadastrarCliente(req);
+            await api.cadastrarFuncionario(req);
 
-            toast.success("Cadastrado com sucesso");
+            toast.success("Cadastrado com sucesso.");
 
-            history.push({ pathname: "/Cliente/Menu", state: resp });
-
-        } catch (e) {
-
+          } catch (e) {
             toast.error(e.response.data.mensagem);
-            console.log(e.response.data)
-            
-        }
-    }
-    return (
-      <ContainerTotal>
+          }
+        };
+
+
+    return(
+        <ContainerTotal>
           <ToastContainer/>
         <div className="containerCadastrar">
           <h2>Cadastrar</h2>
@@ -76,8 +72,8 @@ export default function Cadastrar () {
             
             <div>
                 <label>
-                    CNH:
-                    <InputMask mask="99999999999" onChange={e => setCnh(e.target.value)} className="form-control" type="text" />
+                    Carteira de trabalho (PIS):
+                    <InputMask mask="999.99999.99.9" onChange={e => setCarteiraTrabalho(e.target.value)} className="form-control" type="text" />
                 </label>
 
                   <label>
@@ -125,8 +121,7 @@ export default function Cadastrar () {
 
             <button onClick={cadastrar} className="btn btn-success">Cadastrar</button>
 
-           <Link className="linkCadastrar" to="/login">Já tem uma contra? Entrar</Link>
         </div>
       </ContainerTotal>
-    );
+    )
 }

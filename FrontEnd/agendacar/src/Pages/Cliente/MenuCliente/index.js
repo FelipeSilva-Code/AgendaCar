@@ -1,6 +1,6 @@
 import React, { useState } from'react'
 import { useHistory, Link } from 'react-router-dom';
-import ContainerTotal from '../../../Components/ContainerTotal'
+import ContainerTotal from '../../../Components/ContainerTotalLogado'
 import BlueContainer from '../../../Components/BlueContainer'
 import './Style.css'
 
@@ -14,6 +14,7 @@ export default function MenuCliente (props) {
         perfil
     })
 
+    console.log(idUsuario);
 
     const history = useHistory();
     
@@ -33,17 +34,7 @@ export default function MenuCliente (props) {
     }
     return (
       <ContainerTotal
-       menu={
-       <>  
-        <Link  to={{pathname:"/informacoesUsuario", state:idUsuario}} > 
-          <button type="button" class="btn btn-danger">
-            Ver Perfil
-          </button>  
-        </Link>
-
-        <button type="button" class="btn btn-danger">&nbsp; Sair &nbsp;</button>
-       </>
-      }>
+       idUsuario={idUsuario}>
         <div className="tituloMenuCliente">
           <h3>
             Seja bem vindo ao AgendaCar, site especializado no agendamento de

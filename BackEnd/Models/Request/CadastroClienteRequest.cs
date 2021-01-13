@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace BackEnd.Models.Request
 {
-    public class CadastroUsuario
+    public class CadastroClienteRequest
     {
         public string Nome {get; set;}
         public DateTime DataNascimento {get; set;}

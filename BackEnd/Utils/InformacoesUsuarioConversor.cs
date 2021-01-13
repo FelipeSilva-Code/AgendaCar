@@ -21,6 +21,7 @@ namespace BackEnd.Utils
             informacoesResponse.Nome = cliente.NmCliente;
             informacoesResponse.Senha = cliente.IdLoginNavigation.DsSenha;
             informacoesResponse.Telefone = cliente.DsTelefone;
+            informacoesResponse.IdUsuario = cliente.IdLogin;
 
             return informacoesResponse;
         }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './Styles.css';
 import AccordionTeste from '../../../Components/Accordion'
-import ContainerTotal from '../../../Components/ContainerTotal';
+import ContainerTotal from '../../../Components/ContainerTotalLogado';
 import TestDriverApi from '../../../Services/TestDriverApi';
 import AvaliarTestDrive from '../../../Components/AvaliarTestDrive';
 import { ToastContainer, toast } from "react-toastify";
@@ -72,13 +72,16 @@ export default function AgendadosCliente (props) {
 
           console.log(nota);
 
-          const resp = await api.avaliarTestDrive(id, req);
+          await api.avaliarTestDrive(id, req);
 
           toast.success("Avaliado com sucesso!!!");
 
           loadingBar.current.complete();
 
+          agendadosClick();
+
           cancelarMostrarAvaliarClick();
+
         } else toast.error("A nota é obrigatória!!!");
       } catch (error) {
         console.log(error);
@@ -125,9 +128,24 @@ export default function AgendadosCliente (props) {
    //Funções Que Transformam os Dados
 
 
-    const alterarNota = (avaliacao) => {
-         setNota(avaliacao);
-    };
+     const mudarCorAoClicar = (posicao, notaEstrela) => {
+       const list = document.getElementsByTagName("ul")[0];  
+       for(let i = 0; i <= posicao; i++)
+        {
+          const x = list.getElementsByTagName("li")[i];
+          const f = x.getElementsByTagName("i")[0];
+          f.style.color="#ffd900"
+        }
+        
+        for(let a = 4; a > posicao; a--)
+        {
+            const x = list.getElementsByTagName("li")[a];
+            const f = x.getElementsByTagName("i")[0];
+            f.style.color="rgb(199, 169, 0)"
+        }     
+
+        setNota(notaEstrela);
+    }
     
 
    useEffect(() => {
@@ -138,15 +156,8 @@ export default function AgendadosCliente (props) {
   return (
     <div>
       <ContainerTotal
-       menu={
-       <>  
-          <Link  to={{pathname:"/informacoesUsuario", state:idUsuario}} > 
-          <button type="button" class="btn btn-danger">
-            Ver Perfil
-          </button>  
-        </Link>
-       </>
-      }>
+         idUsuario={idUsuario}>
+
         <LoadingBar height={7} color="red" ref={loadingBar} />
 
         <div className="title">
@@ -160,7 +171,7 @@ export default function AgendadosCliente (props) {
           <div className="noTestsDrivers">
             <div>
               <h2>Você não tem tests drives agendados!!!</h2>
-              <h5>Gostaria de Agendar? <Link to={{pathname: "menu", state:responseLogado}}>Sim </Link></h5>
+              <h5>Gostaria de Agendar? <Link to={{pathname: "/cliente/agendar", state:responseLogado}}>Sim </Link></h5>
             </div>
           </div>
         }
@@ -252,7 +263,7 @@ export default function AgendadosCliente (props) {
             <div className="dicAccordionSpace">
               {concluidos.length !== 0 && (
                 <div>
-                  <h4>Concluidos</h4>
+                  <h4>Concluídos</h4>
                   {concluidos.map((x) => (
                    <AccordionTeste
                       Titulo = {
@@ -268,16 +279,18 @@ export default function AgendadosCliente (props) {
                        
                              <div>Funcionário: {x.funcionario}</div>
                              <div>Situação: {x.situacao}</div>
-                        
-                              <button
-                                onClick={() =>
-                                  mostrarAvaliarClick(x.idAgendamento)
-                                }
-                                type="button"
-                                className="btn btn-outline-success"
-                              >
-                                Avaliar Test Drive
-                              </button>
+                              
+                              {x.nota === 0 &&
+                                <button
+                                  onClick={() =>
+                                    mostrarAvaliarClick(x.idAgendamento)
+                                  }
+                                  type="button"
+                                  className="btn btn-outline-success"
+                                >
+                                  Avaliar Test Drive
+                                </button>
+                              }
                        
                             </div>
                             }>
@@ -328,29 +341,14 @@ export default function AgendadosCliente (props) {
 
             <div className="darNotaAvaliacao">
               <div className="stars">
-                <button onClick={() => alterarNota(5)} className="btnDarNota">
-                  <i class="fas fa-star"></i>
-                </button>
-                <button onClick={() => alterarNota(4)} className="btnDarNota">
-                  <i class="fas fa-star"></i>
-                </button>
-                <button onClick={() => alterarNota(3)} className="btnDarNota">
-                  <i class="fas fa-star"></i>
-                </button>
-                <button onClick={() => alterarNota(2)} className="btnDarNota">
-                  <i class="fas fa-star"></i>
-                </button>
-                <button onClick={() => alterarNota(1)} className="btnDarNota">
-                  <i class="fas fa-star"></i>
-                </button>
-              </div>
-              <div className="notas">
-                <h4>5</h4>
-                <h4>4</h4>
-                <h4>3</h4>
-                <h4>2</h4>
-                <h4>1</h4>
-              </div>
+                  <ul>
+                  <li type="none"><i id="star1"  onClick={() => mudarCorAoClicar(0, 1)} class="far fa-star"></i></li>
+                  <li type="none"><i id="star2"  onClick={() => mudarCorAoClicar(1, 2)} class="far fa-star"></i></li>
+                  <li type="none"><i id="star3"  onClick={() => mudarCorAoClicar(2, 3)} class="far fa-star"></i></li>
+                  <li type="none"><i id="star4"  onClick={() => mudarCorAoClicar(3, 4)} class="far fa-star"></i></li>
+                  <li type="none"><i id="star5"  onClick={() => mudarCorAoClicar(4, 5)} class="far fa-star"></i></li>
+                  </ul>
+                </div>
             </div>
 
             <div className="containerBtns">

@@ -25,5 +25,15 @@ namespace BackEnd.Database
 
             return funcionarios;                                        
         }
+
+        public void DeletarUsuario(int? idUsuario)
+        {
+
+            Models.TbLogin TbLogin = ctx.TbLogin.FirstOrDefault(x => x.IdLogin == idUsuario);
+            ctx.Remove(TbLogin);
+            ctx.SaveChanges();
+            
+
+        }
     }
 }

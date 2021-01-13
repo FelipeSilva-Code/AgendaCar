@@ -35,6 +35,18 @@ namespace BackEnd.Business.Validador
             return cliente;
         }
 
+        public Models.TbFuncionario TirarEspacosDosCamposFuncionario(Models.TbFuncionario funcionario)
+        {
+            if (!string.IsNullOrEmpty(funcionario.NmFuncionario))
+            {
+                funcionario.NmFuncionario = funcionario.NmFuncionario.Trim();
+            }
+
+            return funcionario;
+        }
+
+
+
         public void ValidarEmail(string email)
         {
             if (String.IsNullOrEmpty(email))

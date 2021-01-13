@@ -1,6 +1,6 @@
 import React from "react";
 import "./styles.css";
-import ContainerTotal from "../../../Components/ContainerTotal";
+import ContainerTotal from "../../../Components/ContainerTotalLogado";
 import AccordionTeste from "../../../Components/Accordion";
 import { useState } from "react";
 import TestDriveApi from "../../../Services/TestDriverApi"

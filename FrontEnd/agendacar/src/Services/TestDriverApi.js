@@ -167,7 +167,31 @@ export default class TestDriverApi {
       }
 
       pegarTodosOsAgendamentos = async () => {
-        const resp = await api.get("VerAgendamentos/pegarTodosAgendamentos");
+        const resp = await api.get("/VerAgendamentos/pegarTodosAgendamentos");
         return resp.data;
       }
+
+      excluirUsuario = async (idUsuario) => {
+        const resp = await api.delete(`/ProcuraPorUsuario/${idUsuario}`);
+        return resp.data;
+      } 
+
+      cadastrarFuncionario = async (cadastroRequest) => {
+        let formData = new FormData();
+        formData.append("nome", cadastroRequest.Nome);
+        formData.append("dataNascimento", cadastroRequest.DataNascimento);
+        formData.append("cpf", cadastroRequest.CPF);
+        formData.append("carteiraTrabalho", cadastroRequest.CarteiraTrabalho);
+        formData.append("telefone", cadastroRequest.Telefone);
+        formData.append("email", cadastroRequest.Email);
+        formData.append("senha1", cadastroRequest.Senha1);
+        formData.append("senha2", cadastroRequest.Senha2);
+        formData.append("imagemUsuario", cadastroRequest.ImagemUsuario);
+
+        const resp = await api.post("/CadastroFuncionario", formData, {
+          headers: { "content-type": "multipart/form-data" },
+        });
+
+        return resp.data;
+      };
 }

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import ContainerTotal from '../../../Components/ContainerTotal';
+import ContainerTotal from '../../../Components/ContainerTotalLogado';
 import Accordion from '../../../Components/Accordion';
 import TestDriverApi from "../../../Services/TestDriverApi";
 import "./Styles.css";

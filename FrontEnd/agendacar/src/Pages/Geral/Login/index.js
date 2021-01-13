@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './index.css';
-import ContainerTotal from '../../../Components/ContainerTotal';
+import ContainerTotal from '../../../Components/ContainerTotalDeslogado';
 import { Link, useHistory } from 'react-router-dom';
 import TestDriverApi from '../../../Services/TestDriverApi';
 import { ToastContainer, toast } from "react-toastify";

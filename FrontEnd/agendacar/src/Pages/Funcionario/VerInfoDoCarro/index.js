@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import ContainerTotal from "../../../Components/ContainerTotal"
+import ContainerTotal from "../../../Components/ContainerTotalLogado"
 import TestDriveApi from "../../../Services/TestDriverApi";
 import {toast, ToastContainer} from "react-toastify"
 

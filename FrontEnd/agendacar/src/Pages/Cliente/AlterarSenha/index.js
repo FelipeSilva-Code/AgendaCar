@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ContainerTotal from "../../../Components/ContainerTotal"
+import ContainerTotal from "../../../Components/ContainerTotalLogado"
 import "./styles.css";
 import { useHistory } from "react-router-dom";
 import {toast, ToastContainer} from "react-toastify"
@@ -39,7 +39,7 @@ export default function AlterarSenha (props) {
     }
 
     return (
-      <ContainerTotal>
+      <ContainerTotal idUsuario={idUsuario}>
         <ToastContainer/>
         <div className="divAlterarSenha">
 

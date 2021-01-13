@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./Styles.css";
 import AccordionTeste from "../../../Components/Accordion";
-import ContainerTotal from "../../../Components/ContainerTotal";
+import ContainerTotal from "../../../Components/ContainerTotalLogado";
 import TestDriverApi from "../../../Services/TestDriverApi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

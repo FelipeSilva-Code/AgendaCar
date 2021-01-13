@@ -1,12 +1,39 @@
 .containerMenuFuncionario{
-    height: 30vh;
+    height: 40vh;
     width: 90%;
     display: flex;
     justify-content: space-evenly;
     margin-top: 1%;
     text-align: center;
+    padding-top: 5vh;
+    border-top: 1px rgba(106, 104, 104, 0.7) solid;
+    margin-top: 8vh;
+    flex-wrap: wrap;
 }
 
+.containerMenuFuncionarioAreaDoAdmin{
+    height: 85vh;
+    width: 90%;
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 1%;
+    text-align: center;
+    padding-top: 5vh;
+    border-top: 1px rgba(106, 104, 104, 0.7) solid;
+    margin-top: 8vh;
+    flex-wrap: wrap;
+
+}
+
+.containerMenuFuncionarioAreaDoAdmin > div {
+    margin: 5px;
+}
+
+.titleContainerMenuFuncionario{
+    margin-top: -9vh;
+    position: absolute;
+    background-color: white;
+}
 .containerAreaDoAdmin{
     height: 100vh;
     width: 100%;
@@ -15,6 +42,7 @@
     justify-content: center;
     background-color:  rgba(121, 115, 115, 0.7);
     position: fixed;
+    z-index: 90;
 }
 
 .divInfoArea{
@@ -36,3 +64,4 @@
     align-items: center;
     margin-top: 3%;
 }
+

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import ContainerTotal from "../../../Components/ContainerTotal";
+import ContainerTotal from "../../../Components/ContainerTotalLogado";
 import BlueContainer from "../../../Components/BlueContainer";
 import { toast, ToastContainer } from "react-toastify";
 import "./styles.css";
@@ -37,11 +37,13 @@ export default function MenuFuncionario(props) {
 
     const verSeSenhaEstaCerta = () => {
 
-        if(senha === senhaPassada && qualTelaIr == "VerAgendamentos")
+        if(senha === senhaPassada && qualTelaIr === "VerAgendamentos")
             history.push("/Funcionario/VerTodosAgendamentos");
-        else if(senha === senhaPassada && qualTelaIr == "ProcurarUsuario")
+        else if(senha === senhaPassada && qualTelaIr === "ProcurarUsuario")
             history.push("/Funcionario/ProcurarUsuario");    
-        else
+        else if(senha === senhaPassada && qualTelaIr === "Cadastrar")
+            history.push("/Funcionario/Cadastrar");
+        else    
             toast.error("A senha está incorreta.")    
     }
 
@@ -81,9 +83,10 @@ export default function MenuFuncionario(props) {
       )}
 
       <ContainerTotal>
-        <h3>Bem-Vindo ao Menu do Funcionário</h3>
+        <h2>Bem-Vindo ao Menu do Funcionário</h2>
 
         <div className="containerMenuFuncionario">
+          <h2 className ="titleContainerMenuFuncionario">Agendamentos</h2>
           <BlueContainer>
             <h3>Ver Meus Agendamentos</h3>
 
@@ -120,6 +123,7 @@ export default function MenuFuncionario(props) {
         </div>
 
         <div className="containerMenuFuncionario">
+          <h2 className ="titleContainerMenuFuncionario">Carros</h2>
           <BlueContainer>
             <h3>Adicionar Novo Carro</h3>
 
@@ -155,7 +159,8 @@ export default function MenuFuncionario(props) {
           </BlueContainer>
         </div>
 
-        <div className="containerMenuFuncionario">
+        <div className="containerMenuFuncionarioAreaDoAdmin">
+          <h2 className ="titleContainerMenuFuncionario">Area do Admin</h2>
           <BlueContainer>
             <h3>Ver Todos Os Agendamentos</h3>
 
@@ -175,7 +180,7 @@ export default function MenuFuncionario(props) {
 
             <p>Procure por usuários, seja ele cliente ou funcionário.</p>
 
-              <button 
+             <button 
                onClick={() => mostrarAreaDoAdminClick("ProcurarUsuario")} 
                type="button" 
                className="btn btn-success">
@@ -183,6 +188,22 @@ export default function MenuFuncionario(props) {
               </button>
            
           </BlueContainer>
+  
+
+          <BlueContainer>
+            <h3>Adicionar Novo Funcionário</h3>
+
+            <p>Adicione um novo funcionário.</p>
+
+              <button 
+               onClick={() => mostrarAreaDoAdminClick("Cadastrar")} 
+               type="button" 
+               className="btn btn-success">
+                Adicionar
+              </button>
+            
+          </BlueContainer>
+
         </div>
       </ContainerTotal>
     </>

@@ -9,6 +9,7 @@ namespace BackEnd.Models.Response
 {
     public class InformacoesFuncionarioResponse
     {
+        public int?  IdUsuario { get; set; }
         public string Nome { get; set; }
         public DateTime? DataNascimento { get; set; }
         public string CarteiraTrabalho {get; set;}

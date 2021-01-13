@@ -18,6 +18,7 @@ namespace BackEnd.Models.Response
         public string Funcionario {get; set;}
         public DateTime? Data {get; set;}
         public string Situacao {get; set;} 
+        public int? Nota {get; set;}
     }
 
     public class AgendadosResponseCompleto 

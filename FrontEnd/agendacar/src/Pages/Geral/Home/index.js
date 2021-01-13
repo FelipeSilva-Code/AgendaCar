@@ -1,6 +1,6 @@
 import React from'react'
 import './Style.css'
-import ContainerTotal from '../../../Components/ContainerTotal'
+import ContainerTotal from '../../../Components/ContainerTotalDeslogado'
 import BlueContainer from '../../../Components/BlueContainer'
 import { Link } from 'react-router-dom'
 

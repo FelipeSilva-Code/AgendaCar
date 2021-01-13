@@ -1,15 +1,11 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import './styles.css'
+import { Link, useHistory } from 'react-router-dom'
 
-export default function Menu (props) {
+export default function MenuDeslogado () {
+
     return(
         <div className="Menu">
            <Link to="/"> <img className="logo" src="https://fontmeme.com/permalink/200919/5d47346918c190e6941f94b86f836ad4.png" alt="lovecraft-country-font" border="0"/></Link>
-           
-           <div className="divMenuDireita">
-               {props.children}
-           </div>
         </div>
     )
 }

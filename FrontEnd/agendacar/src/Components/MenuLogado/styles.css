@@ -15,11 +15,10 @@
 }
 
 .divMenuDireita{
-    min-width: 20vw;
+    min-width: 15vw;
     display: flex;
-  
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
 }
 
 .divMenuDireita > a {

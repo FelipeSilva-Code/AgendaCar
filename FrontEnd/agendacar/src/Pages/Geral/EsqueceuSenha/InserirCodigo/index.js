@@ -1,6 +1,6 @@
 import React from "react";
 import "./styles.css";
-import ContainerTotal from "../../../../Components/ContainerTotal";
+import ContainerTotal from "../../../../Components/ContainerTotalDeslogado";
 import TestDriveApi from "../../../../Services/TestDriverApi";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";

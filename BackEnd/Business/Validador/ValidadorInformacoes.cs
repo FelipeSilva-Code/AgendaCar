@@ -26,6 +26,20 @@ namespace BackEnd.Business.Validador
             this.VerSeEmailJaEstaCadastrado(login.DsEmail);
         }
 
+        public void GerenciarValidacoesCadastroFuncionario(Models.TbLogin login, Models.TbFuncionario funcionario)
+        {
+            login = validadorSituacoes.TirarEspacosDosCamposLogin(login);
+            funcionario = validadorSituacoes.TirarEspacosDosCamposFuncionario(funcionario);
+            this.ValidarNome(funcionario.NmFuncionario);
+            this.ValidarNascimento(funcionario.DtNascimento);
+            this.validarCarteiraDeTrabalho(funcionario.DsCarteiraTrabalho);
+            this.ValidarCpf(funcionario.DsCpf);
+            this.ValidarTelefone(funcionario.DsTelefone);
+            validadorSituacoes.ValidarEmail(login.DsEmail);
+            this.ValidarForcaDaSenha(login.DsSenha);
+            this.VerSeEmailJaEstaCadastrado(login.DsEmail);
+        }
+
         public void GerenciarValidacoesAlterarDadosUsuario (Models.TbLogin login, Models.TbCliente cliente)
         {
             login = validadorSituacoes.TirarEspacosDosCamposLogin(login);
@@ -139,6 +153,16 @@ namespace BackEnd.Business.Validador
             }
 
             return x < 1;
+        }
+
+        public void validarCarteiraDeTrabalho (string carteiraTrabalho)
+        {
+            if (string.IsNullOrEmpty(carteiraTrabalho))
+                throw new ArgumentException("A carteira de trabalho é obrigatória.");
+           
+            else if(carteiraTrabalho.Length != 14)
+                throw new ArgumentException("A carteira de trabalho deve conter 11 números");
+                
         }
 
 

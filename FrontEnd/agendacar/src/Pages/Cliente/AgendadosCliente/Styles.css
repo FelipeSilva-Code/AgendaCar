@@ -26,10 +26,7 @@
     display : flex;
     align-items : center;
 }
-.starIcon{
-    height: 80px;
-    width: 80px;
-}
+
 .darNotaAvaliacao{
     cursor: pointer;
     height: 20%;
@@ -38,31 +35,30 @@
     justify-content: center;
     align-items: center;
 }
-.stars{
 
-    height: 50%;
-    width: 40%;
+
+.stars{
+    height: 90%;
+    width: 70%;
     display: flex;
     justify-content: space-between;
 }
-.notas{
-    margin-left: 20px;
-    height: 50%;
-    width: 45%;
-    display: flex;
-    justify-content: space-around;
 
+.stars > ul {
+    display: flex;
+    width: 110%;
+    list-style: none;
+    justify-content: space-around;
+    margin-left: -10%;
+    
 }
-.fas, .fa-star {
-    font-size: 32px;
+
+
+i{
+    font-size: 50px;
+    color: rgb(199, 169, 0);
 }
-.fa-star :hover{
+
+i:hover{
     color: yellow;
-}
-.btnDarNota{
-    background-color: transparent;
-    border: 0px ;
-}
-.btnDarNota :hover{
-    color: turquoise;
 }

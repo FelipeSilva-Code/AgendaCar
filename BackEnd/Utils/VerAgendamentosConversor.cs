@@ -19,6 +19,7 @@ namespace BackEnd.Utils
             resp.Modelo = agendamento.IdCarroNavigation.DsModelo;
             resp.Data = agendamento.DtAgendamento;
             resp.Cliente = agendamento.IdClienteNavigation.NmCliente;
+            resp.Nota = agendamento.NrAvaliacao;
 
             if (agendamento.IdFuncionarioNavigation == null)
                 resp.Funcionario = string.Empty;
@@ -61,9 +62,9 @@ namespace BackEnd.Utils
 
             foreach (Models.Response.AgendadosResponse item in listaAgendados)
             {
-                if (item.Data.Value.Day == agora.Day && item.Situacao == "Aprovado")
+                if (item.Data.Value.Date == agora.Date && item.Situacao == "Aprovado")
                     responseCompleto.Hoje.Add(item);
-                else if (item.Data.Value.Day == amanha.Day && item.Situacao == "Aprovado")
+                else if (item.Data.Value.Date == amanha.Date && item.Situacao == "Aprovado")
                     responseCompleto.Amanha.Add(item);
                 else if (item.Data.Value.Date >= depois.Date && item.Situacao == "Aprovado")
                     responseCompleto.Depois.Add(item);

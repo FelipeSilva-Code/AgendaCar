@@ -54,6 +54,21 @@ namespace BackEnd.Controllers
             }
         }
 
+        [HttpDelete("{idUsuario}")]
+        public ActionResult<Models.Response.SucessoResponse> DeletarUsuario (int idUsuario)
+        {
+            try
+            {
+                business.DeletarUsuario(idUsuario);
+                return new Models.Response.SucessoResponse(200, "Usuário deletado.");
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(new Models.Response.ErroResponse(
+                    400, ex.Message
+                ));
+            }
+        }
       
 
     }

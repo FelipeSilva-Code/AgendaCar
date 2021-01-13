@@ -20,6 +20,7 @@ import InserirCodigo from './Pages/Geral/EsqueceuSenha/InserirCodigo';
 import NovaSenha from './Pages/Geral/EsqueceuSenha/NovaSenha';
 import ProcurarUsuario from './Pages/Funcionario/ProcurarUsuuario';
 import VerTodosOsAgendamentos from './Pages/Funcionario/VerTodosAgendamentos';
+import CadastrarFuncionario from './Pages/Funcionario/Cadastrar';
 
 export default function Routes() {
     return(
@@ -36,6 +37,7 @@ export default function Routes() {
             <Route path="/Cliente/Agendar" exact component={AgendarNovoCliente} />
             <Route path="/Cliente/Menu" exact component={MenuCliente} />
             <Route path="/Cliente/AlterarSenha" exact component={AlterarSenha} />
+            <Route path="/Funcionario/Cadastrar" exact component={CadastrarFuncionario}/>
             <Route path="/Funcionario/agendados" exact component={AgendadosFuncionario} />
             <Route path="/Funcionario/Menu" exact component={MenuFuncionario} />
             <Route path="/Funcionario/Pendentes" exact component={Pendentes} />

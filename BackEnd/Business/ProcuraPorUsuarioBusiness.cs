@@ -41,5 +41,15 @@ namespace BackEnd.Business
 
             return funcionarios;
         }
+        public void DeletarUsuario(int? idUsuario)
+        {
+            if(idUsuario == null || idUsuario == 0)
+                throw new ArgumentException("Ocorreu um erro, tente novamente.");
+
+            db.DeletarUsuario(idUsuario);
+        }
+
+        
+
     }
 }
