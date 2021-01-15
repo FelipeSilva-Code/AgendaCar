@@ -6,6 +6,9 @@ const api = axios.create({
 
 
 export default class TestDriverApi {
+
+
+      //Funções que são acionadas pelo cliente
       cadastrarCliente = async (cadastroRequest) => {
         let formData = new FormData();
         formData.append("nome", cadastroRequest.Nome);
@@ -22,11 +25,6 @@ export default class TestDriverApi {
           headers: { "content-type": "multipart/form-data" },
         });
 
-        return resp.data;
-      };
-
-      logar = async (loginRequest) => {
-        const resp = await api.post("/Login", loginRequest);
         return resp.data;
       };
 
@@ -60,37 +58,11 @@ export default class TestDriverApi {
         return resp;
       };
 
-      agendadosDoFuncionario = async (idFuncionario) => {
-        const resp = await api.get(`/VerAgendamentos/agendados/funcionario/${idFuncionario}`);
-        return resp.data;
-      };
-
-      esperandoAprovacao = async () => {
-        const resp = await api.get(`/AlteracaoDeSituacao/EsperandoAceitacao`);
-        return resp.data;
-      };
-
-      aceitarAgendamento = async (idFuncionario, idAgendamento) => {
-        const resp = await api.put(`/NovoAgendamento/Aceitar/${idFuncionario}/${idAgendamento}`);
-        return resp.data;
-      };
-
-      mudarSituacao = async (idAgendamento, situacaoRequest) => {
-        console.log(situacaoRequest);
-        const resp = await api.put(`/AlteracaoDeSituacao/MudarSituacao/${idAgendamento}?situacao=${situacaoRequest}`);
-        return resp.data;
-      };
-
       pegarInformacoesUsuario = async (idUsuario) => {
         const resp = await api.get(`/InformacoesUsuario/${idUsuario}`);
         return resp.data;
       };
 
-      buscarFotoUsuario = (nomeFoto) => {
-        const resp = api.defaults.baseURL + "/Login/PegarFoto/" + nomeFoto;
-
-        return resp;
-      };
 
       alterarInformacoesUsuario = async (novasInformacoes, idUsuario) => {
         let formData = new FormData();
@@ -115,7 +87,31 @@ export default class TestDriverApi {
         return resp.data;
       };
 
-      adicionarCarro = async (request) => {
+
+
+      // Funções que são acionadas pelo funcionário
+      agendadosDoFuncionario = async (idFuncionario) => {
+        const resp = await api.get(`/VerAgendamentos/agendados/funcionario/${idFuncionario}`);
+        return resp.data;
+      };
+
+      esperandoAprovacao = async () => {
+        const resp = await api.get(`/AlteracaoDeSituacao/EsperandoAceitacao`);
+        return resp.data;
+      };
+
+      aceitarAgendamento = async (idFuncionario, idAgendamento) => {
+        const resp = await api.put(`/NovoAgendamento/Aceitar/${idFuncionario}/${idAgendamento}`);
+        return resp.data;
+      };
+
+      mudarSituacao = async (idAgendamento, situacaoRequest) => {
+        console.log(situacaoRequest);
+        const resp = await api.put(`/AlteracaoDeSituacao/MudarSituacao/${idAgendamento}?situacao=${situacaoRequest}`);
+        return resp.data;
+      };
+
+       adicionarCarro = async (request) => {
         const resp = await api.post("/Carro", request);
         return resp.data;
       }
@@ -139,23 +135,7 @@ export default class TestDriverApi {
         const resp = await api.put("/Carro/" + idCarro, request );
         return resp.data;
       }
-
-
-      procurarConta = async (email) => {
-        const resp = await api.get("/EsqueceuSenha?email=" + email);
-        return resp.data;
-      }
-
-      gerarCodigo = async (email) => {
-        const resp = await api.post("/EsqueceuSenha?email=" + email);
-        return resp.data;
-      }
-
-      mudarSenhaPorqueEsqueceu = async (request, idLogin) => {
-        const resp = await api.put("/EsqueceuSenha/" + idLogin, request);
-        return resp.data;
-      }
-
+      
       pegarInfoCliente = async (nome) => {
         const resp = await api.get("/ProcuraPorUsuario/cliente?nome=" + nome);
         return resp.data;
@@ -223,5 +203,35 @@ export default class TestDriverApi {
         const resp = await api.put( "/InformacoesUsuario/AlterarSenha/Funcionario/" + idUsuario, senhaRequest);
         return resp.data;
       };
+  
+
+
+
+      // Funções que tanto o funcionário e o cliente utilizam
+      logar = async (loginRequest) => {
+        const resp = await api.post("/Login", loginRequest);
+        return resp.data;
+      };
+
+      buscarFotoUsuario = (nomeFoto) => {
+        const resp = api.defaults.baseURL + "/Login/PegarFoto/" + nomeFoto;
+        return resp;
+      };
+      
+      procurarConta = async (email) => {
+        const resp = await api.get("/EsqueceuSenha?email=" + email);
+        return resp.data;
+      } 
+      
+      gerarCodigo = async (email) => {
+        const resp = await api.post("/EsqueceuSenha?email=" + email);
+        return resp.data;
+      }
+
+      mudarSenhaPorqueEsqueceu = async (request, idLogin) => {
+        const resp = await api.put("/EsqueceuSenha/" + idLogin, request);
+        return resp.data;
+      }      
+      
       
 }
