@@ -9,7 +9,9 @@ import { useEffect } from "react";
 
 const api = new TestDriveApi();
 
-export default function VerTodosOsAgendamentos () {
+export default function VerTodosOsAgendamentos (props) {
+
+    const [idUsuario, setIdUsuario] = useState(props.location.state);
 
     const [qualMostrar, setQualMostrar] = useState("Atribuídos")
 
@@ -53,7 +55,7 @@ export default function VerTodosOsAgendamentos () {
 
 
     return (
-      <ContainerTotal>
+      <ContainerTotal idUsuario={idUsuario} perfil="Funcionario">
           <ToastContainer/>
         <h4>Ver Todos Os Agendamentos</h4>
 

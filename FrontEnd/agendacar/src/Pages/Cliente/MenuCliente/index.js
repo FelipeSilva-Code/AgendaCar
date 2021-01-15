@@ -34,7 +34,7 @@ export default function MenuCliente (props) {
     }
     return (
       <ContainerTotal
-       idUsuario={idUsuario}>
+       idUsuario={idUsuario} perfil="Cliente">
         <div className="tituloMenuCliente">
           <h3>
             Seja bem vindo ao AgendaCar, site especializado no agendamento de

@@ -9,7 +9,9 @@ import InputMask from "react-input-mask"
 
 const api = new TestDriveApi();
 
-export default function CadastrarFuncionario () {
+export default function CadastrarFuncionario (props) {
+
+        const [idUsuario, setIdUsuario] = useState(props.location.state);
         
         const [nome, setNome] = useState("");
         const [dataNascimento, setDataNascimento] = useState();
@@ -51,7 +53,7 @@ export default function CadastrarFuncionario () {
 
 
     return(
-        <ContainerTotal>
+        <ContainerTotal idUsuario={idUsuario} perfil="Funcionario">
           <ToastContainer/>
         <div className="containerCadastrar">
           <h2>Cadastrar</h2>

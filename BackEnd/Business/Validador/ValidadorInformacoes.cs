@@ -62,8 +62,6 @@ namespace BackEnd.Business.Validador
             this.ValidarCpf(funcionario.DsCpf);
             this.ValidarTelefone(funcionario.DsTelefone);
             validadorSituacoes.ValidarEmail(login.DsEmail);
-            this.ValidarForcaDaSenha(login.DsSenha);
-            this.VerSeEmailJaEstaCadastrado(login.DsEmail);
         }
 
         public void VerSeSenhasSaoIguais(string senha1, string senha2)

@@ -8,10 +8,12 @@ import {toast, ToastContainer} from "react-toastify"
 
 const api = new TestDriveApi();
 
-export default function AdicionarCarro () {
+export default function AdicionarCarro (props) {
 
     const history = useHistory();
 
+    const [idUsuario, setIdUsuario] = useState(props.location.state);
+    
     const [marca, setMarca] = useState("");
     const [modelo, setModelo] = useState("");
     const [anoVersao, setAnoVersao] = useState();
@@ -54,7 +56,7 @@ export default function AdicionarCarro () {
         history.goBack();
     }
     return (
-      <ContainerTotal>
+      <ContainerTotal idUsuario={idUsuario} perfil="Funcionario">
           <ToastContainer/>
         <div className="containerAdicionarCarro">
           <h3>Adicionar Carro</h3>

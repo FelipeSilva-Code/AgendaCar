@@ -9,8 +9,10 @@ import { useEffect } from "react";
 
 const api = new TestDriveApi();
 
-export default function ListarCarros() {
+export default function ListarCarros(props) {
   const [carrosListados, setCarrosListados] = useState([]);
+
+  const [idUsuario, setIdUsuario] = useState(props.location.state)
 
   const buscarCarro = async (busca) => {
     try {
@@ -47,7 +49,7 @@ export default function ListarCarros() {
    }, []);
 
   return (
-    <ContainerTotal>
+    <ContainerTotal idUsuario={idUsuario} perfil="Funcionario">
         <ToastContainer/>
       <h3>Todos os Carros Cadastrados</h3>
 

@@ -23,7 +23,8 @@ export default function AgendadosFuncionario (props) {
     const aceitarAgendamento = async (idAgendamento) => 
     {
         try {
-          const resp = await api.aceitarAgendamento(idUsuario, idAgendamento);
+          
+          await api.aceitarAgendamento(idUsuario, idAgendamento);
           toast.success("Agendado com sucesso");
 
           retornarPendentes();
@@ -37,7 +38,7 @@ export default function AgendadosFuncionario (props) {
         retornarPendentes();
       }, []);
     return (
-      <ContainerTotal>
+      <ContainerTotal idUsuario={idUsuario} perfil="Funcionario">
         <ToastContainer/>
         <h2>Esperando Aprovação</h2>
 

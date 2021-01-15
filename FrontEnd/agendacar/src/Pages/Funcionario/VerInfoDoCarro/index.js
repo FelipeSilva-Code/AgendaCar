@@ -12,6 +12,7 @@ const api = new TestDriveApi();
 export default function VerInfoDoCarro (props) {
 
     const [idCarro, setIdCarro] = useState(props.location.state);
+    const [idUsuario, setIdUsuario] = useState(props.location.state);
    
     const [marca, setMarca] = useState("");
     const [modelo, setModelo] = useState("");
@@ -72,7 +73,7 @@ export default function VerInfoDoCarro (props) {
     }, []);
 
     return(
-        <ContainerTotal>
+        <ContainerTotal idUsuario={idUsuario} perfil="Funcionario">
             <ToastContainer/>
              <div className="containerAdicionarCarro">
           <h3>Alterar Informações</h3>

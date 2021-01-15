@@ -6,10 +6,9 @@ import {toast, ToastContainer} from "react-toastify"
 import TestDriveApi from "../../../Services/TestDriverApi";
 const api = new TestDriveApi();
 
-
 export default function AlterarSenha (props) {
 
-    const [idUsuario, setIdUsuario] = useState(props.location.state);
+    const [idUsuario, setIdUsuario] = useState(props.location.state.idUsuario);
     const [senhaAtual, setSenhaAtual] = useState();
     const [novaSenha1, setNovaSenha1] = useState();
     const [novaSenha2, setNovaSenha2] = useState();
@@ -25,9 +24,13 @@ export default function AlterarSenha (props) {
               "NovaSenha2": novaSenha2,
             };
 
-            await api.alterarSenha(req, idUsuario);
+            if(props.location.state.perfil == "Cliente")
+                await api.alterarSenhaCliente(req, idUsuario);
+            else
+                await api.alterarSenhaFuncionario(req, idUsuario) ;    
 
             voltarParaTelaDeVerInformacoes();
+       
         } catch (e) {
             toast.error(e.response.data.mensagem);
         }
@@ -39,7 +42,7 @@ export default function AlterarSenha (props) {
     }
 
     return (
-      <ContainerTotal idUsuario={idUsuario}>
+      <ContainerTotal idUsuario={idUsuario} perfil="Cliente">
         <ToastContainer/>
         <div className="divAlterarSenha">
 

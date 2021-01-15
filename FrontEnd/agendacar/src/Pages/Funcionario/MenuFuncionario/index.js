@@ -38,11 +38,11 @@ export default function MenuFuncionario(props) {
     const verSeSenhaEstaCerta = () => {
 
         if(senha === senhaPassada && qualTelaIr === "VerAgendamentos")
-            history.push("/Funcionario/VerTodosAgendamentos");
+            history.push({pathname:"/Funcionario/VerTodosAgendamentos", state: idUsuario});
         else if(senha === senhaPassada && qualTelaIr === "ProcurarUsuario")
-            history.push("/Funcionario/ProcurarUsuario");    
+            history.push({pathname:"/Funcionario/ProcurarUsuario", state: idUsuario});    
         else if(senha === senhaPassada && qualTelaIr === "Cadastrar")
-            history.push("/Funcionario/Cadastrar");
+            history.push({pathname:"/Funcionario/Cadastrar", state: idUsuario});
         else    
             toast.error("A senha está incorreta.")    
     }
@@ -82,7 +82,7 @@ export default function MenuFuncionario(props) {
         </div>
       )}
 
-      <ContainerTotal>
+      <ContainerTotal idUsuario={idUsuario} perfil="Funcionario">
         <h2>Bem-Vindo ao Menu do Funcionário</h2>
 
         <div className="containerMenuFuncionario">

@@ -113,7 +113,7 @@ export default function AgendadosFuncionario(props) {
 
   return (
     <div>
-      <ContainerTotal>
+      <ContainerTotal idUsuario={idUsuario} perfil="Funcionario">
         <LoadingBar height={7} color="red" ref={loadingBar} />
 
         <div className="title">
@@ -225,7 +225,7 @@ export default function AgendadosFuncionario(props) {
                             <div>Situação: {x.situacao}</div>
                           </div>
                           <button
-                            onClick={() =>cancelarClick(x.idAgendamento)}
+                            onClick={() => cancelarClick(x.idAgendamento)}
                             type="button"
                             className="btn btn-outline-danger"
                           >

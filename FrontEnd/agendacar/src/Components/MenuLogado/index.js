@@ -5,10 +5,10 @@ import './styles.css'
 export default function MenuLogado (props) {
 
     const history = useHistory();
-
+    
     const irParaTelaDeInfoDoUsuario = () => {
-        history.push({pathname:"/informacoesUsuario", state: props.idUsuario})
-    }
+        history.push({pathname: `/${props.perfil}/informacoesUsuario`, state: props.idUsuario})
+    }    
 
     const sair = () => {
         history.push("/")

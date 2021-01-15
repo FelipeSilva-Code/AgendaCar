@@ -137,19 +137,8 @@ export default function AgendarNovoCliente (props) {
           </div>
         )}
         <ContainerTotal
-            menu={
-       <>  
-        <Link  to={{pathname:"/informacoesUsuario", state:idUsuario}} > 
-          <button type="button" class="btn btn-danger">
-            Ver Perfil
-          </button>  
-        </Link>
+         idUsuario={idUsuario} perfil="Cliente">
 
-        <Link  to={{pathname:"/"}} > 
-          <button type="button" class="btn btn-danger">&nbsp; Sair &nbsp;</button>
-        </Link>
-       </>
-      }>
           <ToastContainer />
 
           <div className="conteinerCentralAgendar">

@@ -9,8 +9,10 @@ import { useEffect } from "react";
 
 const api = new TestDriverApi();
 
-export default function ProcurarUsuario () {
+export default function ProcurarUsuario (props) {
     
+    const [idUsuario, setIdUsuario] = useState(props.location.state);
+
     const [nome, setNome] = useState("");
     const [perfil, setPerfil] = useState("Cliente");
     const [usuarios, setUsuarios] = useState([]);
@@ -18,6 +20,8 @@ export default function ProcurarUsuario () {
     const pegarInfoCliente = async (nomePassado) => {
         try {
             const resp = await api.pegarInfoCliente(nomePassado);
+
+            console.log(resp);
             
             setUsuarios(resp)
         } catch (e) {
@@ -30,12 +34,16 @@ export default function ProcurarUsuario () {
     const pegarInfoFuncionario = async (nomePassado) => {
 
         try {
-            const resp = await api.pegarInfoFuncionario(nomePassado);
+            console.log(nomePassado);
+            const resp = await api.procurarInfoFuncionario(nomePassado);
+            console.log(resp);
+
+            
             setUsuarios(resp);
         } catch (e) {
             setUsuarios([]);
             toast.error(e.response.data.mensagem)   
-            console.log(e.response);
+            console.log(e.response.data);
         }
     }
 
@@ -72,7 +80,7 @@ export default function ProcurarUsuario () {
     }, []);
 
     return(
-        <ContainerTotal>
+        <ContainerTotal idUsuario={idUsuario} perfil="Funcionario">
             <ToastContainer/>
             <h3>Procurar Usuários</h3>
 

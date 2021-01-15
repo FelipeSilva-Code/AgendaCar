@@ -92,7 +92,7 @@ export default function InformacoesUsuario(props) {
 
     
   return (
-    <ContainerTotal idUsuario={idUsuario}>
+    <ContainerTotal idUsuario={idUsuario} perfil="Cliente">
       <ToastContainer/>
       <div className="containerAlterarInformacoes">
         <div className="divFotoUsuario">
@@ -153,7 +153,7 @@ export default function InformacoesUsuario(props) {
              <input readOnly value={senha} className="form-control" type="password" /> 
             </label>
 
-            <Link to={{pathname:"cliente/alterarsenha", state: idUsuario}} className="linkInfoUsuario"> 
+            <Link to={{pathname:"cliente/alterarsenha", state: {idUsuario: idUsuario, perfil: "Cliente"}}} className="linkInfoUsuario"> 
               <button className="btn btn-outline-light"> 
                 Alterar Senha
               </button>

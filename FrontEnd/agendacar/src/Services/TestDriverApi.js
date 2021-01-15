@@ -110,7 +110,7 @@ export default class TestDriverApi {
         return resp.data;
       };
 
-      alterarSenha = async (senhaRequest, idUsuario) => {
+      alterarSenhaCliente = async (senhaRequest, idUsuario) => {
         const resp = await api.put( "/InformacoesUsuario/AlterarSenha/" + idUsuario, senhaRequest);
         return resp.data;
       };
@@ -161,7 +161,7 @@ export default class TestDriverApi {
         return resp.data;
       }
 
-      pegarInfoFuncionario = async (nome) => {
+      procurarInfoFuncionario = async (nome) => {
         const resp = await api.get("/ProcuraPorUsuario/funcionario?nome=" + nome);
         return resp.data;
       }
@@ -194,4 +194,34 @@ export default class TestDriverApi {
 
         return resp.data;
       };
+
+      pegarInfoFuncionario = async (idUsuario) => {
+        const resp = await api.get("InformacoesUsuario/infoFuncionario/" + idUsuario);
+        return resp.data;
+      }
+
+      alterarInfoFuncionario = async (alterarRequest, idUsuario) => {
+        let formData = new FormData();
+        formData.append("nome", alterarRequest.Nome);
+        formData.append("dataNascimento", alterarRequest.DataNascimento);
+        formData.append("cpf", alterarRequest.CPF);
+        formData.append("carteiraTrabalho", alterarRequest.CarteiraTrabalho);
+        formData.append("telefone", alterarRequest.Telefone);
+        formData.append("email", alterarRequest.Email);
+        formData.append("senha1", alterarRequest.Senha1);
+        formData.append("senha2", alterarRequest.Senha2);
+        formData.append("imagemUsuario", alterarRequest.ImagemUsuario);
+
+        const resp = await api.put("InformacoesUsuario/alterarInfoFuncionario/" + idUsuario, formData, {
+          headers: { "content-type": "multipart/form-data" },
+        });
+
+        return resp.data;
+      }
+
+      alterarSenhaFuncionario = async (senhaRequest, idUsuario) => {
+        const resp = await api.put( "/InformacoesUsuario/AlterarSenha/Funcionario/" + idUsuario, senhaRequest);
+        return resp.data;
+      };
+      
 }

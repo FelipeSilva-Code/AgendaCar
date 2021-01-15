@@ -10,7 +10,7 @@ import Pendentes from './Pages/Funcionario/AceitarAgendado';
 import AgendadosFuncionario from './Pages/Funcionario/AgendadosFuncionario';
 import Cadastrar from './Pages/Cliente/Cadastrar';
 import InformacoesUsuario from './Pages/Cliente/InformacoesUsuario';
-import AlterarSenha from './Pages/Cliente/AlterarSenha';
+import AlterarSenha from './Pages/Geral/AlterarSenha';
 import AdicionarCarro from './Pages/Funcionario/AdicionarCarro';
 import ListarCarros from './Pages/Funcionario/ListarCarros';
 import VerInfoDoCarro from './Pages/Funcionario/VerInfoDoCarro';
@@ -18,9 +18,10 @@ import ProcuararConta from './Pages/Geral/EsqueceuSenha/ProcurarConta';
 import EnviarCodigo from './Pages/Geral/EsqueceuSenha/EnviarCodigo';
 import InserirCodigo from './Pages/Geral/EsqueceuSenha/InserirCodigo';
 import NovaSenha from './Pages/Geral/EsqueceuSenha/NovaSenha';
-import ProcurarUsuario from './Pages/Funcionario/ProcurarUsuuario';
+import ProcurarUsuario from './Pages/Funcionario/ProcurarUsuario';
 import VerTodosOsAgendamentos from './Pages/Funcionario/VerTodosAgendamentos';
 import CadastrarFuncionario from './Pages/Funcionario/Cadastrar';
+import InformacoesFuncionario from './Pages/Funcionario/InformacoesFuncionario';
 
 export default function Routes() {
     return(
@@ -36,7 +37,8 @@ export default function Routes() {
             <Route path="/Cliente/Agendados" exact component={AgendadosAtribuidosCliente} />
             <Route path="/Cliente/Agendar" exact component={AgendarNovoCliente} />
             <Route path="/Cliente/Menu" exact component={MenuCliente} />
-            <Route path="/Cliente/AlterarSenha" exact component={AlterarSenha} />
+            <Route path="/Cliente/InformacoesUsuario" exact component={InformacoesUsuario} /> 
+            <Route path="/AlterarSenha" exact component={AlterarSenha} />
             <Route path="/Funcionario/Cadastrar" exact component={CadastrarFuncionario}/>
             <Route path="/Funcionario/agendados" exact component={AgendadosFuncionario} />
             <Route path="/Funcionario/Menu" exact component={MenuFuncionario} />
@@ -46,7 +48,7 @@ export default function Routes() {
             <Route path="/Funcionario/AdicionarCarro" exact component={AdicionarCarro} />
             <Route path="/Funcionario/ProcurarUsuario" exact component={ProcurarUsuario} />
             <Route path="/Funcionario/VerTodosAgendamentos" exact component={VerTodosOsAgendamentos} />
-            <Route path="/InformacoesUsuario" exact component={InformacoesUsuario} />
+            <Route path="/Funcionario/InformacoesUsuario" exact component={InformacoesFuncionario} />
           </Switch>
         </BrowserRouter>
     )

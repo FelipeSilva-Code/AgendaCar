@@ -156,7 +156,8 @@ export default function AgendadosCliente (props) {
   return (
     <div>
       <ContainerTotal
-         idUsuario={idUsuario}>
+         idUsuario={idUsuario}
+         perfil="Cliente">
 
         <LoadingBar height={7} color="red" ref={loadingBar} />
 

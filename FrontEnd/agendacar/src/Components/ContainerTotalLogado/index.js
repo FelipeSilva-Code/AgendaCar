@@ -6,7 +6,7 @@ import './Styles.css'
 export default function ContainerTotalLogado (props) {
     return(
         <>
-            <Menu idUsuario={props.idUsuario}/>
+            <Menu idUsuario={props.idUsuario} perfil={props.perfil}/>
                 <div className="ContainerTotal">
                     {props.children}
                 </div>
