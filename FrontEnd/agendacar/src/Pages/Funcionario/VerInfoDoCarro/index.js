@@ -1,10 +1,11 @@
-import React from "react";
+import React, {useRef} from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import ContainerTotal from "../../../Components/ContainerTotalLogado"
 import TestDriveApi from "../../../Services/TestDriverApi";
 import {toast, ToastContainer} from "react-toastify"
+import LoadingBar from "react-top-loading-bar";
 
 const api = new TestDriveApi();
 
@@ -23,8 +24,11 @@ export default function VerInfoDoCarro (props) {
 
     const history = useHistory();
 
+    const loadingBar = useRef(null);
+
     const pegarInfoCarro = async () => {
         try {
+            loadingBar.current.continuousStart();
             
             const resp = await api.pegarSomenteUmCarro(idCarro);
             
@@ -35,13 +39,19 @@ export default function VerInfoDoCarro (props) {
             setCor(resp.cor);
             setQtdCarros(resp.qtdDisponivel);
         
+            loadingBar.current.complete();
         } catch (e) {
+
+            loadingBar.current.complete();
             toast.error(e.reponse.data.mensagem);
+        
         }
     }
 
     const alterarInfoCarro = async () => {
         try {
+
+            loadingBar.current.continuousStart();
 
             const request = {
               Marca: marca,
@@ -52,12 +62,18 @@ export default function VerInfoDoCarro (props) {
               QtdCarros: qtdCarros,
             };
 
-            api.alterarInfoCarro(idCarro, request);
+            const resp = await api.alterarInfoCarro(idCarro, request);
+
+            loadingBar.current.complete();
 
             toast.success("Informações alteradas com sucesso!");
 
         } catch (e) {
-            toast.error(e.reponse.data.mensagem);
+
+            loadingBar.current.complete();
+
+            const x = e.response.data.mensagem;
+            toast.error(x);
         }
     }
 
@@ -74,9 +90,10 @@ export default function VerInfoDoCarro (props) {
 
     return(
         <ContainerTotal idUsuario={idUsuario} perfil="Funcionario">
-            <ToastContainer/>
-             <div className="containerAdicionarCarro">
-          <h3>Alterar Informações</h3>
+        <LoadingBar height={7} color="red" ref={loadingBar} />
+        <ToastContainer/>
+        <div className="containerAdicionarCarro">
+            <h3>Alterar Informações</h3>
 
             <div className="containerInputsAdicionarCarro"> 
                 <label>

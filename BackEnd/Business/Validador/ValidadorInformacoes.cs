@@ -31,7 +31,10 @@ namespace BackEnd.Business.Validador
             login = validadorSituacoes.TirarEspacosDosCamposLogin(login);
             funcionario = validadorSituacoes.TirarEspacosDosCamposFuncionario(funcionario);
             this.ValidarNome(funcionario.NmFuncionario);
-            this.ValidarNascimento(funcionario.DtNascimento);
+
+            if (funcionario.DtNascimento > DateTime.Now)
+                throw new ArgumentException("A data de nascimento não pode ser maior do que a data atual.");
+                
             this.validarCarteiraDeTrabalho(funcionario.DsCarteiraTrabalho);
             this.ValidarCpf(funcionario.DsCpf);
             this.ValidarTelefone(funcionario.DsTelefone);
@@ -57,7 +60,10 @@ namespace BackEnd.Business.Validador
             login = validadorSituacoes.TirarEspacosDosCamposLogin(login);
             funcionario = validadorSituacoes.TirarEspacosDosCamposFuncionario(funcionario);
             this.ValidarNome(funcionario.NmFuncionario);
-            this.ValidarNascimento(funcionario.DtNascimento);
+           
+            if (funcionario.DtNascimento > DateTime.Now)
+                throw new ArgumentException("A data de nascimento não pode ser maior do que a data atual.");
+           
             this.validarCarteiraDeTrabalho(funcionario.DsCarteiraTrabalho);
             this.ValidarCpf(funcionario.DsCpf);
             this.ValidarTelefone(funcionario.DsTelefone);
@@ -81,7 +87,7 @@ namespace BackEnd.Business.Validador
             if(string.IsNullOrEmpty(cpf))
                 throw new ArgumentException("O CPF é obrigatório");
             
-            else if(cpf.Length != 14)
+            else if(cpf.Length != 14 || cpf.Contains("_"))
                 throw new ArgumentException("O CPF está incorreto.");
         }
 
@@ -90,7 +96,7 @@ namespace BackEnd.Business.Validador
             if (string.IsNullOrEmpty(cnh))
                 throw new ArgumentException("A CNH é obrigatória");
 
-            else if (cnh.Length != 11)
+            else if (cnh.Length != 11 || cnh.Contains("_"))
                 throw new ArgumentException("A CNH está incorreta");    
         }
 
@@ -126,7 +132,7 @@ namespace BackEnd.Business.Validador
             if(string.IsNullOrEmpty(telefone))
                 throw new ArgumentException("O número telefônico é obrigatório.");
 
-            else if (telefone.Length != 15)
+            else if (telefone.Length != 15 || telefone.Contains("_"))
                 throw new ArgumentException("O número telefônico está incorreto.");
 
         }
@@ -172,7 +178,7 @@ namespace BackEnd.Business.Validador
             if (string.IsNullOrEmpty(carteiraTrabalho))
                 throw new ArgumentException("A carteira de trabalho é obrigatória.");
            
-            else if(carteiraTrabalho.Length != 14)
+            else if(carteiraTrabalho.Length != 14 || carteiraTrabalho.Contains("_"))
                 throw new ArgumentException("A carteira de trabalho deve conter 11 números");
                 
         }

@@ -15,9 +15,7 @@ export default function AgendadosCliente (props) {
 
   const loadingBar = useRef(null);
   const [showAvaliar, setShowAvaliar] = useState(false);
-  const [showAtribuidos, setShowAtribuidos] = useState(true)
-  const [showConcluidos, setShowConcluidos] = useState(false);
-  const [showOutros, setShowOutros] = useState(false);
+  const [qualMostrar, setQualMostrar] = useState("Atribuídos")
   
   const [agendados, setAgendados] = useState([]);
   const [hoje, setHoje] = useState([]);
@@ -101,29 +99,6 @@ export default function AgendadosCliente (props) {
      setShowAvaliar(false);
    };
 
-   const mostrarAlgum = (oqueMostrar) => {
-     if (oqueMostrar === "Concluidos") {
-       setShowAtribuidos(false);
-       setShowOutros(false);
-       setShowConcluidos(true);
-       if(concluidos.length === 0)
-         toast.error("Nenhum agendamento concluido")
-     } else if (oqueMostrar === "Atribuidos") {
-       setShowAtribuidos(true);
-       setShowOutros(false);
-       setShowConcluidos(false);
-        if(hoje.length === 0 && amanha.length === 0 && depois.length === 0)
-           toast.error("Nenhum agendamento atribuido")
-     } else if (oqueMostrar === "Outros") {
-       setShowAtribuidos(false);
-       setShowOutros(true);
-       setShowConcluidos(false);
-         if(outros.length === 0)
-            toast.error("Nenhum agendamento")
-     }
-   };
-
-
    
    //Funções Que Transformam os Dados
 
@@ -146,6 +121,10 @@ export default function AgendadosCliente (props) {
 
         setNota(notaEstrela);
     }
+
+    const oQueMostrar = (oquemostrar) => {
+      setQualMostrar(oquemostrar)
+    }
     
 
    useEffect(() => {
@@ -163,21 +142,14 @@ export default function AgendadosCliente (props) {
 
         <div className="title">
           <h1>Agendamentos</h1>
-          <span onClick={() => mostrarAlgum("Atribuidos")}>Atribuídos</span> |
-          <span onClick={() => mostrarAlgum("Concluidos")}> Concluídos </span> |
-          <span onClick={() => mostrarAlgum("Outros")}> Outros </span>
+         
+          <span onClick={() => oQueMostrar("Atribuídos")}>Atribuídos</span> |
+          <span onClick={() => oQueMostrar("Concluídos")}> Concluídos </span> |
+          <span onClick={() => oQueMostrar("Outros")}> Outros </span>
+        
         </div>
 
-        {agendados.length === 0 && showAtribuidos === true &&
-          <div className="noTestsDrivers">
-            <div>
-              <h2>Você não tem tests drives agendados!!!</h2>
-              <h5>Gostaria de Agendar? <Link to={{pathname: "/cliente/agendar", state:responseLogado}}>Sim </Link></h5>
-            </div>
-          </div>
-        }
-
-        {showAtribuidos === true && (
+        {qualMostrar === "Atribuídos" && 
           <div>
             <div className="dicAccordionSpace">
               {hoje.length !== 0 && (
@@ -188,7 +160,7 @@ export default function AgendadosCliente (props) {
                       Titulo={
                         <div>
                           <h5>
-                            {x.marca} {x.modelo} -{" "}
+                            {x.marca} {x.modelo} -
                             {new Date(x.data).toLocaleString()}
                           </h5>
                         </div>
@@ -197,8 +169,10 @@ export default function AgendadosCliente (props) {
                         <div>
                           <div>Funcionário: {x.funcionario}</div>
                           <div>Situação: {x.situacao}</div>
+                          <button className="btn btn-outline-danger">Remarcar</button>
                         </div>
-                      }
+                      
+                    }
                     ></AccordionTeste>
                   ))}
                 </div>
@@ -223,6 +197,7 @@ export default function AgendadosCliente (props) {
                         <div>
                           <div>Funcionário: {x.funcionario}</div>
                           <div>Situação: {x.situacao}</div>
+                          <button className="btn btn-outline-danger">Remarcar</button>
                         </div>
                       }
                     ></AccordionTeste>
@@ -249,6 +224,7 @@ export default function AgendadosCliente (props) {
                         <div>
                           <div>Funcionário: {x.funcionario}</div>
                           <div>Situação: {x.situacao}</div>
+                          <button className="btn btn-outline-danger">Remarcar</button>
                         </div>
                       }
                     ></AccordionTeste>
@@ -257,9 +233,9 @@ export default function AgendadosCliente (props) {
               )}
             </div>
           </div>
-        )}
+        }
 
-        {showConcluidos === true && (
+        {qualMostrar === "Concluídos" && 
           <div>
             <div className="dicAccordionSpace">
               {concluidos.length !== 0 && (
@@ -302,9 +278,9 @@ export default function AgendadosCliente (props) {
               )}
             </div>
           </div>
-        )}
+        }
 
-        {showOutros === true && (
+        {qualMostrar === "Outros" && 
           <div>
             <div className="dicAccordionSpace">
               {outros.length !== 0 && (
@@ -332,7 +308,7 @@ export default function AgendadosCliente (props) {
               )}
             </div>
           </div>
-        )}
+        }
 
         {showAvaliar === true && (
           <AvaliarTestDrive>
@@ -371,6 +347,7 @@ export default function AgendadosCliente (props) {
             </div>
           </AvaliarTestDrive>
         )}
+
       </ContainerTotal>
 
       <ToastContainer />

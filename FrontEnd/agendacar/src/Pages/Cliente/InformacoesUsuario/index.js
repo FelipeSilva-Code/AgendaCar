@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./styles.css";
 import ContainerTotal from "../../../Components/ContainerTotalLogado";
 import { Link, useHistory } from "react-router-dom";
 import TestDriveApi from "../../../Services/TestDriverApi";
 import {toast, ToastContainer} from "react-toastify"
 import InputMask from "react-input-mask"
+import LoadingBar from "react-top-loading-bar";
 
 const api = new TestDriveApi();
 
@@ -24,9 +25,13 @@ export default function InformacoesUsuario(props) {
 
     const history = useHistory();
 
+    const loadingBar = useRef(null);
+
     const pegarInfoUsuario = async () => {
 
       try {
+
+          loadingBar.current.continuousStart();
 
           const resp = await api.pegarInformacoesUsuario(idUsuario);
 
@@ -41,10 +46,12 @@ export default function InformacoesUsuario(props) {
 
           buscarFoto(resp.imagemUsuario);
 
-        
+          loadingBar.current.complete();
       } catch (e) {
 
+        loadingBar.current.complete();
         toast.error(e.response.data.mensagem);
+      
       }
     }
 
@@ -55,28 +62,35 @@ export default function InformacoesUsuario(props) {
 
     const alterarInformacoes = async () => {
       try {
-            const req = {
-              Nome: nome,
-              DataNascimento: dataNascimento,
-              CNH: cnh,
-              CPF: cpf,
-              Telefone: telefone,
-              Email: email,
-              Senha: senha,
-              ImagemUsuario: imagemUsuario,
-            };
+
+        loadingBar.current.continuousStart();
+
+        const req = {
+          Nome: nome,
+          DataNascimento: dataNascimento,
+          CNH: cnh,
+          CPF: cpf,
+          Telefone: telefone,
+          Email: email,
+          Senha: senha,
+          ImagemUsuario: imagemUsuario,
+        };
 
 
-            await api.alterarInformacoesUsuario(req, idUsuario);
+        await api.alterarInformacoesUsuario(req, idUsuario);
 
-            setImagemUsuario(null);
+        setImagemUsuario(null);
 
-            toast.success("Informações alteradas!")
+        loadingBar.current.complete();
 
-            await pegarInfoUsuario();
+        toast.success("Informações alteradas!")
+
+        await pegarInfoUsuario();
         
       } catch (e) {
-          toast.error(e.response.data.mensagem);
+
+        loadingBar.current.complete();
+        toast.error(e.response.data.mensagem);
       }
     }
 
@@ -93,6 +107,7 @@ export default function InformacoesUsuario(props) {
     
   return (
     <ContainerTotal idUsuario={idUsuario} perfil="Cliente">
+      <LoadingBar height={7} color="red" ref={loadingBar} />
       <ToastContainer/>
       <div className="containerAlterarInformacoes">
         <div className="divFotoUsuario">
@@ -126,7 +141,7 @@ export default function InformacoesUsuario(props) {
           <div>
             <label>
               CNH:
-              <input onChange={e => setCnh(e.target.value)} value={cnh} className="form-control" type="text" />
+              <InputMask mask="99999999999"onChange={e => setCnh(e.target.value)} value={cnh} className="form-control" type="text" />
             </label>
 
             <label>
@@ -153,7 +168,7 @@ export default function InformacoesUsuario(props) {
              <input readOnly value={senha} className="form-control" type="password" /> 
             </label>
 
-            <Link to={{pathname:"cliente/alterarsenha", state: {idUsuario: idUsuario, perfil: "Cliente"}}} className="linkInfoUsuario"> 
+            <Link to={{pathname:"/alterarsenha", state: {idUsuario: idUsuario, perfil: "Cliente"}}} className="linkInfoUsuario"> 
               <button className="btn btn-outline-light"> 
                 Alterar Senha
               </button>

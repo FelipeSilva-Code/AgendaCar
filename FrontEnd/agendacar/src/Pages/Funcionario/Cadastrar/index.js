@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useRef} from "react";
 import "./styles.css";
 import ContainerTotal from "../../../Components/ContainerTotalLogado";
 import TestDriveApi from "../../../Services/TestDriverApi";
@@ -6,6 +6,8 @@ import { toast, ToastContainer } from "react-toastify";
 import { useState } from "react";
 import { useHistory, Link } from "react-router-dom";
 import InputMask from "react-input-mask"
+import LoadingBar from "react-top-loading-bar";
+
 
 const api = new TestDriveApi();
 
@@ -14,7 +16,7 @@ export default function CadastrarFuncionario (props) {
         const [idUsuario, setIdUsuario] = useState(props.location.state);
         
         const [nome, setNome] = useState("");
-        const [dataNascimento, setDataNascimento] = useState();
+        const [dataNascimento, setDataNascimento] = useState(null);
         const [carteiraTrabalho, setCarteiraTrabalho] = useState("");
         const [cpf, setCpf] = useState("");
         const [telefone, setTelefone] = useState("");
@@ -25,36 +27,47 @@ export default function CadastrarFuncionario (props) {
 
         const history = useHistory();
 
+        const loadingBar = useRef(null);
+
         const cadastrar = async () => {
           try {
-            const req = {
-              Nome: nome,
-              DataNascimento: dataNascimento,
-              CarteiraTrabalho: carteiraTrabalho,
-              CPF: cpf,
-              Telefone: telefone,
-              Email: email,
-              Senha1: senha1,
-              Senha2: senha2,
-              ImagemUsuario: foto,
+  
+              loadingBar.current.continuousStart();
+
+             const req = {
+                Nome: nome,
+                DataNascimento: dataNascimento,
+                CarteiraTrabalho: carteiraTrabalho,
+                CPF: cpf,
+                Telefone: telefone,
+                Email: email,
+                Senha1: senha1,
+                Senha2: senha2,
+                ImagemUsuario: foto,
             };
 
-
-            console.log(req);
+            if(req.DataNascimento === null)
+              toast.error("A data de nascimento é obrigatória.");
 
             await api.cadastrarFuncionario(req);
 
-            toast.success("Cadastrado com sucesso.");
+            loadingBar.current.complete();
 
+            toast.success("Cadastrado com sucesso.");
+          
           } catch (e) {
+
+            loadingBar.current.complete();
             toast.error(e.response.data.mensagem);
+          
           }
         };
 
 
     return(
         <ContainerTotal idUsuario={idUsuario} perfil="Funcionario">
-          <ToastContainer/>
+        <LoadingBar height={7} color="red" ref={loadingBar} />
+        <ToastContainer/>
         <div className="containerCadastrar">
           <h2>Cadastrar</h2>
         

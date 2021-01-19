@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import './index.css';
 import ContainerTotal from '../../../Components/ContainerTotalDeslogado';
 import { Link, useHistory } from 'react-router-dom';
 import TestDriverApi from '../../../Services/TestDriverApi';
 import { ToastContainer, toast } from "react-toastify";
+import LoadingBar from "react-top-loading-bar";
 
 const api = new TestDriverApi();
 export default function Login () {
+
+  const loadingBar = useRef(null);
 
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState(0);
@@ -16,21 +19,25 @@ export default function Login () {
   const logarClick = async () => {
 
     try {
+
+      loadingBar.current.continuousStart();
      
       const resp = await api.logar({
         Email: email,
         Senha: senha,
       });
 
-      console.log(resp);
+      loadingBar.current.complete();
       
-        history.push({
-          pathname: resp.perfil + "/menu",
-          state: resp
-        })      
+      history.push({
+        pathname: resp.perfil + "/menu",
+        state: resp
+      })
 
     } catch(e) {
      
+      loadingBar.current.complete();
+
       toast.error(e.response.data.mensagem);
 
     }
@@ -39,6 +46,7 @@ export default function Login () {
 
 return (
   <ContainerTotal>
+    <LoadingBar height={6} color="red" ref={loadingBar} />
 
     <div className="loginDiv">
       

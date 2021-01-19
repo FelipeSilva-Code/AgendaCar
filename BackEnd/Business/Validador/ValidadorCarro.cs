@@ -26,10 +26,13 @@ namespace BackEnd.Business.Validador
                 throw new ArgumentException($"{campo} é obrigatória.");
         }
 
-        public void ValidarAnoVersaoEFabricacao (int ano, string campo)
+        public void ValidarAnoVersaoEFabricacao (int? ano, string campo)
         {
-            if(ano < 1950)
-                throw new ArgumentException($"O ano {campo} não pode ser menor do 1950.");
+            if(ano == null || ano == 0)
+                throw new ArgumentException($"O ano {campo} é obrigatório.");
+
+            else if(ano < 1950)
+                throw new ArgumentException($"O ano {campo} não pode ser menor do que 1950.");
 
             else if(ano > 2025)
                 throw new ArgumentException($"{campo} não pode ser maior do que 2025.");

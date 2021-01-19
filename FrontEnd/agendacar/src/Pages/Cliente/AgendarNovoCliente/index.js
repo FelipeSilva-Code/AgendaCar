@@ -1,12 +1,11 @@
-import React from 'react';
+import React, {useState, useEffect, useRef } from 'react';
 import './style.css';
 import ContainerTotal from '../../../Components/ContainerTotalLogado';
 import TestDriverApi from '../../../Services/TestDriverApi'
-import { useState } from 'react';
-import { useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import InfoAposAgendar from "../../../Components/InformacoesAposAgendar"
+import LoadingBar from "react-top-loading-bar";
 
 const api = new TestDriverApi();
 
@@ -27,6 +26,25 @@ export default function AgendarNovoCliente (props) {
 
     const history = useHistory();
 
+    const validarHorario = () => {
+    
+      if(data === undefined){
+         toast.error("A data é obrigatória");
+         return false;
+      }else if(hora === undefined){
+        toast.error("A hora é obrigatória"); 
+        return false;
+      }else
+        return true;
+    
+    }
+
+    const transformarEmHorarioCompleto = () => {
+      const horario = `${data} ${hora}`;
+
+      return horario;
+    };
+
     const listarTodosOsCarros = async () => {
 
      try {
@@ -36,52 +54,57 @@ export default function AgendarNovoCliente (props) {
         
         if(resp.length == 0)
           setMostrarMsgDeFaltaDeCarro(true)
+
+          console.log(resp);
        
      } catch (e) {
-       setMostrarMsgDeFaltaDeCarro(true)
-       toast.error(e.response.date.mensagem)
+        setMostrarMsgDeFaltaDeCarro(true)
+        toast.error(e.response.date.mensagem)
      }
 
     }
 
-    const validarHorario = () => {
-      if(data === undefined){
-         toast.error("A data é obrigatória");
-         return false;
-      }
-      else if(hora === undefined){
-        toast.error("A hora é obrigatória"); 
-        return false;
-      }
-      else
-        return true;
-    }
-
     const listarCarrosPelaMarca = async (marca) => {
+
+      if(marca === "nao passou")
+         setIdCarro(null)   
+
+      console.log(idCarro);
+      console.log(marca);   
 
       const resp = await api.listarCarrosPelaMarca(marca);
      
       setCarrosSeparadosPelaMarca([...resp]);
+
+      console.log(resp);
     }
 
     const retornarCarroPeloModelo = async (modelo) => {
+
+      
+        if(modelo !== "nao passou"){
+
+        console.log("Esse é o modelo" + modelo)
+        setIdCarro(null);
+
+        console.log(idCarro);
+       
+        
         const resp = await api.voltarCarroPeloModelo(modelo);
 
         setCarroSeparadoPeloModelo(resp);
 
         setIdCarro(resp.id);
+      }
     }
 
-    const transformarEmHorarioCompleto = () => {
-      const horario = `${data} ${hora}`;
-
-      return horario
-    }
-
+     const loadingBar = useRef(null);
 
      const agendarConsulta = async () => {
       try {
 
+        loadingBar.current.continuousStart();
+        
         const horarioCorreto = validarHorario();
 
         if(horarioCorreto){
@@ -98,14 +121,17 @@ export default function AgendarNovoCliente (props) {
 
         await api.agendarTestCliente(req);
 
+        loadingBar.current.complete();
+
         toast.success("Test Drive agendado com sucesso!");
 
         mostrarMsg();
       }
 
       } catch (e) {
-        toast.error(e.response.data.mensagem);
+        loadingBar.current.complete();
 
+        toast.error(e.response.data.mensagem);
       }
     }
 
@@ -124,9 +150,13 @@ export default function AgendarNovoCliente (props) {
     
     return (
       <>
+
+      <LoadingBar height={6} color="red" ref={loadingBar} />
+      
         {mostrarMsgDeAgendameto === true && 
           <InfoAposAgendar/>
         }
+
 
         {mostrarMsdDeFaltaDeCarro === true && (
           <div className="semCarrosDisponiveis">
@@ -154,7 +184,7 @@ export default function AgendarNovoCliente (props) {
                     onChange={(e) => listarCarrosPelaMarca(e.target.value)}
                     class="form-control"
                   >
-                    <option value="nao passou"></option>
+                    <option selected value="nao passou"></option>
                     {todosOsCarros.map((x) => (
                       <option> {x.marca} </option>
                     ))}

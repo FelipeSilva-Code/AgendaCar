@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useRef} from "react";
 import "./styles.css";
 import ContainerTotal from "../../../Components/ContainerTotalLogado";
 import AccordionTeste from "../../../Components/Accordion";
@@ -6,6 +6,7 @@ import { useState } from "react";
 import TestDriveApi from "../../../Services/TestDriverApi"
 import { toast, ToastContainer } from "react-toastify";
 import { useEffect } from "react";
+import LoadingBar from "react-top-loading-bar";
 
 const api = new TestDriveApi();
 
@@ -16,34 +17,36 @@ export default function VerTodosOsAgendamentos (props) {
     const [qualMostrar, setQualMostrar] = useState("Atribuídos")
 
     const [agendados, setAgendados] = useState([]);
-
     const [hoje, setHoje] = useState([]);
-
     const [amanha, setAmanha] = useState([]);
-
     const [depois, setDepois] = useState([]);
-
     const [concluidos, setConcluidos] = useState([]);
-
     const [outros, setOutros] = useState([]);
-
+    
     const qualMostrarClick = (qualIra) => {
         setQualMostrar(qualIra)
     }
 
+    const loadingBar = useRef(null);
+
     const pegarAgendamentos = async () => {
         try {
             
-            const resp = await api.pegarTodosOsAgendamentos();
-            setAgendados(resp);
-            setHoje(resp.hoje);
-            setAmanha(resp.amanha);
-            setDepois(resp.depois);
-            setConcluidos(resp.concluidos);
-            setOutros(resp.outros);
+          loadingBar.current.continuousStart();
+         
+          const resp = await api.pegarTodosOsAgendamentos();
+          setAgendados(resp);
+          setHoje(resp.hoje);
+          setAmanha(resp.amanha);
+          setDepois(resp.depois);
+          setConcluidos(resp.concluidos);
+          setOutros(resp.outros);
+
+          loadingBar.current.complete();
 
         } catch (e) {
             
+            loadingBar.current.complete();
             toast.error(e.response.data.mensagem)
 
         }
@@ -56,7 +59,8 @@ export default function VerTodosOsAgendamentos (props) {
 
     return (
       <ContainerTotal idUsuario={idUsuario} perfil="Funcionario">
-          <ToastContainer/>
+      <LoadingBar height={7} color="red" ref={loadingBar} />
+      <ToastContainer/>
         <h4>Ver Todos Os Agendamentos</h4>
 
         <h6 className="title"> <span onClick={() => qualMostrarClick("Atribuídos")}> Atribuídos </span> | <span onClick={() => qualMostrarClick("Concluídos")}> Concluídos </span> | <span onClick={() => qualMostrarClick("Outros")}> Outros </span></h6>

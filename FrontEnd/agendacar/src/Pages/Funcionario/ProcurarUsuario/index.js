@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useRef} from "react";
 import "./styles.css";
 import ContainerTotal from "../../../Components/ContainerTotalLogado";
 import { Link } from "react-router-dom";
@@ -6,6 +6,7 @@ import { useState } from "react";
 import TestDriverApi from "../../../Services/TestDriverApi";
 import { toast, ToastContainer } from "react-toastify";
 import { useEffect } from "react";
+import LoadingBar from "react-top-loading-bar";
 
 const api = new TestDriverApi();
 
@@ -17,33 +18,44 @@ export default function ProcurarUsuario (props) {
     const [perfil, setPerfil] = useState("Cliente");
     const [usuarios, setUsuarios] = useState([]);
 
+    const loadingBar = useRef(null);
+
     const pegarInfoCliente = async (nomePassado) => {
         try {
-            const resp = await api.pegarInfoCliente(nomePassado);
 
-            console.log(resp);
+            loadingBar.current.continuousStart();
+
+            const resp = await api.pegarInfoCliente(nomePassado);
             
             setUsuarios(resp)
+
+            loadingBar.current.complete();
+
         } catch (e) {
+
+            loadingBar.current.complete();
             setUsuarios([])
             toast.error(e.response.data.mensagem);
-            console.log("erro")
+        
         }
     }
 
     const pegarInfoFuncionario = async (nomePassado) => {
 
         try {
-            console.log(nomePassado);
-            const resp = await api.procurarInfoFuncionario(nomePassado);
-            console.log(resp);
 
-            
+            loadingBar.current.continuousStart();
+            const resp = await api.procurarInfoFuncionario(nomePassado);
+
             setUsuarios(resp);
+
+            loadingBar.current.complete();
+
         } catch (e) {
+
+            loadingBar.current.complete();
             setUsuarios([]);
             toast.error(e.response.data.mensagem)   
-            console.log(e.response.data);
         }
     }
 
@@ -53,13 +65,20 @@ export default function ProcurarUsuario (props) {
             const r = window.confirm("Você irá excluir um usuário do sistema. Tem certeza?");
            
             if(r){
+                
+                loadingBar.current.continuousStart();
+
                 await api.excluirUsuario(idUsuario);
                 toast.success("Usuário excluido!");
+
+                loadingBar.current.continuousStart();
                 gerenciar(nome, perfil)
+            
             }
 
         } catch (e) {
             
+            loadingBar.current.complete();
             toast.error(e.response.data.mensagem);
 
         }
@@ -81,6 +100,7 @@ export default function ProcurarUsuario (props) {
 
     return(
         <ContainerTotal idUsuario={idUsuario} perfil="Funcionario">
+            <LoadingBar height={7} color="red" ref={loadingBar} />
             <ToastContainer/>
             <h3>Procurar Usuários</h3>
 

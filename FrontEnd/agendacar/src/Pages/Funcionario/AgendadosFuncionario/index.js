@@ -12,32 +12,21 @@ const api = new TestDriverApi();
 export default function AgendadosFuncionario(props) {
   const loadingBar = useRef(null);
 
-
-  const [showAtribuidos, setShowAtribuidos] = useState(true);
-
-  const [showConcluidos, setShowConcluidos] = useState(false);
-
-  const [showOutros, setShowOutros] = useState(false);
+  const [qualMostrar, setQualMostrar] = useState("Atribuidos")
 
   const [agendados, setAgendados] = useState([]);
 
   const [hoje, setHoje] = useState([]);
-
   const [amanha, setAmanha] = useState([]);
-
   const [depois, setDepois] = useState([]);
-
   const [concluidos, setConcluidos] = useState([]);
-
   const [outros, setOutros] = useState([]);
 
   const [idUsuario] = useState(props.location.state.idUsuario);
-
   const [perfil] = useState(props.location.state.perfil);
-
   const [situacao, setSituacao] = useState("Concluido");
 
-  //Funções Que Chamam a API
+
   const agendadosClick = async () => {
     try {
       const resp = await api.agendadosDoFuncionario(idUsuario);
@@ -53,8 +42,8 @@ export default function AgendadosFuncionario(props) {
 
       loadingBar.current.complete();
     } catch (e) {
+      loadingBar.current.complete();
       toast.error(e.response.data.messagem);
-      console.log(e.response)
     }
   };
 
@@ -62,11 +51,17 @@ export default function AgendadosFuncionario(props) {
 
       try {
 
-            await api.mudarSituacao(idAgendamento, situacao);
+          loadingBar.current.continuousStart();
+          
+          await api.mudarSituacao(idAgendamento, situacao);
 
-            agendadosClick()
+          loadingBar.current.complete();
+
+          agendadosClick()
 
       } catch (e) {
+
+          loadingBar.current.complete();
           toast.error(e.response.data.mensagem);
       }
   }
@@ -74,37 +69,25 @@ export default function AgendadosFuncionario(props) {
   const cancelarClick = async (idAgendamento) => {
       try {
 
+        loadingBar.current.continuousStart();
+
         await api.mudarSituacao(idAgendamento, "Cancelado");
+
+        loadingBar.current.complete();
 
         agendadosClick();
 
       } catch (e) {
-        
+
+        loadingBar.current.complete();
         toast.error(e.response.data.mensagem);
 
       }
   }
 
 
-  //Outros
   const mostrarAlgum = (oqueMostrar) => {
-    if (oqueMostrar === "Concluidos") {
-      setShowAtribuidos(false);
-      setShowOutros(false);
-      setShowConcluidos(true);
-      if (concluidos.length === 0) toast.error("Nenhum agendamento concluido");
-    } else if (oqueMostrar === "Atribuidos") {
-      setShowAtribuidos(true);
-      setShowOutros(false);
-      setShowConcluidos(false);
-      if (hoje.length === 0 && amanha.length === 0 && depois.length === 0)
-        toast.error("Nenhum agendamento atribuido");
-    } else if (oqueMostrar === "Outros") {
-      setShowAtribuidos(false);
-      setShowOutros(true);
-      setShowConcluidos(false);
-      if (outros.length === 0) toast.error("Nenhum agendamento");
-    }
+    setQualMostrar(oqueMostrar)
   };
 
   useEffect(() => {
@@ -123,7 +106,7 @@ export default function AgendadosFuncionario(props) {
           <span onClick={() => mostrarAlgum("Outros")}> Outros </span>
         </div>
 
-        {showAtribuidos === true && (
+        {qualMostrar === "Atribuidos" && (
           <div>
             <div className="dicAccordionSpace">
               {hoje.length !== 0 && (
@@ -141,7 +124,7 @@ export default function AgendadosFuncionario(props) {
                       }
                       Conteudo={
                         <div>
-                          <div>Funcionário: {x.funcionario}</div>
+                          <div>Cliente: {x.cliente}</div>
                           <div>Situação: {x.situacao}</div>
                           <div className="divsec">
                             Alterar&nbsp;Situação:
@@ -149,7 +132,7 @@ export default function AgendadosFuncionario(props) {
                               onChange={(e) => setSituacao(e.target.value)}
                               className="form-control selectFuncionario"
                             >
-                              <option>Concluído</option>
+                              <option>Concluido</option>
                               <option>Não Compareceu</option>
                               <option>Cancelado</option>
                             </select>
@@ -241,12 +224,12 @@ export default function AgendadosFuncionario(props) {
           </div>
         )}
 
-        {showConcluidos === true && (
+        {qualMostrar === "Concluidos" && (
           <div>
             <div className="dicAccordionSpace">
               {concluidos.length !== 0 && (
                 <div>
-                  <h4>Concluidos</h4>
+                  <h4>Concluídos</h4>
                   {concluidos.map((x) => (
                     <AccordionTeste
                       Titulo={
@@ -261,6 +244,7 @@ export default function AgendadosFuncionario(props) {
                         <div>
                           <div>Funcionário: {x.funcionario}</div>
                           <div>Situação: {x.situacao}</div>
+                          <div>Nota: {x.nota === 0 ?"O cliente ainda não avaliou" :x.nota}</div>
                         </div>
                       }
                     ></AccordionTeste>
@@ -271,7 +255,7 @@ export default function AgendadosFuncionario(props) {
           </div>
         )}
 
-        {showOutros === true && (
+        {qualMostrar === "Outros" && (
           <div>
             <div className="dicAccordionSpace">
               {outros.length !== 0 && (

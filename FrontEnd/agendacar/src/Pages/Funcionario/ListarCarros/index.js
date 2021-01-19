@@ -5,7 +5,8 @@ import { Link } from "react-router-dom";
 import ContainerTotal from "../../../Components/ContainerTotalLogado";
 import TestDriveApi from "../../../Services/TestDriverApi";
 import { toast, ToastContainer } from "react-toastify";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import LoadingBar from "react-top-loading-bar";
 
 const api = new TestDriveApi();
 
@@ -14,19 +15,28 @@ export default function ListarCarros(props) {
 
   const [idUsuario, setIdUsuario] = useState(props.location.state)
 
+  const loadingBar = useRef(null);
+  
   const buscarCarro = async (busca) => {
     try {
 
         if(busca == undefined)
             busca = "";
         
+            loadingBar.current.continuousStart();
+
             const resp = await api.buscarCarro(busca);
         
             setCarrosListados(resp);
+
+            loadingBar.current.complete();
     } catch (e) {
+
+            loadingBar.current.complete();
             toast.error(e.response.data);
             setCarrosListados([]);
-    }
+    
+        }
   };
 
   const excluirCarro = async (idCarro) => {
@@ -35,12 +45,19 @@ export default function ListarCarros(props) {
         const x = window.confirm("Você irá excluir um carro do sistema.")
         
         if(x === true){
-            await api.deletarCarro(idCarro);
-            buscarCarro("");
+
+          loadingBar.current.continuousStart();
+          await api.deletarCarro(idCarro);
+          buscarCarro("");
+          loadingBar.current.complete();
+
         }
           
       } catch (e) {
-          toast.error(e.response.data.mensagem);
+
+        loadingBar.current.complete();
+        toast.error(e.response.data.mensagem);
+      
       }
   }
 
@@ -50,7 +67,8 @@ export default function ListarCarros(props) {
 
   return (
     <ContainerTotal idUsuario={idUsuario} perfil="Funcionario">
-        <ToastContainer/>
+      <LoadingBar height={7} color="red" ref={loadingBar} />
+      <ToastContainer/>
       <h3>Todos os Carros Cadastrados</h3>
 
       <div className="procurarCarros">

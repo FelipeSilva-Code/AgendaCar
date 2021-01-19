@@ -66,9 +66,9 @@ namespace BackEnd.Controllers
             {
                 long codigo = business.GerarCodigo();
 
-                string corpo = "Olá. O código para a troca de senha é:" + codigo;
+                string corpo = "Olá. O código para a troca de senha é: " + codigo;
 
-                await _mailer.EnviarEmailAsync(email, "Cadastro no AgendaCar", corpo);
+                await _mailer.EnviarEmailAsync(email, "Alteração da Senha", corpo);
 
                 return codigo;
             }

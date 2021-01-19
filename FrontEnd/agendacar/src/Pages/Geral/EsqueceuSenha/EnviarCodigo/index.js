@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useRef} from "react";
 import "./styles.css";
 import ContainerTotal from "../../../../Components/ContainerTotalDeslogado";
 import { useHistory } from "react-router-dom";
@@ -6,6 +6,7 @@ import { useState } from "react";
 import TestDriveApi from "../../../../Services/TestDriverApi";
 import { useEffect } from "react";
 import {toast, ToastContainer} from "react-toastify";
+import LoadingBar from "react-top-loading-bar";
 
 const api = new TestDriveApi();
 
@@ -17,16 +18,24 @@ export default function EnviarCodigo (props) {
     
     const history = useHistory();
 
+     const loadingBar = useRef(null);
+
      const gerarCodigo = async () => {
         
         try {
+
+            loadingBar.current.continuousStart();
+
             const cdg = await api.gerarCodigo(responseInfoUsuario.email);
      
+            loadingBar.current.complete();
+
             history.push({pathname:"/InserirCodigo", state:{
                          responseInfoUsuario, cdg
             }})
             
         } catch (e) {
+            loadingBar.current.complete();
             toast.error(e.response.data.mensagem);
         }
     }
@@ -38,6 +47,7 @@ export default function EnviarCodigo (props) {
 
     return(
         <ContainerTotal>
+            <LoadingBar height={7} color="red" ref={loadingBar} />
             <ToastContainer/>
 
             <div className="containerEnviarCodigo">

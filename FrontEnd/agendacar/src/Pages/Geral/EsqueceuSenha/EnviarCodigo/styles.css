@@ -50,12 +50,11 @@
 }
 
 .divImagemUsuarioEnviarCodigo{
-    height: 100%;
-    width: 55%;
+    height: 150%;
+    width: 60%;
     border-radius: 100%;
     display: flex;
     align-items: center;
-    background-color: chocolate;
     margin-bottom: 10px;
 }
 

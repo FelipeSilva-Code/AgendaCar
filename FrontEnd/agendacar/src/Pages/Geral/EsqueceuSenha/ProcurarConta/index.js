@@ -1,10 +1,11 @@
-import React from "react";
+import React, {useRef} from "react";
 import "./styles.css";
 import ContainerTotal from "../../../../Components/ContainerTotalDeslogado";
 import { useHistory } from "react-router-dom";
 import TestDriveApi from "../../../../Services/TestDriverApi";
 import {toast, ToastContainer} from "react-toastify";
 import { useState } from "react";
+import LoadingBar from "react-top-loading-bar";
 
 const api = new TestDriveApi();
 
@@ -13,11 +14,16 @@ export default function ProcuararConta () {
 
     const [email, setEmail] = useState("");
 
+    const loadingBar = useRef(null);
+
     const procurarConta = async () => {
         try {
+            loadingBar.current.continuousStart();
             const resp = await api.procurarConta(email);
+            loadingBar.current.complete();
             history.push({ pathname: "/EnviarCodigo", state:resp });
         } catch (e) {
+            loadingBar.current.complete();
             toast.error(e.response.data.mensagem);
         }
     }
@@ -31,6 +37,7 @@ export default function ProcuararConta () {
 
     return(
         <ContainerTotal>
+            <LoadingBar height={7} color="red" ref={loadingBar} />
             <ToastContainer/>
             <div className="containerProcurarConta">
                 <div className="divEncontrarConta">

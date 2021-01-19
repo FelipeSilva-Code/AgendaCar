@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import ContainerTotal from "../../../Components/ContainerTotalLogado"
 import "./styles.css";
 import { useHistory } from "react-router-dom";
 import {toast, ToastContainer} from "react-toastify"
 import TestDriveApi from "../../../Services/TestDriverApi";
+import LoadingBar from "react-top-loading-bar";
+
 const api = new TestDriveApi();
 
 export default function AlterarSenha (props) {
@@ -15,9 +17,14 @@ export default function AlterarSenha (props) {
 
     const history = useHistory();
 
+    const loadingBar = useRef(null);
+
     const alterarSenha = async () => {
 
         try {
+
+            loadingBar.current.continuousStart();
+
             const req = {
               "SenhaAtual": senhaAtual,
               "NovaSenha1": novaSenha1,
@@ -29,9 +36,12 @@ export default function AlterarSenha (props) {
             else
                 await api.alterarSenhaFuncionario(req, idUsuario) ;    
 
+            loadingBar.current.complete();
+
             voltarParaTelaDeVerInformacoes();
        
         } catch (e) {
+            loadingBar.current.complete();
             toast.error(e.response.data.mensagem);
         }
 
@@ -43,6 +53,7 @@ export default function AlterarSenha (props) {
 
     return (
       <ContainerTotal idUsuario={idUsuario} perfil="Cliente">
+        <LoadingBar height={7} color="red" ref={loadingBar} />
         <ToastContainer/>
         <div className="divAlterarSenha">
 

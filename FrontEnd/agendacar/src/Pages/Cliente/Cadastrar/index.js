@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "./styles.css";
 import ContainerTotal from "./../../../Components/ContainerTotalDeslogado"
 import { Link, useHistory } from "react-router-dom";
 import InputMask from "react-input-mask";
 import TestDriveApi from "../../../Services/TestDriverApi";
 import {toast, ToastContainer} from "react-toastify"
-
+import LoadingBar from "react-top-loading-bar";
 
 const api = new TestDriveApi();
 
@@ -23,9 +23,12 @@ export default function Cadastrar () {
 
     const history = useHistory();
     
+    const loadingBar = useRef(null);
 
     const cadastrar = async () => {
         try {
+
+            loadingBar.current.continuousStart();
 
             const req = {
                Nome: nome,
@@ -39,23 +42,27 @@ export default function Cadastrar () {
                ImagemUsuario: foto,
             };
 
-            console.log(req);
+            if(req.DataNascimento == null)
+                toast.error("A data de nascimento é obrigatória")
 
-            const resp = await api.cadastrarCliente(req);
+            await api.cadastrarCliente(req);
+
+            loadingBar.current.complete();
 
             toast.success("Cadastrado com sucesso");
 
-            history.push({ pathname: "/Cliente/Menu", state: resp });
+            history.push("/Login");
 
         } catch (e) {
 
+            loadingBar.current.complete();
             toast.error(e.response.data.mensagem);
-            console.log(e.response.data)
             
         }
     }
     return (
       <ContainerTotal>
+          <LoadingBar height={6} color="red" ref={loadingBar} />
           <ToastContainer/>
         <div className="containerCadastrar">
           <h2>Cadastrar</h2>
