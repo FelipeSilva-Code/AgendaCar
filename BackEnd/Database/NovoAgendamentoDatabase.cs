@@ -84,5 +84,22 @@ namespace BackEnd.Database
 
             return email;
         }
+
+        //Ambos
+        public Models.TbAgendamento PegarAgendamento (int idAgendamento)
+        {
+            Models.TbAgendamento agendamento = ctx.TbAgendamento.Include(x => x.IdCarroNavigation).Include(x => x.IdClienteNavigation).Include(x => x.IdFuncionarioNavigation).FirstOrDefault(x => x.IdAgendamento == idAgendamento);
+            return agendamento;
+        }
+
+        public Models.TbAgendamento Remarcar (DateTime novoHorario, int idAgendamento)
+        {
+            Models.TbAgendamento agendamento = this.PegarAgendamento(idAgendamento);
+            agendamento.DtAgendamento = novoHorario;
+
+            ctx.SaveChanges();
+
+            return agendamento;
+        }
     }
 }

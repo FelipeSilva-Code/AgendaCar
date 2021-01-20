@@ -129,5 +129,25 @@ namespace BackEnd.Controllers
             }
 
         }
+
+        // Ambos
+        [HttpPut("remarcar/{idAgendamento}")]
+        public ActionResult<Models.Response.AgendadosResponse> RemarcarTestDrive (DateTime novoHorario, int idAgendamento)
+        {
+            try
+            {
+                Models.TbAgendamento agendamento = business.PegarAgendamentos(idAgendamento);
+                agendamento = business.Remarcar(novoHorario, agendamento);
+                
+                Models.Response.AgendadosResponse response = verAgendamentosConversor.ParaResponseAgendados(agendamento);
+                return response;
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(new Models.Response.ErroResponse(
+                    400, ex.Message
+                ));
+            }
+        }
     }
 }  

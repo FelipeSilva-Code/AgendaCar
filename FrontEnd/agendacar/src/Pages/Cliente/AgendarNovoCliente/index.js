@@ -54,8 +54,6 @@ export default function AgendarNovoCliente (props) {
         
         if(resp.length == 0)
           setMostrarMsgDeFaltaDeCarro(true)
-
-          console.log(resp);
        
      } catch (e) {
         setMostrarMsgDeFaltaDeCarro(true)
@@ -67,16 +65,12 @@ export default function AgendarNovoCliente (props) {
     const listarCarrosPelaMarca = async (marca) => {
 
       if(marca === "nao passou")
-         setIdCarro(null)   
-
-      console.log(idCarro);
-      console.log(marca);   
+         setIdCarro(null)     
 
       const resp = await api.listarCarrosPelaMarca(marca);
      
       setCarrosSeparadosPelaMarca([...resp]);
 
-      console.log(resp);
     }
 
     const retornarCarroPeloModelo = async (modelo) => {
@@ -84,12 +78,8 @@ export default function AgendarNovoCliente (props) {
       
         if(modelo !== "nao passou"){
 
-        console.log("Esse é o modelo" + modelo)
         setIdCarro(null);
-
-        console.log(idCarro);
-       
-        
+   
         const resp = await api.voltarCarroPeloModelo(modelo);
 
         setCarroSeparadoPeloModelo(resp);

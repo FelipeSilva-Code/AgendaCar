@@ -1,0 +1,27 @@
+.divContRemarcar{
+    display: flex;
+    align-items: center;
+    background-color: var(--blue);
+    width: 40vw;
+    border-radius: 5px;
+    justify-content: space-around;
+    height: 60vh;
+    margin-top: 3%;
+    flex-direction: column;
+}
+
+.divInputsRemarcar{
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    height: 40%;
+    justify-content: space-between;
+    margin-top: -4%;
+}
+
+.divBtnsRemarcar{
+    display: flex;
+    align-items: center;
+    width: 60%;
+    justify-content: space-between;
+}

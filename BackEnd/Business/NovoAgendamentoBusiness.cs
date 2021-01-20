@@ -47,12 +47,30 @@ namespace BackEnd.Business
         {
             validadorSituacoes.ValidarId(idFuncionario);
             validadorSituacoes.ValidarId(idAgendamento);
+
+            validadorAgendamentos.VerSeFuncionarioJaTemAgendamentoMarcadoNoHoraio(idFuncionario, idAgendamento);
             return db.AceitarAgendamento(idFuncionario, idAgendamento);
         }
 
         public string PegarEmailUsuario (int? idCliente)
         {
             return db.PegarEmailUsuario(idCliente);
+        }
+
+        //Ambos
+        public Models.TbAgendamento PegarAgendamentos(int idAgendamento)
+        {
+            return db.PegarAgendamento(idAgendamento);
+        }
+
+        public Models.TbAgendamento Remarcar (DateTime novoHorario, Models.TbAgendamento agendamento)
+        {
+           validadorAgendamentos.ValidarDataDoAgendamento(novoHorario, agendamento.IdCliente);
+           Database.ValidacoesDatabase dbValidacoes = new Database.ValidacoesDatabase();
+
+           dbValidacoes.ValidarDataAgendamentoParaFuncionarioRemarcar(novoHorario, agendamento.IdFuncionario);
+
+           return db.Remarcar(novoHorario, agendamento.IdAgendamento);
         }
 
         

@@ -22,6 +22,7 @@ import ProcurarUsuario from './Pages/Funcionario/ProcurarUsuario';
 import VerTodosOsAgendamentos from './Pages/Funcionario/VerTodosAgendamentos';
 import CadastrarFuncionario from './Pages/Funcionario/Cadastrar';
 import InformacoesFuncionario from './Pages/Funcionario/InformacoesFuncionario';
+import Remarcar from './Pages/Geral/Remarcar';
 
 export default function Routes() {
     return(
@@ -39,6 +40,7 @@ export default function Routes() {
             <Route path="/Cliente/Menu" exact component={MenuCliente} />
             <Route path="/Cliente/InformacoesUsuario" exact component={InformacoesUsuario} /> 
             <Route path="/AlterarSenha" exact component={AlterarSenha} />
+            <Route path="/Remarcar" exact component={Remarcar} />
             <Route path="/Funcionario/Cadastrar" exact component={CadastrarFuncionario}/>
             <Route path="/Funcionario/agendados" exact component={AgendadosFuncionario} />
             <Route path="/Funcionario/Menu" exact component={MenuFuncionario} />

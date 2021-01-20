@@ -169,7 +169,7 @@ export default function AgendadosFuncionario(props) {
                       Conteudo={
                         <div>
                           <div>
-                            <div>Funcionário: {x.funcionario}</div>
+                            <div>Cliente: {x.cliente}</div>
                             <div>Situação: {x.situacao}</div>
                           </div>
                           <button
@@ -204,7 +204,7 @@ export default function AgendadosFuncionario(props) {
                       Conteudo={
                         <div>
                           <div>
-                            <div>Funcionário: {x.funcionario}</div>
+                            <div>Cliente: {x.cliente}</div>
                             <div>Situação: {x.situacao}</div>
                           </div>
                           <button
@@ -242,7 +242,7 @@ export default function AgendadosFuncionario(props) {
                       }
                       Conteudo={
                         <div>
-                          <div>Funcionário: {x.funcionario}</div>
+                          <div>Cliente: {x.cliente}</div>
                           <div>Situação: {x.situacao}</div>
                           <div>Nota: {x.nota === 0 ?"O cliente ainda não avaliou" :x.nota}</div>
                         </div>
@@ -273,7 +273,7 @@ export default function AgendadosFuncionario(props) {
                       }
                       Conteudo={
                         <div>
-                          <div>Funcionário: {x.funcionario}</div>
+                          <div>Cliente: {x.cliente}</div>
                           <div>Situação: {x.situacao}</div>
                         </div>
                       }

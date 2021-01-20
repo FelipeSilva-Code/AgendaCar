@@ -231,7 +231,12 @@ export default class TestDriverApi {
       mudarSenhaPorqueEsqueceu = async (request, idLogin) => {
         const resp = await api.put("/EsqueceuSenha/" + idLogin, request);
         return resp.data;
-      }      
+      }   
+      
+      remarcarAgendamento = async (novoHorario, idAgendamento) => {
+        const resp = await api.put(`NovoAgendamento/remarcar/${idAgendamento}?novoHorario=${novoHorario}`);
+        return resp.data;
+      }
       
       
 }

@@ -51,8 +51,20 @@ namespace BackEnd.Business.Validador
             else if (dataAgendamento.Value.Hour >= 12 && dataAgendamento.Value.Hour < 13) 
                 throw new ArgumentException("Horário de almoço dos funcionários");
 
-            else if (dbValidacoes.ValidarDataAgendamento(dataAgendamento, idCliente))
-                throw new ArgumentException("Você ja tem um test drive marcado nesse horário");     
+            else if (dbValidacoes.ValidarDataAgendamentoParaCliente(dataAgendamento, idCliente))
+                throw new ArgumentException("O cliente ja tem um test drive marcado nesse horário");     
+        }
+
+        public void VerSeFuncionarioJaTemAgendamentoMarcadoNoHoraio(DateTime dataAgendamento, int idFuncionario)
+        {
+            if (dbValidacoes.ValidarDataAgendamentoParaFuncionario(idFuncionario, idFuncionario))
+                throw new ArgumentException("O funcionário já tem um agendamento nesse horário.");
+        }
+
+        public void VerSeFuncionarioJaTemAgendamentoMarcadoNoHoraio (int? idFuncionario, int idAgendamento)
+        {
+            if(dbValidacoes.ValidarDataAgendamentoParaFuncionario(idFuncionario, idAgendamento))
+                throw new ArgumentException("O funcionário já tem um agendamento nesse horário.");
         }
 
         public void ValidarCarroDoAgendamento (int? idDoCarro)

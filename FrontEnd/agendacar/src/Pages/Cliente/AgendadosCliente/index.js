@@ -7,7 +7,7 @@ import AvaliarTestDrive from '../../../Components/AvaliarTestDrive';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import LoadingBar from "react-top-loading-bar";
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 const api = new TestDriverApi();
 
@@ -125,6 +125,16 @@ export default function AgendadosCliente (props) {
     const oQueMostrar = (oquemostrar) => {
       setQualMostrar(oquemostrar)
     }
+
+    const history = useHistory();
+
+    const irParaATelaDeRemarcar = (idAgendamento) => {
+      history.push({pathname:"/remarcar", state:{
+        "IdUsuario": idUsuario,
+        "IdAgendamento": idAgendamento,
+        "Perfil": perfil
+      }});
+    }
     
 
    useEffect(() => {
@@ -169,7 +179,7 @@ export default function AgendadosCliente (props) {
                         <div>
                           <div>Funcionário: {x.funcionario}</div>
                           <div>Situação: {x.situacao}</div>
-                          <button className="btn btn-outline-danger">Remarcar</button>
+                          <button onClick={() => irParaATelaDeRemarcar(x.idAgendamento)} className="btn btn-outline-danger">Remarcar</button>
                         </div>
                       
                     }
@@ -197,7 +207,7 @@ export default function AgendadosCliente (props) {
                         <div>
                           <div>Funcionário: {x.funcionario}</div>
                           <div>Situação: {x.situacao}</div>
-                          <button className="btn btn-outline-danger">Remarcar</button>
+                          <button onClick={() => irParaATelaDeRemarcar(x.idAgendamento)} className="btn btn-outline-danger">Remarcar</button>
                         </div>
                       }
                     ></AccordionTeste>
@@ -224,7 +234,7 @@ export default function AgendadosCliente (props) {
                         <div>
                           <div>Funcionário: {x.funcionario}</div>
                           <div>Situação: {x.situacao}</div>
-                          <button className="btn btn-outline-danger">Remarcar</button>
+                          <button onClick={() => irParaATelaDeRemarcar(x.idAgendamento)} className="btn btn-outline-danger">Remarcar</button>
                         </div>
                       }
                     ></AccordionTeste>
