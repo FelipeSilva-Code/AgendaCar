@@ -13,7 +13,8 @@ export default function AdicionarCarro (props) {
 
     const history = useHistory();
 
-    const [idUsuario, setIdUsuario] = useState(props.location.state);
+    const [idUsuario, setIdUsuario] = useState(props.location.state.idUsuario);
+
     
     const [marca, setMarca] = useState("");
     const [modelo, setModelo] = useState("");

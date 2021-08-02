@@ -13,7 +13,7 @@ const api = new TestDriveApi();
 export default function ListarCarros(props) {
   const [carrosListados, setCarrosListados] = useState([]);
 
-  const [idUsuario, setIdUsuario] = useState(props.location.state)
+  const [idUsuario, setIdUsuario] = useState(props.location.state.idUsuario)
 
   const loadingBar = useRef(null);
   

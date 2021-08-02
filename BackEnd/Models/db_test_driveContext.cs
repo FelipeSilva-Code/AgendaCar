@@ -24,7 +24,8 @@ namespace BackEnd.Models
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
-            {
+            { 
+                //server=localhost;user id=root;password=1234;database=db_test_drive
                 optionsBuilder.UseMySql("server=remotemysql.com;user id=XmjtU1pHiD;password=1uPUNgBAjb;database=XmjtU1pHiD", x => x.ServerVersion("8.0.19-mysql"));
             }
         }

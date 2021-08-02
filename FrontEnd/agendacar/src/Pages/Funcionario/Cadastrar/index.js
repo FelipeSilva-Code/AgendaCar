@@ -13,7 +13,7 @@ const api = new TestDriveApi();
 
 export default function CadastrarFuncionario (props) {
 
-        const [idUsuario, setIdUsuario] = useState(props.location.state);
+        const [idUsuario, setIdUsuario] = useState(props.location.state.idUsuario);
         
         const [nome, setNome] = useState("");
         const [dataNascimento, setDataNascimento] = useState(null);

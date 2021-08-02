@@ -14,11 +14,8 @@ export default function MenuCliente (props) {
         perfil
     })
 
-    console.log(idUsuario);
-
     const history = useHistory();
     
-
     const mandarParaAgendados = () => {
         history.push({
           pathname: "/Cliente/Agendados",

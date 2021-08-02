@@ -66,26 +66,25 @@ export default function AgendarNovoCliente (props) {
 
       if(marca === "nao passou")
          setIdCarro(null)     
-
-      const resp = await api.listarCarrosPelaMarca(marca);
-     
-      setCarrosSeparadosPelaMarca([...resp]);
+      else{   
+        const resp = await api.listarCarrosPelaMarca(marca);
+        setCarrosSeparadosPelaMarca([...resp]);
+      }
 
     }
 
     const retornarCarroPeloModelo = async (modelo) => {
 
+        if(modelo === "nao passou")
+           setIdCarro(null);
+        else{
+          const resp = await api.voltarCarroPeloModelo(modelo);
+
+          setCarroSeparadoPeloModelo(resp);
+
+          setIdCarro(resp.id);
+        }
       
-        if(modelo !== "nao passou"){
-
-        setIdCarro(null);
-   
-        const resp = await api.voltarCarroPeloModelo(modelo);
-
-        setCarroSeparadoPeloModelo(resp);
-
-        setIdCarro(resp.id);
-      }
     }
 
      const loadingBar = useRef(null);
@@ -101,8 +100,6 @@ export default function AgendarNovoCliente (props) {
 
         const horario = transformarEmHorarioCompleto();
 
-        console.log(horario);
-       
         const req = {
           "idCliente": idUsuario,
           "idCarro": idCarro,

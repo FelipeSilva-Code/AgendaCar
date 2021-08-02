@@ -48,13 +48,10 @@ export default function AgendadosCliente (props) {
           setConcluidos(resp.concluidos);
           setOutros(resp.outros);
 
-          console.log(resp);
-
           loadingBar.current.complete();
 
         } catch (e) {
           toast.error(e.response.data.messagem);
-          console.log(e.response.data.messagem);
         }
         
     };
@@ -68,8 +65,6 @@ export default function AgendadosCliente (props) {
           
           loadingBar.current.continuousStart();
 
-          console.log(nota);
-
           await api.avaliarTestDrive(id, req);
 
           toast.success("Avaliado com sucesso!!!");
@@ -81,8 +76,8 @@ export default function AgendadosCliente (props) {
           cancelarMostrarAvaliarClick();
 
         } else toast.error("A nota é obrigatória!!!");
-      } catch (error) {
-        console.log(error);
+      } catch (e) {
+          toast.error(e.response.data.mensagem);
       }
     };
 
@@ -99,47 +94,43 @@ export default function AgendadosCliente (props) {
      setShowAvaliar(false);
    };
 
-   
-   //Funções Que Transformam os Dados
-
-
-     const mudarCorAoClicar = (posicao, notaEstrela) => {
-       const list = document.getElementsByTagName("ul")[0];  
-       for(let i = 0; i <= posicao; i++)
-        {
-          const x = list.getElementsByTagName("li")[i];
+    const mudarCorAoClicar = (posicao, notaEstrela) => {
+      const list = document.getElementsByTagName("ul")[0];  
+      for(let i = 0; i <= posicao; i++)
+      {
+        const x = list.getElementsByTagName("li")[i];
+        const f = x.getElementsByTagName("i")[0];
+        f.style.color="#ffd900"
+      }
+      
+      for(let a = 4; a > posicao; a--)
+      {
+          const x = list.getElementsByTagName("li")[a];
           const f = x.getElementsByTagName("i")[0];
-          f.style.color="#ffd900"
-        }
-        
-        for(let a = 4; a > posicao; a--)
-        {
-            const x = list.getElementsByTagName("li")[a];
-            const f = x.getElementsByTagName("i")[0];
-            f.style.color="rgb(199, 169, 0)"
-        }     
+          f.style.color="rgb(199, 169, 0)"
+      }     
 
-        setNota(notaEstrela);
-    }
+      setNota(notaEstrela);
+  }
 
-    const oQueMostrar = (oquemostrar) => {
-      setQualMostrar(oquemostrar)
-    }
+  const oQueMostrar = (oquemostrar) => {
+    setQualMostrar(oquemostrar)
+  }
 
-    const history = useHistory();
+  const history = useHistory();
 
-    const irParaATelaDeRemarcar = (idAgendamento) => {
-      history.push({pathname:"/remarcar", state:{
-        "IdUsuario": idUsuario,
-        "IdAgendamento": idAgendamento,
-        "Perfil": perfil
-      }});
-    }
+  const irParaATelaDeRemarcar = (idAgendamento) => {
+    history.push({pathname:"/remarcar", state:{
+      "IdUsuario": idUsuario,
+      "IdAgendamento": idAgendamento,
+      "Perfil": perfil
+    }});
+  }
     
 
-   useEffect(() => {
-     agendadosClick();
-   }, []);
+  useEffect(() => {
+    agendadosClick();
+  }, []);
   
 
   return (
